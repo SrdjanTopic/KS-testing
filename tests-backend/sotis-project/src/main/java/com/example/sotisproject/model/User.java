@@ -7,7 +7,9 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.InheritanceType.JOINED;
 
 @Entity
@@ -27,6 +29,19 @@ public class User implements Serializable, UserDetails {
     private String password;
     private String firstName;
     private String lastName;
+    @ManyToMany(fetch = EAGER)
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;
@@ -62,36 +77,36 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
