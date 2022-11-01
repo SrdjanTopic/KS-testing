@@ -1,11 +1,8 @@
 package com.example.sotisproject.controller;
 
-
-import com.example.sotisproject.security.authority.JWToken;
 import com.example.sotisproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
