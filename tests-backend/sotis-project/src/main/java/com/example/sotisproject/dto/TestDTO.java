@@ -1,18 +1,18 @@
 package com.example.sotisproject.dto;
 
-import com.example.sotisproject.model.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnswerDTO {
+public class TestDTO {
     private Long id;
-    private Question question;
-    private String answer;
-    private Boolean is_correct;
+    private String name;
+    private Set<QuestionDTO> questions;
 }
