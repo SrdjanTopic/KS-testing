@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class AnswerService {
     private AnswerRepository answerRepository;
 
-    public Answer addAnswer(AnswerDTO answerDTO){
-        return answerRepository.insertAnswer(answerDTO.getQuestion_id(), answerDTO.getAnswer(), answerDTO.getIs_correct());
-    }
+    public Answer addAnswer(Answer answer){
+        return answerRepository.save(new Answer(null, answer.getQuestion(), answer.getAnswer(), answer.getIsCorrect()));
+        }
 }
