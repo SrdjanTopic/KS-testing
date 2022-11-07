@@ -77,7 +77,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 			// svim korisnicima dopusti da pristupe sledecim putanjama:
 			.authorizeRequests().antMatchers("/auth/**").permitAll()		// /auth/**
-								
+				.antMatchers("/tests/**").permitAll()
+				.antMatchers("/user/**").permitAll()
 			// ukoliko ne zelimo da koristimo @PreAuthorize anotacije nad metodama kontrolera, moze se iskoristiti hasRole() metoda da se ogranici
 			// koji tip korisnika moze da pristupi odgovarajucoj ruti. Npr. ukoliko zelimo da definisemo da ruti 'admin' moze da pristupi
 			// samo korisnik koji ima rolu 'ADMIN', navodimo na sledeci nacin: 
@@ -104,8 +105,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		// Dozvoljena POST metoda na ruti /auth/login, za svaki drugi tip HTTP metode greska je 401 Unauthorized
 		 web.ignoring().antMatchers(HttpMethod.POST, "/auth/login");
-
-		web.ignoring().antMatchers(HttpMethod.POST, "/tests/add");
 	
 		// Ovim smo dozvolili pristup statickim resursima aplikacije
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "favicon.ico", "/**/*.html",

@@ -4,11 +4,12 @@ import com.example.sotisproject.dto.TestDTO;
 import com.example.sotisproject.model.Test;
 import com.example.sotisproject.service.TestService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -19,5 +20,10 @@ public class TestController {
     @PostMapping("/add")
     public Test addTest(@RequestBody Test test){
         return testService.addTest(test);
+    }
+
+    @GetMapping()
+    public ResponseEntity<Set<Test>> getTests() {
+        return new ResponseEntity<Set<Test>>(testService.getTests(), HttpStatus.OK);
     }
 }

@@ -6,6 +6,9 @@ import com.example.sotisproject.repository.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @AllArgsConstructor
 @Service
 public class TestService {
@@ -19,5 +22,9 @@ public class TestService {
             questionService.addQuestion(question);
         });
         return newTest;
+    }
+
+    public Set<Test> getTests(){
+        return new HashSet<>(testRepository.findAll());
     }
 }

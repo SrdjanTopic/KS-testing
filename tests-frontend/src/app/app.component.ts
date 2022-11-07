@@ -7,13 +7,8 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
+  constructor() {}
 
   title = 'tests-frontend';
 
-  currentUser: string | null = localStorage.getItem('jwt');
-
-  logout() {
-    this.authService.logout();
-  }
 }
