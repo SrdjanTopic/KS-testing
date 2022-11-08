@@ -12,9 +12,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { TestComponent } from './components/test/test.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
+import { AddTestComponent } from './components/add-test/add-test.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HeaderComponent, TestComponent],
+  declarations: [AppComponent, LoginComponent, HeaderComponent, TestComponent, AddTestComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,7 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
     HttpClientModule,
     BrowserAnimationsModule,
     MatSidenavModule,
-    MatButtonModule
+    MatButtonModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

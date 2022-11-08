@@ -1,0 +1,89 @@
+<div class="header mt-5 pb-8 pl-5 pt-5 d-flex justify-content-center">
+  <div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-8">
+          <h3 class="mb-0">Test information</h3>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <form>
+        <!-- Ovde -->
+        <div class="pl-lg-4">
+          <div class="row">
+            <div class="col-md-10">
+              <div class="form-group">
+                <label class="form-control-label" for="input-question"
+                  >Add a question</label
+                >
+                <input
+                  type="text"
+                  id="input-question"
+                  name="question"
+                  class="form-control form-control-alternative"
+                  [(ngModel)]="questionText"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label class="form-control-label" for="input-question"
+                >Points</label
+              >
+              <div class="form-group">
+                <input
+                  type="number"
+                  id="input-points"
+                  name="points"
+                  class="form-control form-control-alternative"
+                  [(ngModel)]="points"
+                  min="0"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2">
+          <button (click)="addQuestion()" class="btn btn-info">
+            Add question
+          </button>
+        </div>
+        <div class="mt-4" *ngFor="let q of test.questions">
+          <label for="input-q"
+            >Question {{ q.questionNumber }}({{ q.points }} points)</label
+          >
+          <div class="form-group">
+            <h2>{{ q.question }}</h2>
+          </div>
+          <div class="mt-2 form-group col-md-5">
+            <input
+              type="text"
+              name="answer"
+              id="input-answer"
+              [(ngModel)]="answerText"
+              class="form-control form-control-alternative"
+            />
+            <input
+              type="checkbox"
+              name="correct"
+              id="input-correct"
+              [(ngModel)]="isCorrect"
+            />
+            <button (click)="addAnswer(q)" class="btn btn-info mt-2">
+              Add answer
+            </button>
+          </div>
+          <span *ngFor="let a of q.answers">
+            {{ a.answer }}
+            <button (click)="removeAnswer(a, q)" class="btn btn-info ml-2">
+              Remove
+            </button>
+          </span>
+        </div>
+        <div class="mt-2">
+          <button (click)="addTest()" class="btn btn-info">Add test</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
