@@ -39,6 +39,16 @@ export class AddTestComponent implements OnInit {
       answers: [],
     });
   }
+  
+  removeQuestion(question: IQuestion){
+    this.test.questions = this.test.questions.filter((q) => q !== question);
+    this.test.questions.forEach(q=>{
+      if(q.questionNumber>question.questionNumber){
+        q.questionNumber--;
+      }
+    })
+    this.questionNumber--;
+  }
 
   addAnswer(question: IQuestion) {
     question.answers.push({
@@ -49,6 +59,6 @@ export class AddTestComponent implements OnInit {
   }
 
   removeAnswer(answer: IAnswer,question: IQuestion) {
-    question.answers = this.question.answers.filter((a) => a != answer);
+    question.answers = question.answers.filter((a) => a !== answer);
   }
 }

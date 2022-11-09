@@ -5,7 +5,8 @@
     </li>
     <li>
       <a
-        [routerLink]="['/cottageOwnerHome']"
+        *appHasRole="['ROLE_TEACHER']"
+        [routerLink]="['/test']"
         routerLinkActive="router-link-active"
         >Tests</a
       >

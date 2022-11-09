@@ -53,7 +53,7 @@ export class AuthService {
 
   isAuthorized(roles: Role[]): Observable<boolean> {
     var requiredRoles: IRole[] = [];
-    roles.forEach((role) => requiredRoles.push({ id: 0, name: role } as IRole));
+    roles.forEach((role) => requiredRoles.push({ id: 0, authority: role } as IRole));
     return this.http.post<any>(
       `${environment.apiUrl}/user/authorize`,
       requiredRoles

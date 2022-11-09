@@ -33,5 +33,5 @@ export interface IToken {
 
 export interface IRole {
   id: number;
-  name: string;
+  authority: string;
 }
