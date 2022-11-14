@@ -1,0 +1,118 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper .tests-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 90%;
+  text-align: center;
+}
+
+.wrapper .tests-wrapper .test {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em;
+  padding: 0.5em;
+  background-color: hsl(240, 100%, 95%);
+  border: hsl(240, 100%, 20%) 1px solid;
+  transition: 0.3s;
+  user-select: none;
+  height: 330px;
+  justify-content: space-between;
+}
+.wrapper .tests-wrapper .test:hover {
+  background-color: hsl(240, 100%, 90%);
+}
+
+.wrapper .tests-wrapper .test .test-name {
+  font-size: 1.7em;
+}
+
+.wrapper .tests-wrapper .test .underline {
+  /* border-bottom: 2px hsl(240, 100%, 15%) dashed;
+  width: 90%;
+  margin: 0.5em 0 0.5em 0; */
+}
+
+.wrapper .tests-wrapper .test .info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper .tests-wrapper .test .concepts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 7em;
+}
+
+.wrapper .tests-wrapper .test .concepts .concept {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 7em;
+  overflow-y: auto;
+}
+
+.wrapper .tests-wrapper .test .info .number-of-questions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper .tests-wrapper .test .info .number-of-points {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper .tests-wrapper .test .concepts p {
+  font-size: 1.3em;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.wrapper .tests-wrapper .test .info .number-of-questions p {
+  font-size: 1.3em;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.wrapper .tests-wrapper .test .info .number-of-questions b {
+  font-size: 1.3em;
+  text-decoration: underline;
+}
+
+.wrapper .tests-wrapper .test .info .number-of-points p {
+  font-size: 1.3em;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.wrapper .tests-wrapper .test .info .number-of-points b {
+  font-size: 1.3em;
+  text-decoration: underline;
+}
+
+.wrapper .tests-wrapper .test .info button {
+  font-size: 1.3em;
+  border: none;
+  color: white;
+  background-color: hsl(260, 100%, 75%);
+  cursor: pointer;
+  width: fit-content;
+  border-radius: 0.2em;
+  margin-top: 1em;
+  transition: 0.3s;
+}
+
+.wrapper .tests-wrapper .test .info button:hover {
+  background-color: hsl(260, 100%, 65%);
+}

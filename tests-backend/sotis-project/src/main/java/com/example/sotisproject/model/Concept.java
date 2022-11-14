@@ -1,12 +1,12 @@
 package com.example.sotisproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
 import java.util.Set;
 
 @Getter
@@ -14,16 +14,14 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Test {
-
+public class Concept {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true)
-    private String name;
+    private String concept;
 
-    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "concept", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Question> questions;
-
 }

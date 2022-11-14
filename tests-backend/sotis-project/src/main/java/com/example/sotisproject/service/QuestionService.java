@@ -13,7 +13,7 @@ public class QuestionService {
     private AnswerService answerService;
 
     public Question addQuestion(Question question){
-        Question newQuestion = questionRepository.save(new Question(null, question.getQuestion(), question.getPoints(), question.getTest(),null));
+        Question newQuestion = questionRepository.save(new Question(null, question.getQuestion(), question.getPoints(), question.getTest(),null, question.getConcept()));
         question.getAnswers().forEach((Answer answer)->{
             answer.setQuestion(newQuestion);
             answerService.addAnswer(answer);

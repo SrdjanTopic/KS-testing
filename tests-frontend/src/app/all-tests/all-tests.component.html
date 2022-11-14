@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <h1>All Tests</h1>
+  <button *ngIf="checkTeacher()">Add Test</button>
+  <div class="tests-wrapper">
+    <div class="test" *ngFor="let test of tests">
+      <b class="test-name">
+        {{ test.name }}
+      </b>
+      <div class="underline"></div>
+      <div class="concepts">
+        <p>Concepts:</p>
+        <div class="concept">
+          <b *ngFor="let question of test.questions">{{
+            question.concept.concept
+          }}</b>
+        </div>
+      </div>
+      <div class="info">
+        <div class="number-of-questions">
+          <p>Number of questions:</p>
+          <b>{{ test.questions.length }}</b>
+        </div>
+        <div class="number-of-points">
+          <p>Max points:</p>
+          <b>{{ test.maxPoints }}</b>
+        </div>
+        <button (click)="openTest(test.id)">View test</button>
+      </div>
+    </div>
+  </div>
+</div>
