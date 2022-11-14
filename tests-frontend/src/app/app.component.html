@@ -3,6 +3,9 @@
     <li>
       <a href="">Home</a>
     </li>
+    <li>
+      <a href="tests">Tests</a>
+    </li>
   </ul>
   <ul *ngIf="!currentUser">
     <li>
@@ -12,10 +15,16 @@
       <a href="signup">Signup</a>
     </li>
   </ul>
-  <ul class="user-menu" *ngIf="currentUser">
-    <li>
-      <button class="logoutBtn" (click)="logout()">Logout</button>
-    </li>
-  </ul>
+  <div class="user-menu" *ngIf="currentUser">
+    <a href="profile">Profile</a>
+    <ul>
+      <li *ngIf="checkStudent()">
+        <a href="myTests">My Tests</a>
+      </li>
+      <li>
+        <button class="logoutBtn" (click)="logout()">Logout</button>
+      </li>
+    </ul>
+  </div>
 </nav>
 <router-outlet> </router-outlet>

@@ -1,9 +1,11 @@
 package com.example.sotisproject.security.authority;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.example.sotisproject.model.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -55,13 +57,14 @@ public class JWToken {
 	 * @param username Korisničko ime korisnika kojem se token izdaje
 	 * @return JWT token
 	 */
-	public String generateToken(String username) {
+	public String generateToken(String username, Set<Role> roles) {
 		return Jwts.builder()
 				.setIssuer(APP_NAME)
 				.setSubject(username)
 				.setAudience(generateAudience())
 				.setIssuedAt(new Date())
 				.setExpiration(generateExpirationDate())
+				.claim("roles", roles)
 				.signWith(SIGNATURE_ALGORITHM, SECRET).compact();
 		
 

@@ -20,6 +20,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique=true)
     private String question;
 
     @Column(columnDefinition = "integer default 10")
@@ -31,5 +32,8 @@ public class Question {
 
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Answer> answers;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Concept concept;
 
 }
