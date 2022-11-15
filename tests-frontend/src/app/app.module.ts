@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AllTestsComponent } from './all-tests/all-tests.component';
+import { KnowledgeGraphComponent } from './knowledge-graph/knowledge-graph.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { AllTestsComponent } from './all-tests/all-tests.component';
     LoginComponent,
     AllTestsComponent,
     AllTestsComponent,
+    KnowledgeGraphComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

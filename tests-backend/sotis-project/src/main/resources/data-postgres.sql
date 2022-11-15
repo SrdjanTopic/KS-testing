@@ -15,6 +15,8 @@ insert into app_user_roles (user_id, role_id) values (2, 2);
 -- CONCEPT INSERT
 insert into concept (concept) values ('Kekeke'); --concept_id:1
 insert into concept (concept) values ('Insanity'); --concept_id:1
+-- RELATIONS INSERT
+insert into relation (source_id, destination_id) values (1,2);
 -- TEST INSERT
 insert into test (name) values ('Test for the insane ones'); --test_id:1
 -- QUESTION INSERT
