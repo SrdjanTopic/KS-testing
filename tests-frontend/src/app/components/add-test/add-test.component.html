@@ -1,0 +1,142 @@
+<div  style="width: 400px;" class="container">
+  <div class="mt-5 pb-8 pl-5 pt-5  justify-content-center">
+    <div class="card bg-light shadow">
+      <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h3 class="mb-0">Test information</h3>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form>
+          <!-- Ovde -->
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-md-12">
+                <form class="example-form">
+                  <!-- <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Favorite food</mat-label>
+                  <input matInput placeholder="Ex. Pizza" value="Sushi">
+                </mat-form-field>
+              
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Leave a comment</mat-label>
+                  <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+                </mat-form-field> -->
+                </form>
+                <div class="form-group">
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label class="form-control-label" for="input-question"
+                      >Add a question</mat-label
+                    >
+                    <textarea
+                      matInput
+                      type="text"
+                      id="input-question"
+                      name="question"
+                      [(ngModel)]="questionText"
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label class="form-control-label" for="input-question"
+                      >Points</mat-label
+                    >
+                    <input
+                      matInput
+                      type="number"
+                      id="input-points"
+                      name="points"
+                      [(ngModel)]="points"
+                      min="0"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-2">
+            <button
+              mat-stroked-button
+              (click)="addQuestion()"
+              class="btn btn-info"
+            >
+              Add question
+            </button>
+          </div>
+          <div class="mt-4" *ngFor="let q of test.questions">
+            <hr class="my-4" />
+            <label for="input-q"
+              >Question {{ q.questionNumber }}({{ q.points }} points)</label
+            >
+            <button
+              mat-stroked-button
+              (click)="removeQuestion(q)"
+              class="btn btn-danger btn-sm ml-2"
+            >
+              Remove
+            </button>
+            <div class="form-group">
+              <h2>{{ q.question }}</h2>
+            </div>
+            <span *ngFor="let a of q.answers">
+              {{ a.answer }}
+              <button
+                (click)="removeAnswer(a, q)"
+                class="btn btn-danger btn-sm ml-2"
+                mat-stroked-button
+              >
+                Remove
+              </button>
+            </span>
+            <hr class="my-4" />
+            <div class="mt-2 form-group col-md-6">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label for="input-answer"
+                  >Answer for question {{ q.questionNumber }}:</mat-label
+                >
+                <input
+                  matInput
+                  type="text"
+                  name="answer"
+                  id="input-answer"
+                  [(ngModel)]="answerText"
+                />
+                <mat-checkbox
+                  type="checkbox"
+                  name="correct"
+                  id="input-correct"
+                  [(ngModel)]="isCorrect"
+                  >Is correct</mat-checkbox
+                >
+              </mat-form-field>
+            </div>
+            <button
+              mat-stroked-button
+              (click)="addAnswer(q)"
+              class="btn btn-info mt-2"
+            >
+              Add answer
+            </button>
+          </div>
+          <hr class="my-4" />
+          <div class="mt-2 text-right">
+            <button
+              mat-stroked-button
+              (click)="addTest()"
+              class="btn btn-success btn-lg"
+            >
+              Add test
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

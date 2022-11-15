@@ -1,0 +1,49 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5em;
+    background-color: hsl(236, 100%, 78%);
+    height: 2em;
+    line-height: 2em;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .navbar ul li {
+    display: flex;
+    height: 100%;
+    transition: 0.3s;
+  }
+  
+  .navbar ul li:hover {
+    background-color: hsl(236, 100%, 70%);
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    padding: 0 0.5em 0 0.5em;
+    color: white;
+  }
+  
+  .navbar .user-menu .logoutBtn {
+    padding: 0 0.5em 0 0.5em;
+    background: none;
+    border: none;
+    font-size: 1em;
+    color: white;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    font-family: serif;
+  }
+  

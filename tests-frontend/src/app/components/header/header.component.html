@@ -1,0 +1,28 @@
+<nav class="navbar">
+  <ul>
+    <li>
+      <a href="">Home</a>
+    </li>
+    <li>
+      <a
+        *appHasRole="['ROLE_TEACHER']"
+        [routerLink]="['/test']"
+        routerLinkActive="router-link-active"
+        >Tests</a
+      >
+    </li>
+  </ul>
+  <ul *ngIf="!currentUser">
+    <li>
+      <a href="login">Login</a>
+    </li>
+    <li>
+      <a href="signup">Signup</a>
+    </li>
+  </ul>
+  <ul class="user-menu" *ngIf="currentUser">
+    <li>
+      <button class="logoutBtn" (click)="logout()">Logout</button>
+    </li>
+  </ul>
+</nav>
