@@ -1,6 +1,5 @@
 package com.example.sotisproject.service;
 
-import com.example.sotisproject.dto.AnswerDTO;
 import com.example.sotisproject.model.Answer;
 import com.example.sotisproject.repository.AnswerRepository;
 import lombok.AllArgsConstructor;

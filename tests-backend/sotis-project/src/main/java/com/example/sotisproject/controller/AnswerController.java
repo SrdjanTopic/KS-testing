@@ -1,6 +1,5 @@
 package com.example.sotisproject.controller;
 
-import com.example.sotisproject.dto.AnswerDTO;
 import com.example.sotisproject.service.AnswerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
