@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthService } from '../services/auth.service';
-import { TestService } from '../services/test.service';
+import { AuthService } from '../../services/auth.service';
+import { TestService } from '../../services/test.service';
 
 @Component({
   selector: 'app-all-tests',
@@ -11,7 +11,9 @@ import { TestService } from '../services/test.service';
 })
 export class AllTestsComponent implements OnInit {
   tests: any = [];
+
   constructor(private testService: TestService, private router: Router) {}
+
   JWTHelper: JwtHelperService = new JwtHelperService();
   token: string | null = localStorage.getItem('jwt');
   currentUser: any = this.JWTHelper.decodeToken(
