@@ -17,10 +17,10 @@ public class TestService {
 
     public Test addTest(Test test){
         Test newTest = testRepository.save(test);
-//        test.getQuestions().forEach((Question question)->{
-//            question.setTest(newTest);
-//            questionService.addQuestion(question);
-//        });
+        test.getQuestions().forEach((Question question)->{
+            question.setTest(newTest);
+            questionService.addQuestion(question);
+        });
         return newTest;
     }
 

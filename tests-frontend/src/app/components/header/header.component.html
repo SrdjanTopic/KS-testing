@@ -1,28 +1,42 @@
 <nav class="navbar">
   <ul>
     <li>
-      <a href="">Home</a>
+      <a [routerLink]="['']" routerLinkActive="router-link-active">Home</a>
     </li>
     <li>
-      <a
-        *appHasRole="['ROLE_TEACHER']"
-        [routerLink]="['/test']"
-        routerLinkActive="router-link-active"
+      <a [routerLink]="['/tests']" routerLinkActive="router-link-active"
         >Tests</a
       >
     </li>
   </ul>
   <ul *ngIf="!currentUser">
     <li>
-      <a href="login">Login</a>
+      <a [routerLink]="['/login']" routerLinkActive="router-link-active"
+        >Login</a
+      >
     </li>
     <li>
-      <a href="signup">Signup</a>
+      <a [routerLink]="['/signup']" routerLinkActive="router-link-active"
+        >Signup</a
+      >
     </li>
   </ul>
-  <ul class="user-menu" *ngIf="currentUser">
-    <li>
-      <button class="logoutBtn" (click)="logout()">Logout</button>
-    </li>
-  </ul>
+  <div class="user-menu" *ngIf="currentUser">
+    <a [routerLink]="['/profile']" routerLinkActive="router-link-active"
+      >Profile</a
+    >
+    <ul>
+      <li>
+        <a
+          [routerLink]="['/myTests']"
+          routerLinkActive="router-link-active"
+          *appHasRole="['ROLE_STUDENT']"
+          >My Tests</a
+        >
+      </li>
+      <li>
+        <button class="logoutBtn" (click)="logout()">Logout</button>
+      </li>
+    </ul>
+  </div>
 </nav>
