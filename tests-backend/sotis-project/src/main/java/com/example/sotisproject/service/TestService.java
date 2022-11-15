@@ -27,7 +27,7 @@ public class TestService {
     public List<Test> getTests() {
         return testRepository.findAll();
     }
-    public Set<Test> getTests(){
-        return new HashSet<>(testRepository.findAll());
-    }
+//    public Set<Test> getTests(){
+//        return new HashSet<>(testRepository.findAll());
+//    }
 }

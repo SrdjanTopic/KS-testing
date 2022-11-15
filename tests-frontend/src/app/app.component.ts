@@ -21,15 +21,15 @@ export class AppComponent {
     this.authService.logout();
   }
 
-  checkStudent(): boolean {
-    return this.currentUser.roles.some(
-      (role: any) => role.authority === 'ROLE_STUDENT'
-    );
-  }
+  // checkStudent(): boolean {
+  //   return this.currentUser.roles.some(
+  //     (role: any) => role.authority === 'ROLE_STUDENT'
+  //   );
+  // }
 
-  checkTeacher(): boolean {
-    return this.currentUser.roles.some(
-      (role: any) => role.authority === 'ROLE_TEACHER'
-    );
-  }
+  // checkTeacher(): boolean {
+  //   return this.currentUser.roles.some(
+  //     (role: any) => role.authority === 'ROLE_TEACHER'
+  //   );
+  // }
 }

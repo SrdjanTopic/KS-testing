@@ -27,8 +27,8 @@ public class TestController {
         return testService.addTest(test);
     }
 
-    @GetMapping()
-    public ResponseEntity<Set<Test>> getTests() {
-        return new ResponseEntity<Set<Test>>(testService.getTests(), HttpStatus.OK);
-    }
+//    @GetMapping()
+//    public ResponseEntity<Set<Test>> getTests() {
+//        return new ResponseEntity<Set<Test>>(testService.getTests(), HttpStatus.OK);
+//    }
 }
