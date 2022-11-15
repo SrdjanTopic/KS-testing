@@ -24,4 +24,12 @@ public class Concept {
     @JsonIgnore
     @OneToMany(mappedBy = "concept", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Question> questions;
+
+    @OneToOne(mappedBy = "source", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Relation source;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Relation> destinations;
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AllTestsComponent } from './all-tests/all-tests.component';
+import { KnowledgeGraphComponent } from './knowledge-graph/knowledge-graph.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
@@ -16,6 +17,10 @@ const routes: Routes = [
   //   path: 'tests/:id',
   //   component: AllTestsComponent,
   // },
+  {
+    path: 'graph',
+    component: KnowledgeGraphComponent,
+  },
 ];
 
 @NgModule({
