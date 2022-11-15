@@ -1,6 +1,6 @@
 <div class="wrapper">
   <h1>All Tests</h1>
-  <button *ngIf="checkTeacher()">Add Test</button>
+  <a *appHasRole="['ROLE_TEACHER']" href="/test/add">Add Test</a>
   <div class="tests-wrapper">
     <div class="test" *ngFor="let test of tests">
       <b class="test-name">
@@ -11,7 +11,7 @@
         <p>Concepts:</p>
         <div class="concept">
           <b *ngFor="let question of test.questions">{{
-            question.concept.concept
+            question.concept?.concept
           }}</b>
         </div>
       </div>

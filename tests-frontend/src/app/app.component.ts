@@ -1,6 +1,4 @@
-import { AuthService } from 'src/app/services/auth.service';
 import { Component } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-root',
@@ -8,28 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
+  constructor() {}
 
   title = 'tests-frontend';
-  JWTHelper: JwtHelperService = new JwtHelperService();
-  token: string | null = localStorage.getItem('jwt');
-  currentUser: any = this.JWTHelper.decodeToken(
-    this.token ? this.token : undefined
-  );
-
-  logout() {
-    this.authService.logout();
-  }
-
-  // checkStudent(): boolean {
-  //   return this.currentUser.roles.some(
-  //     (role: any) => role.authority === 'ROLE_STUDENT'
-  //   );
-  // }
-
-  // checkTeacher(): boolean {
-  //   return this.currentUser.roles.some(
-  //     (role: any) => role.authority === 'ROLE_TEACHER'
-  //   );
-  // }
 }

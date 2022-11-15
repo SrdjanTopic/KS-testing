@@ -5,6 +5,15 @@
   justify-content: center;
 }
 
+.wrapper a {
+  font-size: 1.5em;
+  text-decoration: none;
+}
+
+.wrapper a:hover {
+  text-decoration: underline;
+}
+
 .wrapper .tests-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
