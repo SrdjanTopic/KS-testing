@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllTestsComponent } from './all-tests/all-tests.component';
-import { KnowledgeGraphComponent } from './knowledge-graph/knowledge-graph.component';
 import { AddTestComponent } from './components/add-test/add-test.component';
 import { TestComponent } from './components/test/test.component';
-import { LoginComponent } from './login/login.component';
+import { AllTestsComponent } from './components/all-tests/all-tests.component';
+import { KnowledgeGraphComponent } from './components/knowledge-graph/knowledge-graph.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   {
