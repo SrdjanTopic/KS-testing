@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { ITest } from './../model/test';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -12,7 +16,7 @@ export class TestService {
   constructor(private http: HttpClient) {}
 
   getTests() {
-    return this.http.get('http://localhost:8080/tests/', {
+    return this.http.get(`${environment.apiUrl}/tests/`, {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
   }

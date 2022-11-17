@@ -19,18 +19,18 @@ public class Concept {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique=true)
     private String concept;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "concept", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "concept", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Set<Question> questions;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "source", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Relation source;
+    @OneToMany(mappedBy = "source", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<Relation> sources;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Relation> destinations;
 }

@@ -15,12 +15,9 @@ import javax.persistence.*;
 public class Relation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "source_id")
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "source_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Concept source;
 
     @ManyToOne(fetch = FetchType.EAGER)

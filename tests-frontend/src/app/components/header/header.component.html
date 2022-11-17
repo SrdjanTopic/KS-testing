@@ -35,6 +35,14 @@
         >
       </li>
       <li>
+        <a
+          [routerLink]="['/graph']"
+          routerLinkActive="router-link-active"
+          *appHasRole="['ROLE_TEACHER']"
+          >Knowledge space</a
+        >
+      </li>
+      <li>
         <button class="logoutBtn" (click)="logout()">Logout</button>
       </li>
     </ul>
