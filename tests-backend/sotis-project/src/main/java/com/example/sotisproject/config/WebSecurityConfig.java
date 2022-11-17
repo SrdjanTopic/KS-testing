@@ -106,6 +106,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Dozvoljena POST metoda na ruti /auth/login, za svaki drugi tip HTTP metode greska je 401 Unauthorized
 		web.ignoring().antMatchers(HttpMethod.POST, "/auth/login");
 		web.ignoring().antMatchers(HttpMethod.POST, "/tests/add");
+		web.ignoring().antMatchers(HttpMethod.POST, "/concepts/add");
+		web.ignoring().antMatchers(HttpMethod.POST, "/concepts/delete");
+		web.ignoring().antMatchers(HttpMethod.POST, "/relations/update");
 
 		web.ignoring().antMatchers(HttpMethod.GET, "/tests/");
 		web.ignoring().antMatchers(HttpMethod.GET, "/concepts/");

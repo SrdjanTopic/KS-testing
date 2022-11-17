@@ -13,9 +13,9 @@ insert into app_user_roles (user_id, role_id) values (2, 2);
 
 -- CONCEPT INSERT
 insert into concept (concept) values ('Kekeke'); --concept_id:1
-insert into concept (concept) values ('Insanity'); --concept_id:1
-insert into concept (concept) values ('Madness'); --concept_id:1
-insert into concept (concept) values ('420'); --concept_id:1
+insert into concept (concept) values ('Insanity'); --concept_id:2
+insert into concept (concept) values ('Madness'); --concept_id:3
+insert into concept (concept) values ('420'); --concept_id:4
 -- RELATIONS INSERT
 insert into relation (source_id, destination_id) values (1,2);
 insert into relation (source_id, destination_id) values (2,3);

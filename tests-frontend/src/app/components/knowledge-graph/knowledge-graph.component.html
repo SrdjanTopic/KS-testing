@@ -1,2 +1,16 @@
-<button (click)="addNode()">Add node</button>
-<div id="visNetwork" #visNetwork></div>
+<div class="wrapper">
+  <div class="buttons">
+    <p>Controls</p>
+    <div class="addConcept">
+      <label for="label">Input concept name</label>
+      <input id="label" type="text" />
+      <button class="addConceptBtn" (click)="addNode()">Add Concept</button>
+    </div>
+    <button class="addRelationBtn" (click)="addEdge()">Add Relation</button>
+    <button class="removeSelectedBtn" (click)="removeSelected()">
+      Remove Selected
+    </button>
+    <button class="saveGraphBtn" (click)="saveGraph()">Save Graph</button>
+  </div>
+  <div id="visNetwork" #visNetwork></div>
+</div>

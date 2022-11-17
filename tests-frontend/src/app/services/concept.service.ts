@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +10,16 @@ export class ConceptService {
   constructor(private http: HttpClient) {}
 
   getConcepts() {
-    return this.http.get('http://localhost:8080/concepts/', {
+    return this.http.get(`${environment.apiUrl}/concepts/`, {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
+  }
+  addConcepts(concepts: { concept: string }[]) {
+    return this.http
+      .post<any>(`${environment.apiUrl}/concepts/add`, concepts)
+      .pipe(map((data) => console.log('All: ', JSON.stringify(data))));
+  }
+  deleteConcepts(concepts: { concept: string }[]) {
+    this.http.post<any>(`${environment.apiUrl}/concepts/delete`, concepts);
   }
 }

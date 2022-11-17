@@ -87,8 +87,8 @@
   border: none;
   background: none;
   font-size: 1em;
-  color: white;
+  color: red;
   width: 100%;
   cursor: pointer;
-  font-family: serif;
+  font-family: Arial, Helvetica, sans-serif;
 }

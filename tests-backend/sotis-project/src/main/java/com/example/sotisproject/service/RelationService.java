@@ -5,6 +5,7 @@ import com.example.sotisproject.repository.RelationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,5 +14,12 @@ public class RelationService {
     private RelationRepository relationRepository;
     public List<Relation> getRelations() {
         return relationRepository.findAll();
+    }
+
+    public List<Relation> updateRelations(List<Relation> relations) {
+        List<Relation> relationList = new ArrayList<>();
+        relationRepository.deleteAll();
+        relations.forEach((relation -> relationList.add(relationRepository.save(relation))));
+        return relationList;
     }
 }
