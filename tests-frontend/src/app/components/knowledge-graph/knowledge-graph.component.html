@@ -3,11 +3,21 @@
     <p>Controls</p>
     <div class="addConcept">
       <label for="label">Input concept name</label>
-      <input id="label" type="text" />
-      <button class="addConceptBtn" (click)="addNode()">Add Concept</button>
+      <input id="label" type="text" [(ngModel)]="conceptInputLabel" />
+      <button
+        [ngClass]="!conceptInputLabel ? 'disabledBtn' : 'addConceptBtn'"
+        (click)="addNode()"
+        [disabled]="!conceptInputLabel"
+      >
+        Add Concept
+      </button>
     </div>
     <button class="addRelationBtn" (click)="addEdge()">Add Relation</button>
-    <button class="removeSelectedBtn" (click)="removeSelected()">
+    <button
+      id="removeSelectionBtn"
+      class="removeSelectedBtn"
+      (click)="removeSelected()"
+    >
       Remove Selected
     </button>
     <button class="saveGraphBtn" (click)="saveGraph()">Save Graph</button>

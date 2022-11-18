@@ -25,8 +25,7 @@ public class ConceptController {
         return conceptService.addConcepts(concepts);
     }
     @PostMapping("/delete")
-    public void deleteConcepts(@RequestBody List<Concept> concepts){
-        concepts.forEach((concept -> System.out.println(concept.getId())));
-        conceptService.deleteConcepts(concepts);
+    public List<Concept> deleteConcepts(@RequestBody List<Concept> concepts){
+        return conceptService.deleteConcepts(concepts);
     }
 }

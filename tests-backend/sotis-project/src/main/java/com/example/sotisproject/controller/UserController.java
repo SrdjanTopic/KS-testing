@@ -26,7 +26,9 @@ public class UserController {
 
     @GetMapping()
     public User user(Principal user) {
-        return userService.findByUsername(user.getName());
+        if(user!=null)
+            return userService.findByUsername(user.getName());
+        return null;
     }
 
     @GetMapping("/credentials/{id}")

@@ -16,6 +16,8 @@ import { RelationService } from '../../services/relation.service';
   styleUrls: ['./knowledge-graph.component.css'],
 })
 export class KnowledgeGraphComponent implements OnInit {
+  conceptInputLabel: string = '';
+
   concepts: any = [];
   relations: any = [];
   nodes!: DataSet<any>;
@@ -37,6 +39,11 @@ export class KnowledgeGraphComponent implements OnInit {
   ngOnInit(): void {}
 
   async ngAfterViewInit(): Promise<void> {
+    (<HTMLInputElement>(
+      document.getElementById('removeSelectionBtn')
+    )).classList.add('disabledBtn');
+    (<HTMLInputElement>document.getElementById('removeSelectionBtn')).disabled =
+      true;
     await this.loadConcepts();
     await this.loadRelations();
     this.loadNodes();
@@ -55,14 +62,27 @@ export class KnowledgeGraphComponent implements OnInit {
 
     const options = {
       interaction: { hover: true },
+      nodes: {
+        fixed: {
+          x: false,
+          y: false,
+        },
+      },
+      physics: {
+        enabled: true,
+        barnesHut: {
+          centralGravity: 0.8,
+        },
+      },
       manipulation: {
         enabled: true,
         addNode: function (nodeData: any, callback: (arg0: any) => void) {
           nodeData.label = (<HTMLInputElement>(
             document.getElementById('label')
           )).value;
-
           nodeData.id = data.nodes.get()[data.nodes.get().length - 1].id + 1;
+          nodeData.x = -100;
+          nodeData.y = 100;
           // nodeData.color = {
           //   border: '#000000',
           //   background: '#000000',
@@ -156,18 +176,42 @@ export class KnowledgeGraphComponent implements OnInit {
 
     this.networkInstance.on('selectNode', function (this: any, params) {
       selectedNode = data.nodes.get(this.getNodeAt(params.pointer.DOM));
+      (<HTMLInputElement>(
+        document.getElementById('removeSelectionBtn')
+      )).disabled = false;
+      (<HTMLInputElement>(
+        document.getElementById('removeSelectionBtn')
+      )).classList.remove('disabledBtn');
       console.log('Selected NODE: ', selectedNode);
     });
     this.networkInstance.on('selectEdge', function (this: any, params) {
       selectedEdges = params.edges.map((edge: any) => data.edges.get(edge));
+      (<HTMLInputElement>(
+        document.getElementById('removeSelectionBtn')
+      )).disabled = false;
+      (<HTMLInputElement>(
+        document.getElementById('removeSelectionBtn')
+      )).classList.remove('disabledBtn');
       console.log('Selected EDGES: ', selectedEdges);
     });
     // --DESELECT--
     this.networkInstance.on('deselectNode', function (this: any, params) {
+      (<HTMLInputElement>(
+        document.getElementById('removeSelectionBtn')
+      )).disabled = true;
+      (<HTMLInputElement>(
+        document.getElementById('removeSelectionBtn')
+      )).classList.add('disabledBtn');
       console.log('DEselect NODE:', selectedNode);
       selectedNode = null;
     });
     this.networkInstance.on('deselectEdge', function (this: any, params) {
+      (<HTMLInputElement>(
+        document.getElementById('removeSelectionBtn')
+      )).disabled = true;
+      (<HTMLInputElement>(
+        document.getElementById('removeSelectionBtn')
+      )).classList.add('disabledBtn');
       console.log('DEselect EDGES: ', selectedEdges);
       selectedEdges = [];
     });
@@ -238,29 +282,32 @@ export class KnowledgeGraphComponent implements OnInit {
 
   removeSelected() {
     this.networkInstance?.deleteSelected();
+    (<HTMLInputElement>(
+      document.getElementById('removeSelectionBtn')
+    )).classList.add('disabledBtn');
+    (<HTMLInputElement>document.getElementById('removeSelectionBtn')).disabled =
+      true;
   }
 
   async saveGraph() {
     const deletionConcepts = this.startNodes
       .get()
       .filter((sn) => !this.nodes.get().some((n) => sn.id === n.id));
-    console.log(deletionConcepts);
     const additionConcepts = this.nodes
       .get()
       .filter((n) => !this.startNodes.get().some((sn) => sn.id === n.id));
-    console.log(deletionConcepts, additionConcepts);
+    console.log('Add concepts', additionConcepts);
+    console.log('Delete concepts', deletionConcepts);
     if (deletionConcepts.length > 0)
-      this.conceptService.deleteConcepts(
-        deletionConcepts
-          .filter((node, index: number) => index >= this.numberOfNodes)
-          .map((node) => ({ id: node.id, concept: node.label }))
-      );
+      await this.conceptService
+        .deleteConcepts(
+          deletionConcepts.map((node) => ({ id: node.id, concept: node.label }))
+        )
+        .toPromise();
     if (additionConcepts.length > 0)
       await this.conceptService
         .addConcepts(
-          additionConcepts
-            .filter((node, index: number) => index >= this.numberOfNodes)
-            .map((node) => ({ id: node.id, concept: node.label }))
+          additionConcepts.map((node) => ({ id: node.id, concept: node.label }))
         )
         .toPromise();
 
