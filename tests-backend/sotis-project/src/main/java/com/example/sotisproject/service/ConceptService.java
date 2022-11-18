@@ -1,7 +1,9 @@
 package com.example.sotisproject.service;
 
 import com.example.sotisproject.model.Concept;
+import com.example.sotisproject.model.Question;
 import com.example.sotisproject.repository.ConceptRepository;
+import com.example.sotisproject.repository.QuestionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @Service
 public class ConceptService {
     private ConceptRepository conceptRepository;
+    private QuestionRepository questionRepository;
 
     public List<Concept> getConcepts() {
         return conceptRepository.findAll();
@@ -23,7 +26,17 @@ public class ConceptService {
         return conceptList;
     }
 
-    public void deleteConcepts(List<Concept> concepts) {
-        concepts.forEach((concept -> conceptRepository.deleteById(concept.getId())));
+    public List<Concept> deleteConcepts(List<Concept> concepts) {
+        List<Concept> conceptList = new ArrayList<>();
+        concepts.forEach(concept -> {
+            List<Question> questionList = questionRepository.findAllByConceptId(concept.getId());
+            questionList.forEach((question -> {
+                question.setConcept(null);
+                questionRepository.save(question);
+            }));
+            conceptRepository.deleteById(concept.getId());
+            conceptList.add(concept);
+        });
+        return conceptList;
     }
 }

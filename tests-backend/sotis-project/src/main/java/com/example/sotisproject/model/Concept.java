@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -23,7 +25,7 @@ public class Concept {
     private String concept;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "concept", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "concept", fetch = FetchType.EAGER)
     private Set<Question> questions;
 
     @JsonIgnore

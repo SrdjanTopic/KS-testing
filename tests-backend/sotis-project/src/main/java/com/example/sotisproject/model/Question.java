@@ -29,7 +29,7 @@ public class Question {
     @ManyToOne(fetch = FetchType.LAZY)
     private Test test;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
     private Set<Answer> answers;
 
     @ManyToOne(fetch = FetchType.EAGER)

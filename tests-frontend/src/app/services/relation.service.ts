@@ -17,6 +17,8 @@ export class RelationService {
   updateRelations(relations: any[]) {
     return this.http
       .post<any>(`${environment.apiUrl}/relations/update`, relations)
-      .pipe(map((data) => console.log('All: ', JSON.stringify(data))));
+      .pipe(
+        map((data) => console.log('All relations: ', JSON.stringify(data)))
+      );
   }
 }

@@ -6,12 +6,14 @@
   padding: 1em;
   gap: 1em;
 }
+
 .wrapper #visNetwork {
   width: 80%;
   height: 95%;
   box-shadow: 0 0 1em black;
   background-color: hsl(180, 100%, 85%);
 }
+
 .wrapper .buttons {
   display: flex;
   flex-direction: column;
@@ -30,6 +32,7 @@
   transition: 0.3s;
   border-radius: 0.5em;
 }
+
 .wrapper .buttons button:hover {
   background-color: gray;
 }
@@ -37,6 +40,7 @@
 .wrapper .buttons p {
   font-size: 2em;
 }
+
 .wrapper .buttons .addConcept {
   display: flex;
   flex-direction: column;
@@ -44,9 +48,11 @@
   align-items: center;
   gap: 0.5em;
 }
+
 .wrapper .buttons .addConcept label {
   font-size: 1.3em;
 }
+
 .wrapper .buttons .addConcept input {
   font-size: 1.3em;
   border: none;
@@ -84,4 +90,12 @@
 
 .wrapper .buttons .saveGraphBtn {
   margin-top: 8em;
+}
+
+.wrapper .buttons .disabledBtn {
+  background-color: gray;
+  color: hsl(0, 0%, 70%);
+}
+.wrapper .buttons .disabledBtn:hover {
+  background-color: gray;
 }

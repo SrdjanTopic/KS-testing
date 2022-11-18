@@ -17,9 +17,15 @@ export class ConceptService {
   addConcepts(concepts: { concept: string }[]) {
     return this.http
       .post<any>(`${environment.apiUrl}/concepts/add`, concepts)
-      .pipe(map((data) => console.log('All: ', JSON.stringify(data))));
+      .pipe(
+        map((data) => console.log('Added concepts: ', JSON.stringify(data)))
+      );
   }
-  deleteConcepts(concepts: { concept: string }[]) {
-    this.http.post<any>(`${environment.apiUrl}/concepts/delete`, concepts);
+  deleteConcepts(concepts: { id: number; concept: string }[]) {
+    return this.http
+      .post<any>(`${environment.apiUrl}/concepts/delete`, concepts)
+      .pipe(
+        map((data) => console.log('Deleted concepts: ', JSON.stringify(data)))
+      );
   }
 }
