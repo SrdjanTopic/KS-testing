@@ -7,6 +7,7 @@ import { IAnswer, initAnswer } from './../../model/answer';
 import { initQuestion, IQuestion } from './../../model/question';
 import { initTest, ITest } from './../../model/test';
 import { TestService } from './../../services/test.service';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-add-test',
@@ -309,10 +310,15 @@ export class AddTestComponent implements OnInit {
     this.questionNumber--;
   }
 
-  addAnswer(question: IQuestion) {
-    question.answers.push({
-      answer: this.answerText,
-      isCorrect: this.isCorrect,
+  addAnswer() {
+    this.test.questions.forEach((q) => {
+      if (q.questionNumber === this.questionNumber) {
+        q.answers.push({
+          id: 0,
+          answer: this.answerText,
+          isCorrect: this.isCorrect,
+        });
+      }
     });
   }
 
@@ -327,5 +333,14 @@ export class AddTestComponent implements OnInit {
   unhighlightQuestions() {
     this.selectedQuestion = 0;
     this.networkInstance?.selectNodes([]);
+  }
+  radioChange(answer: MatRadioChange, question: IQuestion) {
+    question.answers.forEach((a) => {
+      if (a.answer === answer.value) {
+        a.isCorrect = true;
+      } else {
+        a.isCorrect = false;
+      }
+    });
   }
 }

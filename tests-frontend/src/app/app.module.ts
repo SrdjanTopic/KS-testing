@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HasRoleDirective } from './directive/hasRole.directive';
 import { AllTestsComponent } from './components/all-tests/all-tests.component';
 import { KnowledgeGraphComponent } from './components/knowledge-graph/knowledge-graph.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { KnowledgeGraphComponent } from './components/knowledge-graph/knowledge-
     NgbModule,
     MatCheckboxModule,
     MatInputModule, 
-    HttpClientModule
+    HttpClientModule,
+    MatRadioModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

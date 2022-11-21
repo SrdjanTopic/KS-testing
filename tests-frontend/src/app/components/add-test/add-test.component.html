@@ -81,36 +81,15 @@
               Add question
             </button>
           </div>
-          <div class="mt-4" *ngFor="let q of test.questions">
-            <hr class="my-4" />
-            <label for="input-q"
-              >Question {{ q.questionNumber }}({{ q.points }} points)</label
-            >
-            <button
-              mat-stroked-button
-              (click)="removeQuestion(q)"
-              class="btn btn-danger btn-sm ml-2"
-            >
-              Remove
-            </button>
-            <div class="form-group">
-              <h2>{{ q.question }}</h2>
-            </div>
-            <span *ngFor="let a of q.answers">
-              {{ a.answer }}
-              <button
-                (click)="removeAnswer(a, q)"
-                class="btn btn-danger btn-sm ml-2"
-                mat-stroked-button
-              >
-                Remove
-              </button>
-            </span>
-            <hr class="my-4" />
-            <div class="mt-2 form-group col-md-6">
+        </form>
+      </div>
+      <div class="row">
+        <form>
+          <div class="row">
+            <div class="mt-2 form-group col-md-7">
               <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label for="input-answer"
-                  >Answer for question {{ q.questionNumber }}:</mat-label
+                  >Answer for question {{ questionNumber }}:</mat-label
                 >
                 <input
                   matInput
@@ -119,13 +98,20 @@
                   id="input-answer"
                   [(ngModel)]="answerText"
                 />
-                <mat-checkbox
-                  type="checkbox"
-                  name="correct"
-                  id="input-correct"
-                  [(ngModel)]="isCorrect"
-                  >Is correct</mat-checkbox
-                >
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="mt-2 form-group col-md-6">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label for="input-answer">Question number:</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  name="answer"
+                  id="input-answer"
+                  [(ngModel)]="questionNumber"
+                />
               </mat-form-field>
             </div>
             <button
@@ -146,9 +132,86 @@
               Connect concepts
             </button>
           </div>
+          <button
+            mat-stroked-button
+            (click)="addAnswer()"
+            class="btn btn-info mt-2"
+          >
+            Add answer
+          </button>
         </form>
       </div>
     </div>
+    <div class="col">
+      <div style="width: 400px" class="container">
+        <div class="pb-8 pl-5 justify-content-center">
+          <div class="card bg-light shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Test information</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="mt-4" *ngFor="let q of test.questions">
+                  <label for="input-q"
+                    >Question {{ q.questionNumber }}({{
+                      q.points
+                    }}
+                    points)</label
+                  >
+                  <button
+                    mat-stroked-button
+                    (click)="removeQuestion(q)"
+                    class="btn btn-danger btn-sm ml-2"
+                  >
+                    Remove
+                  </button>
+                  <div class="form-group">
+                    <h2>{{ q.question }}</h2>
+                  </div>
+                  <mat-radio-group
+                    aria-labelledby="radio-group-label"
+                    class="example-radio-group"
+                    name="radioGrAnswers"
+                    [ngModel]="q.answers"
+                    (change)="radioChange($event, q)"
+                  >
+                    <mat-radio-button
+                      class="example-radio-button"
+                      *ngFor="let a of q.answers"
+                      [value]="a.answer"
+                    >
+                      {{ a.answer }}
+                      <button
+                        (click)="removeAnswer(a, q)"
+                        class="btn btn-danger btn-sm ml-2"
+                        mat-stroked-button
+                      >
+                        Remove
+                      </button>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                  <hr class="my-4" />
+                </div>
+                <div class="mt-2 text-right">
+                  <button
+                    mat-stroked-button
+                    (click)="addTest()"
+                    class="btn btn-success btn-lg"
+                  >
+                    Add test
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
   </div>
 </div>
 
