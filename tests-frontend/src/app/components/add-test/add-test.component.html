@@ -1,14 +1,7 @@
-<div style="width: 700px" class="container">
-  <div class="mt-5 pb-8 pl-5 pt-5 justify-content-center">
-    <div class="card bg-light shadow">
-      <div class="card-header bg-white border-0">
-        <div class="row">
-          <div class="col-8">
-            <h3 class="mb-0">Test information</h3>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <div *appHasRole="['ROLE_TEACHER']" class="row">
         <form>
           <div class="d-flex flex-column justify-content-center">
             <div
@@ -83,7 +76,7 @@
           </div>
         </form>
       </div>
-      <div class="row">
+      <div *appHasRole="['ROLE_TEACHER']" class="row">
         <form>
           <div class="row">
             <div class="mt-2 form-group col-md-7">
@@ -156,40 +149,20 @@
             <div class="card-body">
               <form>
                 <div class="mt-4" *ngFor="let q of test.questions">
-                  <label for="input-q"
-                    >Question {{ q.questionNumber }}({{
-                      q.points
-                    }}
-                    points)</label
-                  >
-                  <button
-                    mat-stroked-button
-                    (click)="removeQuestion(q)"
-                    class="btn btn-danger btn-sm ml-2"
-                  >
+                  <label for="input-q">Question {{ q.questionNumber }}({{ q.points }} points)</label>
+                  <button *appHasRole="['ROLE_TEACHER']" mat-stroked-button (click)="removeQuestion(q)"
+                    class="btn btn-danger btn-sm ml-2">
                     Remove
                   </button>
                   <div class="form-group">
                     <h2>{{ q.question }}</h2>
                   </div>
-                  <mat-radio-group
-                    aria-labelledby="radio-group-label"
-                    class="example-radio-group"
-                    name="radioGrAnswers"
-                    [ngModel]="q.answers"
-                    (change)="radioChange($event, q)"
-                  >
-                    <mat-radio-button
-                      class="example-radio-button"
-                      *ngFor="let a of q.answers"
-                      [value]="a.answer"
-                    >
-                      {{ a.answer }}
-                      <button
-                        (click)="removeAnswer(a, q)"
-                        class="btn btn-danger btn-sm ml-2"
-                        mat-stroked-button
-                      >
+                  <mat-radio-group aria-labelledby="radio-group-label" class="example-radio-group"
+                    [ngModelOptions]="{standalone: true}" [ngModel]="q.answers" (change)="radioChange($event,q)">
+                    <mat-radio-button class="example-radio-button" *ngFor="let a of q.answers" [value]="a.answer">
+                      {{a.answer}}
+                      <button *appHasRole="['ROLE_TEACHER']" (click)="removeAnswer(a, q)"
+                        class="btn btn-danger btn-sm ml-2" mat-stroked-button>
                         Remove
                       </button>
                     </mat-radio-button>
@@ -197,11 +170,8 @@
                   <hr class="my-4" />
                 </div>
                 <div class="mt-2 text-right">
-                  <button
-                    mat-stroked-button
-                    (click)="addTest()"
-                    class="btn btn-success btn-lg"
-                  >
+                  <button *appHasRole="['ROLE_TEACHER']" mat-stroked-button (click)="addTest()"
+                    class="btn btn-success btn-lg">
                     Add test
                   </button>
                 </div>

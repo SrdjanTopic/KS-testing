@@ -4,43 +4,29 @@
       <a [routerLink]="['']" routerLinkActive="router-link-active">Home</a>
     </li>
     <li>
-      <a [routerLink]="['/tests']" routerLinkActive="router-link-active"
-        >Tests</a
-      >
+      <a [routerLink]="['/tests']" routerLinkActive="router-link-active">Tests</a>
+    </li>
+    <li>
+      <a [routerLink]="['/test/add']" routerLinkActive="router-link-active" *appHasRole="['ROLE_TEACHER']">Add test</a>
     </li>
   </ul>
   <ul *ngIf="!currentUser">
     <li>
-      <a [routerLink]="['/login']" routerLinkActive="router-link-active"
-        >Login</a
-      >
+      <a [routerLink]="['/login']" routerLinkActive="router-link-active">Login</a>
     </li>
     <li>
-      <a [routerLink]="['/signup']" routerLinkActive="router-link-active"
-        >Signup</a
-      >
+      <a [routerLink]="['/signup']" routerLinkActive="router-link-active">Signup</a>
     </li>
   </ul>
   <div class="user-menu" *ngIf="currentUser">
-    <a [routerLink]="['/profile']" routerLinkActive="router-link-active"
-      >Profile</a
-    >
+    <a [routerLink]="['/profile']" routerLinkActive="router-link-active">Profile</a>
     <ul>
       <li>
-        <a
-          [routerLink]="['/myTests']"
-          routerLinkActive="router-link-active"
-          *appHasRole="['ROLE_STUDENT']"
-          >My Tests</a
-        >
+        <a [routerLink]="['/myTests']" routerLinkActive="router-link-active" *appHasRole="['ROLE_STUDENT']">My Tests</a>
       </li>
       <li>
-        <a
-          [routerLink]="['/graph']"
-          routerLinkActive="router-link-active"
-          *appHasRole="['ROLE_TEACHER']"
-          >Knowledge space</a
-        >
+        <a [routerLink]="['/graph']" routerLinkActive="router-link-active" *appHasRole="['ROLE_TEACHER']">Knowledge
+          space</a>
       </li>
       <li>
         <button class="logoutBtn" (click)="logout()">Logout</button>

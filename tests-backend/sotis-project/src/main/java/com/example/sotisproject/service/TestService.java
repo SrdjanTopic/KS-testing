@@ -27,6 +27,10 @@ public class TestService {
     public List<Test> getTests() {
         return testRepository.findAll();
     }
+    
+    public Test getTest(Long id) {
+        return testRepository.findById(id).get();
+    }
 //    public Set<Test> getTests(){
 //        return new HashSet<>(testRepository.findAll());
 //    }

@@ -34,6 +34,13 @@ export class TestService {
     );
   }
 
+  getTest(id: number): Observable<ITest> {
+    return this.http.get<ITest>(environment.apiUrl + `/tests/${id}`).pipe(
+      tap((data) => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(err: HttpErrorResponse) {
     console.log(err.message);
     return throwError(() => new Error('Error'));

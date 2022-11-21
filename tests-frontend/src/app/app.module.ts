@@ -21,6 +21,8 @@ import { HasRoleDirective } from './directive/hasRole.directive';
 import { AllTestsComponent } from './components/all-tests/all-tests.component';
 import { KnowledgeGraphComponent } from './components/knowledge-graph/knowledge-graph.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { BaseTestComponent } from './components/base-test/base-test.component';
+import { TestRealizationComponent } from './pages/test-realization/test-realization.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import {MatRadioModule} from '@angular/material/radio';
     TestComponent,
     AddTestComponent,
     HasRoleDirective,
+    BaseTestComponent,
+    TestRealizationComponent,
   ],
   imports: [
     BrowserModule,
