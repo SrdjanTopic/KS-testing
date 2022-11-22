@@ -32,6 +32,13 @@ export class BaseTestComponent implements OnInit {
       .subscribe((test) => (this.test = test));
   }
 
+  submitTest() {
+    this.test.id = 0;
+    this.testService
+      .saveTest(this.test)
+      .subscribe((test) => (this.test = test));
+  }
+
   addQuestion() {
     this.questionNumber = this.questionNumber + 1;
     this.test.questions.push({

@@ -41,8 +41,13 @@ public class TestController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Test> addTest(@PathVariable("id") Long id){
+    public ResponseEntity<Test> getTest(@PathVariable("id") Long id){
         return new ResponseEntity<Test>(testService.getTest(id), HttpStatus.OK);
+    }
+    
+    @PostMapping("/submit")
+    public ResponseEntity<Test> submitTest(@RequestBody Test test){
+        return new ResponseEntity<Test>(testService.submitTest(test), HttpStatus.OK);
     }
 
 //    @GetMapping()

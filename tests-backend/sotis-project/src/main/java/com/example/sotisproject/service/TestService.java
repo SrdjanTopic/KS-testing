@@ -23,6 +23,12 @@ public class TestService {
         });
         return newTest;
     }
+    
+    public Test submitTest(Test test){
+        Test newTest = testRepository.save(test);
+       
+        return newTest;
+    }
 
     public List<Test> getTests() {
         return testRepository.findAll();
