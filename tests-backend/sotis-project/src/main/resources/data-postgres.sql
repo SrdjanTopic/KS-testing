@@ -18,13 +18,14 @@ insert into concept (concept) values ('Madness'); --concept_id:3
 insert into concept (concept) values ('420'); --concept_id:4
 -- RELATIONS INSERT
 insert into relation (source_id, destination_id) values (1,2);
-insert into relation (source_id, destination_id) values (2,3);
-insert into relation (source_id, destination_id) values (4,3); 
+insert into relation (source_id, destination_id) values (3,2);
+insert into relation (source_id, destination_id) values (4,2); 
 -- TEST INSERT
 insert into test (name) values ('Test for the insane ones'); --test_id:1
 -- QUESTION INSERT
 insert into question (test_id, concept_id, question) values (1, 1, 'What/who is KEKEKE?'); --question_id:1
 insert into question (test_id, concept_id, points, question) values (1, 2, 25, 'Question???'); --question_id:2
+insert into question (test_id, concept_id, points, question) values (1, 2, 55, 'Question???'); --question_id:2
 -- ANSWER INSERT
 insert into answer (question_id, answer) values (1, 'what!?'); --answer_id:1
 insert into answer (question_id, answer, is_correct) values (1, 'HE IS GOD', true); --answer_id:2

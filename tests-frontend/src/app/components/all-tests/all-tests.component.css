@@ -28,11 +28,12 @@
   margin: 1em;
   padding: 0.5em;
   background-color: hsl(240, 100%, 95%);
-  border: hsl(240, 100%, 20%) 1px solid;
+  border: hsl(240, 100%, 90%) 1px solid;
   transition: 0.3s;
   user-select: none;
   height: 330px;
   justify-content: space-between;
+  border-radius: 0.5em;
 }
 .wrapper .tests-wrapper .test:hover {
   background-color: hsl(240, 100%, 90%);
@@ -119,7 +120,6 @@
   width: fit-content;
   border-radius: 0.2em;
   margin-top: 1em;
-  transition: 0.3s;
 }
 
 .wrapper .tests-wrapper .test .info button:hover {

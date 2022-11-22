@@ -23,7 +23,6 @@ export class AllTestsComponent implements OnInit {
   ngOnInit(): void {
     this.tests = [];
     this.loadTests();
-    this.fillTestPoints();
   }
 
   loadTests() {
@@ -33,19 +32,8 @@ export class AllTestsComponent implements OnInit {
       .subscribe((tests) => {
         this.tests = tests;
         this.fillTestPoints();
+        this.fillTestConcepts();
       });
-  }
-
-  checkStudent(): boolean {
-    return this.currentUser?.roles.some(
-      (role: any) => role.authority === 'ROLE_STUDENT'
-    );
-  }
-
-  checkTeacher(): boolean {
-    return this.currentUser?.roles.some(
-      (role: any) => role.authority === 'ROLE_TEACHER'
-    );
   }
 
   fillTestPoints() {
@@ -55,6 +43,14 @@ export class AllTestsComponent implements OnInit {
           return accumulator + currentValue.points;
         },
         0
+      );
+    });
+  }
+
+  fillTestConcepts() {
+    this.tests.forEach((test: any, index: number) => {
+      this.tests[index].concepts = new Set(
+        test.questions.map((question: any) => question.concept.concept)
       );
     });
   }

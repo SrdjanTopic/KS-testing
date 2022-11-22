@@ -10,6 +10,7 @@
 .wrapper #visNetwork {
   width: 80%;
   height: 95%;
+  border-radius: 1em;
   box-shadow: 0 0 1em black;
   background-color: hsl(180, 100%, 85%);
 }

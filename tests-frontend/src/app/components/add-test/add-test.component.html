@@ -1,8 +1,8 @@
-<div  style="width: 400px;" class="container">
-  <div class="mt-5 pb-8 pl-5 pt-5  justify-content-center">
+<div style="width: 700px" class="container">
+  <div class="mt-5 pb-8 pl-5 pt-5 justify-content-center">
     <div class="card bg-light shadow">
       <div class="card-header bg-white border-0">
-        <div class="row align-items-center">
+        <div class="row">
           <div class="col-8">
             <h3 class="mb-0">Test information</h3>
           </div>
@@ -10,54 +10,65 @@
       </div>
       <div class="card-body">
         <form>
-          <!-- Ovde -->
-          <div class="pl-lg-4">
-            <div class="row">
-              <div class="col-md-12">
-                <form class="example-form">
-                  <!-- <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Favorite food</mat-label>
-                  <input matInput placeholder="Ex. Pizza" value="Sushi">
+          <div class="d-flex flex-column justify-content-center">
+            <div
+              style="width: 100%"
+              class="d-flex flex-column justify-content-center"
+            >
+              <div class="form-group">
+                <mat-form-field appearance="fill">
+                  <mat-label class="form-control-label" for="test"
+                    >Test name</mat-label
+                  >
+                  <input
+                    style="font-size: 1.5em"
+                    matInput
+                    type="text"
+                    id="test"
+                    name="test"
+                    [(ngModel)]="test.name"
+                  />
                 </mat-form-field>
-              
-                <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Leave a comment</mat-label>
-                  <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-                </mat-form-field> -->
-                </form>
-                <div class="form-group">
-                  <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label class="form-control-label" for="input-question"
-                      >Add a question</mat-label
-                    >
-                    <textarea
-                      matInput
-                      type="text"
-                      id="input-question"
-                      name="question"
-                      [(ngModel)]="questionText"
-                    ></textarea>
-                  </mat-form-field>
-                </div>
+              </div>
+              <div
+                class="form-group d-flex flex-column justify-content-center"
+                style="width: 100%"
+              >
+                <mat-form-field style="width: 90%" appearance="fill">
+                  <mat-label class="form-control-label" for="input-question"
+                    >Add a question</mat-label
+                  >
+                  <textarea
+                    matInput
+                    type="text"
+                    id="input-question"
+                    name="question"
+                    [(ngModel)]="questionText"
+                  ></textarea>
+                </mat-form-field>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-2">
-                <div class="form-group">
-                  <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label class="form-control-label" for="input-question"
-                      >Points</mat-label
-                    >
-                    <input
-                      matInput
-                      type="number"
-                      id="input-points"
-                      name="points"
-                      [(ngModel)]="points"
-                      min="0"
-                    />
-                  </mat-form-field>
-                </div>
+            <div
+              style="width: 100%"
+              class="d-flex flex-column justify-content-center"
+            >
+              <div
+                style="width: 100%"
+                class="form-group d-flex flex-column justify-content-center"
+              >
+                <mat-form-field style="width: 10%" appearance="fill">
+                  <mat-label class="form-control-label" for="input-question"
+                    >Points</mat-label
+                  >
+                  <input
+                    matInput
+                    type="number"
+                    id="input-points"
+                    name="points"
+                    [(ngModel)]="points"
+                    min="0"
+                  />
+                </mat-form-field>
               </div>
             </div>
           </div>
@@ -129,14 +140,58 @@
           <div class="mt-2 text-right">
             <button
               mat-stroked-button
-              (click)="addTest()"
-              class="btn btn-success btn-lg"
+              (click)="changeModalState()"
+              class="btn btn-primary btn-lg"
             >
-              Add test
+              Connect concepts
             </button>
           </div>
         </form>
       </div>
+    </div>
+  </div>
+</div>
+
+<div
+  [ngClass]="isModalOpen ? 'modalBackgroundActive' : 'modalBackgroundDisabled'"
+>
+  <div class="modalWrapper">
+    <button
+      (click)="changeModalState()"
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+    ></button>
+    <div class="modalContent">
+      <div class="modalInfo">
+        <div class="questionsList">
+          <p class="question" *ngFor="let q of test.questions">
+            Q{{ q.questionNumber }}. {{ q.question }}
+          </p>
+        </div>
+        <button
+          mat-stroked-button
+          (click)="addEdge()"
+          class="btn btn-success btn-lg"
+        >
+          Add edge
+        </button>
+        <button
+          mat-stroked-button
+          (click)="removeSelected()"
+          class="btn btn-success btn-lg"
+        >
+          Remove edge
+        </button>
+        <button
+          mat-stroked-button
+          (click)="addTest()"
+          class="btn btn-success btn-lg"
+        >
+          Save test
+        </button>
+      </div>
+      <div id="visNetwork" #visNetwork></div>
     </div>
   </div>
 </div>
