@@ -63,6 +63,20 @@
   padding: 0.2em;
   cursor: pointer;
   border-radius: 0.5em;
+  background-color: hsl(0, 100%, 80%);
+  border: 2px red solid;
+}
+
+.modalBackgroundActive
+  .modalWrapper
+  .modalContent
+  .modalInfo
+  .questionsList
+  .questionSelected {
+  padding: 0.2em;
+  cursor: pointer;
+  border-radius: 0.5em;
+  border: 2px red solid;
   background-color: hsl(0, 100%, 90%);
 }
 
@@ -72,7 +86,7 @@
   .modalInfo
   .questionsList
   .question:hover {
-  background-color: hsl(0, 100%, 80%);
+  background-color: hsl(0, 100%, 90%);
 }
 
 .modalBackgroundActive .modalWrapper .modalContent #visNetwork {
@@ -146,7 +160,8 @@
   padding: 0.2em;
   cursor: pointer;
   border-radius: 0.5em;
-  background-color: hsl(0, 100%, 90%);
+  background-color: hsl(0, 100%, 80%);
+  border: 2px red solid;
 }
 
 .modalBackgroundDisabled
@@ -155,7 +170,7 @@
   .modalInfo
   .questionsList
   .question:hover {
-  background-color: hsl(0, 100%, 80%);
+  background-color: hsl(0, 100%, 90%);
 }
 
 .modalBackgroundDisabled .modalWrapper .modalContent #visNetwork {
