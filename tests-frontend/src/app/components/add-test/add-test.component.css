@@ -164,3 +164,10 @@
   border-radius: 1em;
   box-shadow: 0 0 1em black;
 }
+
+.edgeBtns {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}

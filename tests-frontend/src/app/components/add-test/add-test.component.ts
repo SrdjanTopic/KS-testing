@@ -296,6 +296,10 @@ export class AddTestComponent implements OnInit {
     window.location.reload();
   }
   changeModalState() {
+    if (this.test.questions.length < 1) {
+      alert('Add atleast one question to the test!');
+      return;
+    }
     this.isModalOpen = !this.isModalOpen;
   }
   addTest() {

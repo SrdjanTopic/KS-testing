@@ -1,6 +1,6 @@
 <div class="wrapper">
   <h1>All Tests</h1>
-  <a *appHasRole="['ROLE_TEACHER']" href="/test/add">Add Test</a>
+  <a *appHasRole="['ROLE_TEACHER']" [routerLink]="['/test/add']">Add Test</a>
   <div class="tests-wrapper">
     <div class="test" *ngFor="let test of tests">
       <b class="test-name">
@@ -22,7 +22,7 @@
           <p>Max points:</p>
           <b>{{ test.maxPoints }}</b>
         </div>
-        <button (click)="openTest(test.id)">View test</button>
+        <a [routerLink]="['/test/', test.id]">View Test</a>
       </div>
     </div>
   </div>
