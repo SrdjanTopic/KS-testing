@@ -1,11 +1,9 @@
-export interface IAnswer{
-    id:number;
-    answer:string;
-    isCorrect:boolean;
+export interface IAnswer {
+  answer: string;
+  isCorrect: boolean;
 }
 
-export const initAnswer : IAnswer = {
-    id:0,
-    answer:'',
-    isCorrect:false
-}
+export const initAnswer: IAnswer = {
+  answer: '',
+  isCorrect: false,
+};

@@ -10,9 +10,7 @@
       <div class="concepts">
         <p>Concepts:</p>
         <div class="concept">
-          <b *ngFor="let question of test.questions">{{
-            question.concept?.concept
-          }}</b>
+          <b *ngFor="let concept of test.concepts">{{ concept }}</b>
         </div>
       </div>
       <div class="info">
