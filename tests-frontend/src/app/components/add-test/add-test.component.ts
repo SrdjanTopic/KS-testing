@@ -46,6 +46,7 @@ export class AddTestComponent implements OnInit {
 
   isModalOpen: boolean = false;
 
+  selectedQuestion: number = 0;
   ngOnInit(): void {}
 
   async draw() {
@@ -83,6 +84,9 @@ export class AddTestComponent implements OnInit {
           )
             alert('You cannot connect questions with concepts in this way!');
           else {
+            edgeData.arrows = {
+              to: { enabled: false },
+            };
             callback(edgeData);
           }
         },
@@ -98,10 +102,6 @@ export class AddTestComponent implements OnInit {
           }
           callback(edgeData);
           selectedEdges.length = 0;
-        },
-        deleteNode: function (nodeData: any, callback: (arg0: any) => void) {
-          alert('You cannot delete concepts!');
-          callback(null);
         },
       },
       edges: {
@@ -251,10 +251,6 @@ export class AddTestComponent implements OnInit {
     );
   }
 
-  addNode() {
-    this.networkInstance?.addNodeMode();
-  }
-
   addEdge() {
     this.networkInstance?.addEdgeMode();
   }
@@ -263,38 +259,6 @@ export class AddTestComponent implements OnInit {
     this.networkInstance?.deleteSelected();
   }
 
-  async saveGraph() {
-    const deletionConcepts = this.startNodes
-      .get()
-      .filter((sn) => !this.nodes.get().some((n) => sn.id === n.id));
-    const additionConcepts = this.nodes
-      .get()
-      .filter((n) => !this.startNodes.get().some((sn) => sn.id === n.id));
-    console.log('Add concepts', additionConcepts);
-    console.log('Delete concepts', deletionConcepts);
-    if (deletionConcepts.length > 0)
-      await this.conceptService
-        .deleteConcepts(
-          deletionConcepts.map((node) => ({ id: node.id, concept: node.label }))
-        )
-        .toPromise();
-    if (additionConcepts.length > 0)
-      await this.conceptService
-        .addConcepts(
-          additionConcepts.map((node) => ({ id: node.id, concept: node.label }))
-        )
-        .toPromise();
-
-    await this.relationService
-      .updateRelations(
-        this.edges.get().map((relation) => ({
-          source: this.nodes.get(relation.from),
-          destination: this.nodes.get(relation.to),
-        }))
-      )
-      .toPromise();
-    window.location.reload();
-  }
   changeModalState() {
     if (this.test.questions.length < 1) {
       alert('Add atleast one question to the test!');
@@ -354,5 +318,14 @@ export class AddTestComponent implements OnInit {
 
   removeAnswer(answer: IAnswer, question: IQuestion) {
     question.answers = question.answers.filter((a) => a !== answer);
+  }
+
+  highlightQuestion(questionNumber: number) {
+    this.selectedQuestion = questionNumber;
+    this.networkInstance?.selectNodes([`Q${questionNumber}`]);
+  }
+  unhighlightQuestions() {
+    this.selectedQuestion = 0;
+    this.networkInstance?.selectNodes([]);
   }
 }

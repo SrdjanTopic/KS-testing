@@ -165,7 +165,16 @@
     <div class="modalContent">
       <div class="modalInfo">
         <div class="questionsList">
-          <p class="question" *ngFor="let q of test.questions">
+          <p
+            id="ppp"
+            *ngFor="let q of test.questions"
+            (click)="highlightQuestion(q.questionNumber)"
+            [ngClass]="
+              q.questionNumber == selectedQuestion
+                ? 'questionSelected'
+                : 'question'
+            "
+          >
             Q{{ q.questionNumber }}. {{ q.question }}
           </p>
         </div>
