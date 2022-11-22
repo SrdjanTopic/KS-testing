@@ -26,7 +26,7 @@
   flex-direction: column;
   align-items: center;
   margin: 1em;
-  padding: 0.5em;
+  padding: 2em;
   background-color: hsl(240, 100%, 95%);
   border: hsl(240, 100%, 90%) 1px solid;
   transition: 0.3s;
@@ -111,7 +111,7 @@
   text-decoration: underline;
 }
 
-.wrapper .tests-wrapper .test .info button {
+.wrapper .tests-wrapper .test .info a {
   font-size: 1.3em;
   border: none;
   color: white;
@@ -120,8 +120,10 @@
   width: fit-content;
   border-radius: 0.2em;
   margin-top: 1em;
+  padding: 0.5em;
+  text-decoration: none;
 }
 
-.wrapper .tests-wrapper .test .info button:hover {
+.wrapper .tests-wrapper .test .info a:hover {
   background-color: hsl(260, 100%, 65%);
 }

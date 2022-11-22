@@ -169,20 +169,23 @@
             Q{{ q.questionNumber }}. {{ q.question }}
           </p>
         </div>
-        <button
-          mat-stroked-button
-          (click)="addEdge()"
-          class="btn btn-success btn-lg"
-        >
-          Add edge
-        </button>
-        <button
-          mat-stroked-button
-          (click)="removeSelected()"
-          class="btn btn-success btn-lg"
-        >
-          Remove edge
-        </button>
+        <div class="edgeBtns">
+          <button
+            mat-stroked-button
+            (click)="addEdge()"
+            class="btn btn-primary btn-lg"
+          >
+            Add edge
+          </button>
+          <button
+            mat-stroked-button
+            (click)="removeSelected()"
+            class="btn btn-secondary btn-lg"
+          >
+            Remove edge
+          </button>
+        </div>
+
         <button
           mat-stroked-button
           (click)="addTest()"

@@ -18,8 +18,8 @@ insert into concept (concept) values ('Madness'); --concept_id:3
 insert into concept (concept) values ('420'); --concept_id:4
 -- RELATIONS INSERT
 insert into relation (source_id, destination_id) values (1,2);
-insert into relation (source_id, destination_id) values (3,2);
-insert into relation (source_id, destination_id) values (4,2); 
+insert into relation (source_id, destination_id) values (2,3);
+insert into relation (source_id, destination_id) values (4,2);
 -- TEST INSERT
 insert into test (name) values ('Test for the insane ones'); --test_id:1
 -- QUESTION INSERT
