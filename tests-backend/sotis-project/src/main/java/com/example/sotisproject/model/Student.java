@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,8 @@ public class Student extends User {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
 	private Set<Test> tests;
 

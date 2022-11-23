@@ -34,6 +34,13 @@ export class TestService {
     );
   }
 
+  submitTest(test: ITest): Observable<ITest> {
+    return this.http.post<ITest>(environment.apiUrl + '/tests/submit', test).pipe(
+      tap((data) => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
   getTest(id: number): Observable<ITest> {
     return this.http.get<ITest>(environment.apiUrl + `/tests/${id}`).pipe(
       tap((data) => console.log('All: ', JSON.stringify(data))),

@@ -35,3 +35,15 @@ export interface IRole {
   id: number;
   authority: string;
 }
+
+export const initUser : IUser = {
+  id: 0,
+  username: '',
+  password: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  phoneNumber: '',
+  roles: [],
+  deleted: false
+}

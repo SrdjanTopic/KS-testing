@@ -136,50 +136,7 @@
       </div>
     </div>
     <div class="col">
-      <div style="width: 400px" class="container">
-        <div class="pb-8 pl-5 justify-content-center">
-          <div class="card bg-light shadow">
-            <div class="card-header bg-white border-0">
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h3 class="mb-0">Test information</h3>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <form>
-                <div class="mt-4" *ngFor="let q of test.questions">
-                  <label for="input-q">Question {{ q.questionNumber }}({{ q.points }} points)</label>
-                  <button *appHasRole="['ROLE_TEACHER']" mat-stroked-button (click)="removeQuestion(q)"
-                    class="btn btn-danger btn-sm ml-2">
-                    Remove
-                  </button>
-                  <div class="form-group">
-                    <h2>{{ q.question }}</h2>
-                  </div>
-                  <mat-radio-group aria-labelledby="radio-group-label" class="example-radio-group"
-                    [ngModelOptions]="{standalone: true}" [ngModel]="q.answers" (change)="radioChange($event,q)">
-                    <mat-radio-button class="example-radio-button" *ngFor="let a of q.answers" [value]="a.answer">
-                      {{a.answer}}
-                      <button *appHasRole="['ROLE_TEACHER']" (click)="removeAnswer(a, q)"
-                        class="btn btn-danger btn-sm ml-2" mat-stroked-button>
-                        Remove
-                      </button>
-                    </mat-radio-button>
-                  </mat-radio-group>
-                  <hr class="my-4" />
-                </div>
-                <div class="mt-2 text-right">
-                  <button *appHasRole="['ROLE_TEACHER']" mat-stroked-button (click)="addTest()"
-                    class="btn btn-success btn-lg">
-                    Add test
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-base-test></app-base-test>
     </div>
     <div class="col"></div>
   </div>

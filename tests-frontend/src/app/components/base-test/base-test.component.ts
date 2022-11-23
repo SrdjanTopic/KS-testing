@@ -1,17 +1,18 @@
+import { Role } from './../../model/role.enum';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { IAnswer, initAnswer } from 'src/app/model/answer';
 import { IQuestion, initQuestion } from 'src/app/model/question';
 import { ITest, initTest } from 'src/app/model/test';
 import { TestService } from 'src/app/services/test.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-base-test',
   templateUrl: './base-test.component.html',
-  styleUrls: ['./base-test.component.css']
+  styleUrls: ['./base-test.component.css'],
 })
 export class BaseTestComponent implements OnInit {
-
   @Input() test: ITest = initTest;
   question: IQuestion = initQuestion;
   answer: IAnswer = initAnswer;
@@ -21,22 +22,40 @@ export class BaseTestComponent implements OnInit {
   questionNumber: number = 0;
   isCorrect: boolean = false;
 
-  constructor(private testService: TestService) { }
+  constructor(
+    private testService: TestService,
+    private userService: UserService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addTest() {
-    this.testService
-      .saveTest(this.test)
-      .subscribe((test) => (this.test = test));
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.test.teacher = user;
+        this.testService
+          .saveTest(this.test)
+          .subscribe((test) => (this.test = test));
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      },
+    });
   }
 
   submitTest() {
     this.test.id = 0;
-    this.testService
-      .saveTest(this.test)
-      .subscribe((test) => (this.test = test));
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.test.student = user;
+        this.testService
+          .submitTest(this.test)
+          .subscribe((test) => (this.test = test));
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      },
+    });
   }
 
   addQuestion() {
@@ -52,16 +71,16 @@ export class BaseTestComponent implements OnInit {
 
   removeQuestion(question: IQuestion) {
     this.test.questions = this.test.questions.filter((q) => q !== question);
-    this.test.questions.forEach(q => {
+    this.test.questions.forEach((q) => {
       if (q.questionNumber > question.questionNumber) {
         q.questionNumber--;
       }
-    })
+    });
     this.questionNumber--;
   }
 
   addAnswer() {
-    this.test.questions.forEach(q => {
+    this.test.questions.forEach((q) => {
       if (q.questionNumber === this.questionNumber) {
         q.answers.push({
           id: 0,
@@ -77,14 +96,12 @@ export class BaseTestComponent implements OnInit {
   }
 
   radioChange(answer: MatRadioChange, question: IQuestion) {
-    question.answers.forEach(a => {
+    question.answers.forEach((a) => {
       if (a.answer === answer.value) {
         a.isCorrect = true;
-      }
-      else {
+      } else {
         a.isCorrect = false;
       }
-    })
+    });
   }
-
 }

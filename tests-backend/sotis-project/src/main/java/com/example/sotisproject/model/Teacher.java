@@ -26,6 +26,7 @@ public class Teacher extends User {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
 	private Set<Test> tests;
 

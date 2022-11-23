@@ -1,5 +1,6 @@
 package com.example.sotisproject.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -85,6 +86,7 @@ public class User implements Serializable, UserDetails {
 		this.lastName = lastName;
 	}
 
+	@JsonDeserialize(using = CustomAuthorityDeserializer.class)
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;
