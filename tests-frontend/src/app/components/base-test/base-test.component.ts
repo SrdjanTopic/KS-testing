@@ -44,7 +44,6 @@ export class BaseTestComponent implements OnInit {
   }
 
   submitTest() {
-    this.test.id = 0;
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.test.student = user;
@@ -61,7 +60,6 @@ export class BaseTestComponent implements OnInit {
   addQuestion() {
     this.questionNumber = this.questionNumber + 1;
     this.test.questions.push({
-      id: 0,
       question: this.questionText,
       points: this.points,
       questionNumber: this.questionNumber,
@@ -83,7 +81,6 @@ export class BaseTestComponent implements OnInit {
     this.test.questions.forEach((q) => {
       if (q.questionNumber === this.questionNumber) {
         q.answers.push({
-          id: 0,
           answer: this.answerText,
           isCorrect: this.isCorrect,
         });

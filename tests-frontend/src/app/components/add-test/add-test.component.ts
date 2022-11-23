@@ -8,6 +8,7 @@ import { initQuestion, IQuestion } from './../../model/question';
 import { initTest, ITest } from './../../model/test';
 import { TestService } from './../../services/test.service';
 import { MatRadioChange } from '@angular/material/radio';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-add-test',
@@ -30,7 +31,8 @@ export class AddTestComponent implements OnInit {
   constructor(
     private testService: TestService,
     private relationService: RelationService,
-    private conceptService: ConceptService
+    private conceptService: ConceptService,
+    private userService: UserService
   ) {}
 
   conceptInputLabel: string = '';
@@ -285,9 +287,17 @@ export class AddTestComponent implements OnInit {
       alert('Please connect ALL questions with concepts!');
       return;
     }
-    this.testService
-      .saveTest(this.test)
-      .subscribe((test) => alert('Test successfully added'));
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.test.teacher = user;
+        this.testService
+          .saveTest(this.test)
+          .subscribe((test) => (this.test = test));
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      },
+    });
   }
   async addQuestion() {
     this.questionNumber = this.questionNumber + 1;
@@ -314,7 +324,6 @@ export class AddTestComponent implements OnInit {
     this.test.questions.forEach((q) => {
       if (q.questionNumber === this.questionNumber) {
         q.answers.push({
-          id: 0,
           answer: this.answerText,
           isCorrect: this.isCorrect,
         });

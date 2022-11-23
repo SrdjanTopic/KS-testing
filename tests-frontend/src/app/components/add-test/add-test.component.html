@@ -8,21 +8,7 @@
               style="width: 100%"
               class="d-flex flex-column justify-content-center"
             >
-              <div class="form-group">
-                <mat-form-field appearance="fill">
-                  <mat-label class="form-control-label" for="test"
-                    >Test name</mat-label
-                  >
-                  <input
-                    style="font-size: 1.5em"
-                    matInput
-                    type="text"
-                    id="test"
-                    name="test"
-                    [(ngModel)]="test.name"
-                  />
-                </mat-form-field>
-              </div>
+              
               <div
                 class="form-group d-flex flex-column justify-content-center"
                 style="width: 100%"
@@ -109,7 +95,7 @@
             </div>
             <button
               mat-stroked-button
-              (click)="addAnswer(q)"
+              (click)="addAnswer()"
               class="btn btn-info mt-2"
             >
               Add answer
@@ -125,13 +111,6 @@
               Connect concepts
             </button>
           </div>
-          <button
-            mat-stroked-button
-            (click)="addAnswer()"
-            class="btn btn-info mt-2"
-          >
-            Add answer
-          </button>
         </form>
       </div>
     </div>

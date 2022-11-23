@@ -24,7 +24,7 @@ public class Test {
 
     private String name;
 
-    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER)
     private Set<Question> questions;
 
     @ManyToOne(fetch = FetchType.EAGER)

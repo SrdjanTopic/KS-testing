@@ -16,7 +16,7 @@ public class TestService {
     private QuestionService questionService;
 
     public Test addTest(Test test){
-        Test newTest = testRepository.save(new Test(null, test.getName(), null));
+        Test newTest = testRepository.save(test);
         test.getQuestions().forEach((Question question)->{
             question.setTest(newTest);
             questionService.addQuestion(question);
