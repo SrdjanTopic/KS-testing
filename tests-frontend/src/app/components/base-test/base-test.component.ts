@@ -46,7 +46,6 @@ export class BaseTestComponent implements OnInit {
   submitTest() {
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
-        this.test.student = user;
         this.testService
           .submitTest(this.test)
           .subscribe((test) => (this.test = test));

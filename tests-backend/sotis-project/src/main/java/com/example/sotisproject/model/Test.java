@@ -30,7 +30,4 @@ public class Test {
     @ManyToOne(fetch = FetchType.EAGER)
     private Teacher teacher;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Student student;
-
 }

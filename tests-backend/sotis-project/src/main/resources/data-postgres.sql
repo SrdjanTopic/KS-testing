@@ -22,7 +22,7 @@ insert into relation (source_id, destination_id) values (1,2);
 insert into relation (source_id, destination_id) values (2,3);
 insert into relation (source_id, destination_id) values (4,2);
 -- TEST INSERT
-insert into test (name,student_id) values ('Test for the insane ones',2); --test_id:1
+insert into test (name) values ('Test for the insane ones'); --test_id:1
 -- QUESTION INSERT
 insert into question (test_id, concept_id, question) values (1, 1, 'What/who is KEKEKE?'); --question_id:1
 insert into question (test_id, concept_id, points, question) values (1, 2, 25, 'Question???'); --question_id:2

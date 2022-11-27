@@ -14,8 +14,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Student extends User {
 	
@@ -24,8 +22,5 @@ public class Student extends User {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
-	private Set<Test> tests;
 
 }
