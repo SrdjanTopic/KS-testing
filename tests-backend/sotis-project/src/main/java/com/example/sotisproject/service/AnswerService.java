@@ -11,6 +11,6 @@ public class AnswerService {
     private AnswerRepository answerRepository;
 
     public Answer addAnswer(Answer answer){
-        return answerRepository.save(new Answer(null, answer.getQuestion(), answer.getAnswer(), answer.getIsCorrect()));
+        return answerRepository.save(new Answer(null, answer.getQuestion(), answer.getAnswer(), answer.getIsCorrect(), null));
         }
 }

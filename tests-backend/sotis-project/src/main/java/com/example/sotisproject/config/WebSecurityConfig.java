@@ -113,6 +113,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(HttpMethod.GET, "/tests/");
 		web.ignoring().antMatchers(HttpMethod.GET, "/concepts/");
 		web.ignoring().antMatchers(HttpMethod.GET, "/relations/");
+		web.ignoring().antMatchers(HttpMethod.GET, "/students/{id}/answers");
+		web.ignoring().antMatchers(HttpMethod.GET, "/students/{id}/tests");
+		web.ignoring().antMatchers(HttpMethod.GET, "/students/{id}");
+
 	
 		// Ovim smo dozvolili pristup statickim resursima aplikacije
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "favicon.ico", "/**/*.html",
