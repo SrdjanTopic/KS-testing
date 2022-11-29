@@ -1,16 +1,15 @@
 package com.example.sotisproject.model;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,5 +21,7 @@ public class Student extends User {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Answer> answers;
 }

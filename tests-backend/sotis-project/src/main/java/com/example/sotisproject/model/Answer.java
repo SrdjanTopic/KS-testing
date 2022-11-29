@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,12 +20,16 @@ public class Answer {
     private Long id;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Question question;
 
     private String answer;
 
     @Column(columnDefinition = "boolean default false")
     private Boolean isCorrect;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "answers", fetch = FetchType.EAGER)
+    private Set<Student> students;
 
 }
