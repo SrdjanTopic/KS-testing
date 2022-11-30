@@ -2,6 +2,7 @@ import { IAnswer } from './answer';
 import { IConcept, initConcept } from './concept';
 
 export interface IQuestion {
+  id: number | null;
   question: string;
   points: number;
   questionNumber: number;
@@ -10,6 +11,7 @@ export interface IQuestion {
 }
 
 export const initQuestion: IQuestion = {
+  id: null,
   question: '',
   points: 0,
   questionNumber: 0,

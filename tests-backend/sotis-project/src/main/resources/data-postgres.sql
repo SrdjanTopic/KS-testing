@@ -31,13 +31,46 @@ insert into relation (source_id, destination_id) values (3,5);
 insert into relation (source_id, destination_id) values (8,6);
 insert into relation (source_id, destination_id) values (3,8);
 -- TEST INSERT
-insert into test (name) values ('Test for the insane ones'); --test_id:1
+insert into test (name) values ('Web developer fundamentals'); --test_id:1
 -- QUESTION INSERT
-insert into question (test_id, concept_id, question) values (1, 1, 'What/who is KEKEKE?'); --question_id:1
-insert into question (test_id, concept_id, points, question) values (1, 2, 25, 'Question???'); --question_id:2
-insert into question (test_id, concept_id, points, question) values (1, 2, 55, 'Question???'); --question_id:2
+insert into question (test_id, concept_id, question) values (1, 1, 'Which tag do we use in HTML for inserting a line-break?'); --question_id:1
+insert into question (test_id, concept_id, points, question) values (1, 2, 15, 'How can we change the background color of an element in CSS?'); --question_id:2
+insert into question (test_id, concept_id, points, question) values (1, 3, 20, ' Which of the following keywords is used to define a variable in Javascript?'); --question_id:3
+insert into question (test_id, concept_id, points, question) values (1, 4, 5, 'How can you make text bold in Tailwind CSS?'); --question_id:4
+insert into question (test_id, concept_id, points, question) values (1, 5, 15, 'React.js is written in which of the following languages?'); --question_id:5
+insert into question (test_id, concept_id, points, question) values (1, 6, 10, 'Which of the following components can be injected as a dependency in AngularJS?'); --question_id:6
+insert into question (test_id, concept_id, points, question) values (1, 7, 15, 'Which of the following directive is used to share rules and relationships between selectors in SASS?'); --question_id:7
+insert into question (test_id, concept_id, points, question) values (1, 8, 15, 'Which object-oriented terms are supported by TypeScript?'); --question_id:8
 -- ANSWER INSERT
-insert into answer (question_id, answer) values (1, 'what!?'); --answer_id:1
-insert into answer (question_id, answer, is_correct) values (1, 'HE IS GOD', true); --answer_id:2
+insert into answer (question_id, answer) values (1, '<a>'); --answer_id:1
+insert into answer (question_id, answer) values (1, '<p>'); --answer_id:2
+insert into answer (question_id, answer) values (1, '<b>'); --answer_id:3
+insert into answer (question_id, answer, is_correct) values (1, '<br>', true); --answer_id:4
+insert into answer (question_id, answer, is_correct) values (2, 'background-color', true); --answer_id:5
+insert into answer (question_id, answer) values (2, 'color'); --answer_id:6
+insert into answer (question_id, answer) values (2, 'both'); --answer_id:7
+insert into answer (question_id, answer) values (2, 'none'); --answer_id:8
+insert into answer (question_id, answer, is_correct) values (3, 'both', true); --answer_id:9
+insert into answer (question_id, answer) values (3, 'var'); --answer_id:10
+insert into answer (question_id, answer) values (3, 'let'); --answer_id:11
+insert into answer (question_id, answer) values (3, 'none'); --answer_id:12
+insert into answer (question_id, answer, is_correct) values (4, 'add to class "font-bold"', true); --answer_id:13
+insert into answer (question_id, answer) values (4, 'add to class "bold"'); --answer_id:14
+insert into answer (question_id, answer, is_correct) values (5, 'Javascript', true); --answer_id:15
+insert into answer (question_id, answer) values (5, 'C#'); --answer_id:16
+insert into answer (question_id, answer) values (5, 'Java'); --answer_id:17
+insert into answer (question_id, answer) values (5, 'Python'); --answer_id:18
+insert into answer (question_id, answer, is_correct) values (6, 'All answers', true); --answer_id:15
+insert into answer (question_id, answer) values (6, 'factory'); --answer_id:16
+insert into answer (question_id, answer) values (6, 'service'); --answer_id:17
+insert into answer (question_id, answer) values (6, 'value'); --answer_id:18
+insert into answer (question_id, answer, is_correct) values (7, '@extend', true); --answer_id:19
+insert into answer (question_id, answer) values (7, '@media'); --answer_id:20
+insert into answer (question_id, answer) values (7, 'None'); --answer_id:21
+insert into answer (question_id, answer, is_correct) values (8, 'All answers', true); --answer_id:22
+insert into answer (question_id, answer) values (8, 'Interfaces'); --answer_id:23
+insert into answer (question_id, answer) values (8, 'Data Types'); --answer_id:24
+insert into answer (question_id, answer) values (8, 'Member functions'); --answer_id:25
+
 -- STUDENT ANSWERS
-insert into student_answers (students_id, answers_id) values (2, 1);
+-- insert into student_answers (students_id, answers_id) values (2, 1);

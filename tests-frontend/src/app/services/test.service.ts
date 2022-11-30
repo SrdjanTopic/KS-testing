@@ -8,6 +8,7 @@ import { ITest } from './../model/test';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { ISubmitTestAnswers } from '../model/submitTestAnswers';
 
 @Injectable({
   providedIn: 'root',
@@ -34,11 +35,13 @@ export class TestService {
     );
   }
 
-  submitTest(test: ITest): Observable<ITest> {
-    return this.http.post<ITest>(environment.apiUrl + '/tests/submit', test).pipe(
-      tap((data) => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
-    );
+  submitTest(test: ISubmitTestAnswers): Observable<ITest> {
+    return this.http
+      .post<ITest>(environment.apiUrl + '/tests/submit', test)
+      .pipe(
+        tap((data) => console.log('All: ', JSON.stringify(data))),
+        catchError(this.handleError)
+      );
   }
 
   getTest(id: number): Observable<ITest> {
