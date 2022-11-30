@@ -1,10 +1,13 @@
-<div style="width: 400px" class="container">
-  <div class="pb-8 pl-5 justify-content-center">
+<div style="width: 100%" class="container">
+  <div class="p-8 justify-content-center">
     <div class="card bg-light shadow">
       <div class="card-header bg-white border-0">
         <div class="row align-items-center">
-          <div *appHasRole="['ROLE_STUDENT']" class="col-8">
-            <h3 class="mb-0">{{test.name}}</h3>
+          <div
+            *appHasRole="['ROLE_STUDENT']"
+            class="d-flex flex-columnt justify-content-center"
+          >
+            <h1 class="mb-0">{{ test.name }}</h1>
           </div>
           <div *appHasRole="['ROLE_TEACHER']" class="col-8">
             <div class="form-group">
@@ -74,14 +77,6 @@
               class="btn btn-success btn-lg"
             >
               Add test
-            </button>
-            <button
-              *appHasRole="['ROLE_STUDENT']"
-              mat-stroked-button
-              (click)="submitTest()"
-              class="btn btn-success btn-lg"
-            >
-              Submit test
             </button>
           </div>
         </form>

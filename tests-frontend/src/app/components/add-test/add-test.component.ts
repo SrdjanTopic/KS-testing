@@ -302,6 +302,7 @@ export class AddTestComponent implements OnInit {
   async addQuestion() {
     this.questionNumber = this.questionNumber + 1;
     this.test.questions.push({
+      id: null,
       question: this.questionText,
       points: this.points,
       questionNumber: this.questionNumber,
@@ -324,6 +325,7 @@ export class AddTestComponent implements OnInit {
     this.test.questions.forEach((q) => {
       if (q.questionNumber === this.questionNumber) {
         q.answers.push({
+          id: null,
           answer: this.answerText,
           isCorrect: this.isCorrect,
         });

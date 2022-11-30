@@ -6,6 +6,7 @@
   height: 2em;
   line-height: 2em;
   padding: 0;
+  z-index: 100;
 }
 
 .navbar ul {

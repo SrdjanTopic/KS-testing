@@ -22,4 +22,11 @@ public class RelationService {
         relations.forEach((relation -> relationList.add(relationRepository.save(relation))));
         return relationList;
     }
+
+    public List<Long> getConceptOrder(){
+        List<Long> conceptOrder = new ArrayList<>();
+        List<Relation> relationList = relationRepository.findAll();
+
+        return conceptOrder;
+    }
 }

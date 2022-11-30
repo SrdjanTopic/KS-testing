@@ -22,7 +22,14 @@
           <p>Max points:</p>
           <b>{{ test.maxPoints }}</b>
         </div>
-        <a [routerLink]="['/test/', test.id]">View Test</a>
+        <a *appHasRole="['ROLE_TEACHER']" [routerLink]="['/test/', test.id]"
+          >View Test</a
+        >
+        <a
+          *appHasRole="['ROLE_STUDENT']"
+          [routerLink]="['/test/', test.id, 'submit']"
+          >Attempt Test</a
+        >
       </div>
     </div>
   </div>

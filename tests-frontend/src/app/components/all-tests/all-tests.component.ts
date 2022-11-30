@@ -54,8 +54,4 @@ export class AllTestsComponent implements OnInit {
       );
     });
   }
-
-  openTest(testId: number) {
-    this.router.navigate([`tests/${testId}`]);
-  }
 }

@@ -43,22 +43,10 @@ export class BaseTestComponent implements OnInit {
     });
   }
 
-  submitTest() {
-    this.userService.getCurrentUser().subscribe({
-      next: (user) => {
-        this.testService
-          .submitTest(this.test)
-          .subscribe((test) => (this.test = test));
-      },
-      error: (error) => {
-        console.error('There was an error!', error);
-      },
-    });
-  }
-
   addQuestion() {
     this.questionNumber = this.questionNumber + 1;
     this.test.questions.push({
+      id: null,
       question: this.questionText,
       points: this.points,
       questionNumber: this.questionNumber,
@@ -80,6 +68,7 @@ export class BaseTestComponent implements OnInit {
     this.test.questions.forEach((q) => {
       if (q.questionNumber === this.questionNumber) {
         q.answers.push({
+          id: null,
           answer: this.answerText,
           isCorrect: this.isCorrect,
         });

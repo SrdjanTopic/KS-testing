@@ -1,5 +1,7 @@
 package com.example.sotisproject.controller;
 
+import com.example.sotisproject.dto.SubmitAnswersDTO;
+import com.example.sotisproject.model.Student;
 import com.example.sotisproject.model.Test;
 import com.example.sotisproject.service.TestService;
 import lombok.AllArgsConstructor;
@@ -46,12 +48,7 @@ public class TestController {
     }
     
     @PostMapping("/submit")
-    public ResponseEntity<Test> submitTest(@RequestBody Test test){
-        return new ResponseEntity<Test>(testService.submitTest(test), HttpStatus.OK);
+    public ResponseEntity<Student> submitTest(@RequestBody SubmitAnswersDTO submitAnswersDTO){
+        return new ResponseEntity<Student>(testService.submitTest(submitAnswersDTO), HttpStatus.OK);
     }
-
-//    @GetMapping()
-//    public ResponseEntity<Set<Test>> getTests() {
-//        return new ResponseEntity<Set<Test>>(testService.getTests(), HttpStatus.OK);
-//    }
 }
