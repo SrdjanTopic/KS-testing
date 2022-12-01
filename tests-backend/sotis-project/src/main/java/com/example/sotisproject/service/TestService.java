@@ -8,7 +8,8 @@ import com.example.sotisproject.repository.StudentRepository;
 import com.example.sotisproject.repository.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import java.util.*;
 
 @AllArgsConstructor
 @Service
@@ -16,6 +17,7 @@ public class TestService {
     private TestRepository testRepository;
     private QuestionService questionService;
     private StudentRepository studentRepository;
+    private RelationService relationService;
 
     public Test addTest(Test test){
         Test newTest = testRepository.save(test);
@@ -37,6 +39,17 @@ public class TestService {
     }
     
     public Test getTest(Long id) {
-        return testRepository.findById(id).get();
+        Test test = testRepository.findById(id).get();
+        Set<Question> questions = new LinkedHashSet<>();
+        List<Long> conceptOrder = relationService.getConceptOrder();
+        conceptOrder.forEach(concept->{
+            test.getQuestions().forEach(question -> {
+                if (Objects.equals(question.getConcept().getId(), concept)) {
+                    questions.add(question);
+                }
+            });
+        });
+        test.setQuestions(questions);
+        return test;
     }
 }
