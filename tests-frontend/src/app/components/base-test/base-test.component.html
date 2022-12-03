@@ -1,37 +1,30 @@
-<div style="width: 100%" class="container">
-  <div class="p-8 justify-content-center">
-    <div class="card bg-light shadow">
-      <div class="card-header bg-white border-0">
-        <div class="row align-items-center">
-          <div
-            *appHasRole="['ROLE_STUDENT']"
-            class="d-flex flex-columnt justify-content-center"
+<div class="wrapper">
+  <div class="test">
+    <div class="testName" *appHasRole="['ROLE_STUDENT']">
+      <h1>{{ test.name }}</h1>
+    </div>
+    <div *appHasRole="['ROLE_TEACHER']" class="testName">
+      <div class="form-group">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label class="form-control-label" for="input-name"
+            >Test name</mat-label
           >
-            <h1 class="mb-0">{{ test.name }}</h1>
-          </div>
-          <div *appHasRole="['ROLE_TEACHER']" class="col-8">
-            <div class="form-group">
-              <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label class="form-control-label" for="input-name"
-                  >Test name</mat-label
-                >
-                <input
-                  matInput
-                  type="text"
-                  id="input-name"
-                  name="name"
-                  [(ngModel)]="test.name"
-                />
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
+          <input
+            matInput
+            type="text"
+            id="input-name"
+            name="name"
+            [(ngModel)]="test.name"
+          />
+        </mat-form-field>
       </div>
-      <div class="card-body">
-        <form>
-          <div class="mt-4" *ngFor="let q of test.questions">
-            <label for="input-q"
-              >Question {{ q.questionNumber }}({{ q.points }} points)</label
+    </div>
+    <div class="testContent">
+      <form>
+        <div class="question" *ngFor="let q of test.questions">
+          <div class="questionText">
+            <b class="questionQuestion"
+              >Q{{ q.questionNumber }}. {{ q.question }}</b
             >
             <button
               *appHasRole="['ROLE_TEACHER']"
@@ -41,46 +34,52 @@
             >
               Remove
             </button>
-            <div class="form-group">
-              <h2>{{ q.question }}</h2>
-            </div>
-            <mat-radio-group
-              aria-labelledby="radio-group-label"
-              class="example-radio-group"
-              [ngModelOptions]="{ standalone: true }"
-              [ngModel]="q.answers"
-              (change)="radioChange($event, q)"
-            >
-              <mat-radio-button
-                class="example-radio-button"
-                *ngFor="let a of q.answers"
-                [value]="a.answer"
+            <span class="questionPoints">({{ q.points }} points)</span>
+          </div>
+          <mat-radio-group
+            aria-labelledby="radio-group-label"
+            class="answers"
+            [ngModelOptions]="{ standalone: true }"
+            [ngModel]="q.answers"
+            (change)="radioChange($event, q)"
+          >
+            <mat-radio-button *ngFor="let a of q.answers" [value]="a.answer">
+              <span class="answerText">{{ a.answer }}</span>
+              <button
+                *appHasRole="['ROLE_TEACHER']"
+                (click)="removeAnswer(a, q)"
+                class="btn btn-danger btn-sm ml-2"
+                mat-stroked-button
               >
-                {{ a.answer }}
-                <button
-                  *appHasRole="['ROLE_TEACHER']"
-                  (click)="removeAnswer(a, q)"
-                  class="btn btn-danger btn-sm ml-2"
-                  mat-stroked-button
-                >
-                  Remove
-                </button>
-              </mat-radio-button>
-            </mat-radio-group>
-            <hr class="my-4" />
-          </div>
-          <div class="mt-2 text-right">
-            <button
-              *appHasRole="['ROLE_TEACHER']"
-              mat-stroked-button
-              (click)="addTest()"
-              class="btn btn-success btn-lg"
-            >
-              Add test
-            </button>
-          </div>
-        </form>
-      </div>
+                Remove
+              </button>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <button
+          *appHasRole="['ROLE_STUDENT']"
+          mat-stroked-button
+          (click)="submitTest()"
+          class="btn btn-success btn-lg submitBtn"
+        >
+          Submit test
+        </button>
+        <button
+          *appHasRole="['ROLE_TEACHER']"
+          mat-stroked-button
+          (click)="addTest()"
+          class="btn btn-success btn-lg"
+        >
+          Add test
+        </button>
+        <!-- <button
+          mat-stroked-button
+          (click)="check()"
+          class="btn btn-success btn-lg submitBtn"
+        >
+          CHECK
+        </button> -->
+      </form>
     </div>
   </div>
 </div>

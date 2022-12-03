@@ -299,6 +299,7 @@ export class AddTestComponent implements OnInit {
       },
     });
   }
+
   async addQuestion() {
     this.questionNumber = this.questionNumber + 1;
     this.test.questions.push({
@@ -311,14 +312,8 @@ export class AddTestComponent implements OnInit {
     await this.draw();
   }
 
-  removeQuestion(question: IQuestion) {
-    this.test.questions = this.test.questions.filter((q) => q !== question);
-    this.test.questions.forEach((q) => {
-      if (q.questionNumber > question.questionNumber) {
-        q.questionNumber--;
-      }
-    });
-    this.questionNumber--;
+  change(questionNumber: number) {
+    this.questionNumber = questionNumber;
   }
 
   addAnswer() {
@@ -331,10 +326,6 @@ export class AddTestComponent implements OnInit {
         });
       }
     });
-  }
-
-  removeAnswer(answer: IAnswer, question: IQuestion) {
-    question.answers = question.answers.filter((a) => a !== answer);
   }
 
   highlightQuestion(questionNumber: number) {

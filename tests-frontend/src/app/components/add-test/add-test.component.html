@@ -116,7 +116,10 @@
       </div>
     </div>
     <div class="col">
-      <app-base-test></app-base-test>
+      <app-base-test
+        (numberChanged)="change($event)"
+        [questionNumber]="questionNumber"
+      ></app-base-test>
     </div>
     <div class="col"></div>
   </div>
