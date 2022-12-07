@@ -1,6 +1,7 @@
 package com.example.sotisproject.service;
 
 import com.example.sotisproject.dto.SubmitAnswersDTO;
+import com.example.sotisproject.model.Answer;
 import com.example.sotisproject.model.Question;
 import com.example.sotisproject.model.Student;
 import com.example.sotisproject.model.Test;
@@ -30,7 +31,9 @@ public class TestService {
     
     public Student submitTest(SubmitAnswersDTO submitAnswersDTO){
         Student student = studentRepository.findById(submitAnswersDTO.getStudentId()).get();
-        student.setAnswers(submitAnswersDTO.getAnswers());
+        List<Answer> allAnswers = student.getAnswers();
+        allAnswers.addAll(submitAnswersDTO.getAnswers());
+        student.setAnswers(allAnswers);
         return studentRepository.save(student);
     }
 

@@ -6,6 +6,7 @@ import { AllTestsComponent } from './components/all-tests/all-tests.component';
 import { KnowledgeGraphComponent } from './components/knowledge-graph/knowledge-graph.component';
 import { LoginComponent } from './components/login/login.component';
 import { TestRealizationComponent } from './pages/test-realization/test-realization.component';
+import { RealKnowledgeGraphComponent } from './components/real-knowledge-graph/real-knowledge-graph.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'graph',
     component: KnowledgeGraphComponent,
+  },
+  {
+    path: 'realGraph',
+    component: RealKnowledgeGraphComponent,
   },
   {
     path: 'test',

@@ -35,4 +35,12 @@ public class Concept {
     @JsonIgnore
     @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Relation> destinations;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "realSource", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<RealRelation> realSources;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "realDestination", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<RealRelation> realDestinations;
 }

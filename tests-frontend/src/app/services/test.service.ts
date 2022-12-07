@@ -21,12 +21,6 @@ export class TestService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
   }
-  // getTests(): Observable<ITest[]> {
-  //   return this.http.get<ITest[]>(environment.apiUrl + `/test`).pipe(
-  //     tap((data) => console.log('All: ', JSON.stringify(data))),
-  //     catchError(this.handleError)
-  //   );
-  // }
 
   saveTest(test: ITest): Observable<ITest> {
     return this.http.post<ITest>(environment.apiUrl + '/tests/add', test).pipe(

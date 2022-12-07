@@ -12,6 +12,10 @@ insert into teacher (id) values (1);
 insert into app_user (username, password, first_name, last_name) values ('student', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Keko', 'Kekic');
 insert into app_user_roles (user_id, role_id) values (2, 2);
 insert into student (id) values (2);
+-- username:student2 password:123
+insert into app_user (username, password, first_name, last_name) values ('student2', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'adafas', 'afsafsasf');
+insert into app_user_roles (user_id, role_id) values (3, 2);
+insert into student (id) values (3);
 
 -- CONCEPT INSERT
 insert into concept (concept) values ('HTML'); --concept_id:1
