@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -23,5 +24,5 @@ public class Student extends User {
 
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<Answer> answers;
+	private List<Answer> answers;
 }

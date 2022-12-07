@@ -20,9 +20,10 @@ import { MatInputModule } from '@angular/material/input';
 import { HasRoleDirective } from './directive/hasRole.directive';
 import { AllTestsComponent } from './components/all-tests/all-tests.component';
 import { KnowledgeGraphComponent } from './components/knowledge-graph/knowledge-graph.component';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { BaseTestComponent } from './components/base-test/base-test.component';
 import { TestRealizationComponent } from './pages/test-realization/test-realization.component';
+import { RealKnowledgeGraphComponent } from './components/real-knowledge-graph/real-knowledge-graph.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TestRealizationComponent } from './pages/test-realization/test-realizat
     HasRoleDirective,
     BaseTestComponent,
     TestRealizationComponent,
+    RealKnowledgeGraphComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,9 +50,9 @@ import { TestRealizationComponent } from './pages/test-realization/test-realizat
     MatButtonModule,
     NgbModule,
     MatCheckboxModule,
-    MatInputModule, 
+    MatInputModule,
     HttpClientModule,
-    MatRadioModule
+    MatRadioModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

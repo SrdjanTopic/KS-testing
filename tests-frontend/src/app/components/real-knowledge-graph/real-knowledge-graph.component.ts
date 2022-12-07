@@ -7,11 +7,11 @@ import { ConceptService } from '../../services/concept.service';
 import { RelationService } from '../../services/relation.service';
 
 @Component({
-  selector: 'app-knowledge-graph',
-  templateUrl: './knowledge-graph.component.html',
-  styleUrls: ['./knowledge-graph.component.css'],
+  selector: 'app-real-knowledge-graph',
+  templateUrl: './real-knowledge-graph.component.html',
+  styleUrls: ['./real-knowledge-graph.component.css'],
 })
-export class KnowledgeGraphComponent implements OnInit {
+export class RealKnowledgeGraphComponent implements OnInit {
   realKS: any = [];
 
   conceptInputLabel: string = '';
@@ -167,7 +167,10 @@ export class KnowledgeGraphComponent implements OnInit {
   }
 
   async loadRelations() {
-    this.relations = await this.relationService.getRelations().toPromise();
+    this.relations = await this.realRelationService
+      .getRealRelations()
+      .toPromise();
+    console.log(this.relations);
   }
 
   loadNodes() {
@@ -188,14 +191,14 @@ export class KnowledgeGraphComponent implements OnInit {
   loadEdges() {
     this.edges = new DataSet<any>(
       this.relations.map((relation: any) => ({
-        from: relation.source.id,
-        to: relation.destination.id,
+        from: relation.realSource.id,
+        to: relation.realDestination.id,
       }))
     );
     this.startEdges = new DataSet<any>(
       this.relations.map((relation: any) => ({
-        from: relation.source.id,
-        to: relation.destination.id,
+        from: relation.realSource.id,
+        to: relation.realDestination.id,
       }))
     );
   }
@@ -257,18 +260,19 @@ export class KnowledgeGraphComponent implements OnInit {
       .subscribe((results) => {
         this.studentAnswerService.generateRealKS(results).subscribe((res) => {
           this.realKS = res.implications.map((implication: any) => ({
-            sourceId: implication[0] + 1,
-            destinationId: implication[1] + 1,
+            sourceId: implication[0],
+            destinationId: implication[1],
           }));
+          console.log(this.realKS);
           this.realKS = this.realKS.filter((ks: any, index: number) => {
             if (ks.sourceId === 0 || ks.destinationId === 0) return false;
             else return true;
           });
           console.log(this.realKS);
-          this.realRelationService
-            .saveRealRelations(this.realKS)
-            .pipe()
-            .subscribe((res) => console.log(res));
+          // this.realRelationService
+          //   .saveRealRelations(this.realKS)
+          //   .pipe()
+          //   .subscribe((res) => console.log(res));
         });
       });
   }
