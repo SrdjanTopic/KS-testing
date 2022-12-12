@@ -30,4 +30,6 @@ public class Test {
     @ManyToOne(fetch = FetchType.EAGER)
     private Teacher teacher;
 
+    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER)
+    private Set<RealRelation> realRelations;
 }

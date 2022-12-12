@@ -14,6 +14,13 @@ export class ConceptService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
   }
+
+  getConceptsForTest(testId: Number) {
+    return this.http.get(`${environment.apiUrl}/concepts/${testId}`, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    });
+  }
+
   addConcepts(concepts: { concept: string }[]) {
     return this.http
       .post<any>(`${environment.apiUrl}/concepts/add`, concepts)
@@ -21,6 +28,7 @@ export class ConceptService {
         map((data) => console.log('Added concepts: ', JSON.stringify(data)))
       );
   }
+
   deleteConcepts(concepts: { id: number; concept: string }[]) {
     return this.http
       .post<any>(`${environment.apiUrl}/concepts/delete`, concepts)

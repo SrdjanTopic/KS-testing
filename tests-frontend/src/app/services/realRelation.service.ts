@@ -15,9 +15,18 @@ export class RealRelationService {
     });
   }
 
-  saveRealRelations(results: any) {
+  getRealRelationsForTest(testId: Number) {
+    return this.http.get(`${environment.apiUrl}/realRelations/${testId}`, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    });
+  }
+
+  saveRealRelationsForTest(results: any, testId: Number) {
     return this.http
-      .post<any>(`${environment.apiUrl}/realRelations/create`, results)
+      .post<any>(
+        `${environment.apiUrl}/realRelations/${testId}/create`,
+        results
+      )
       .pipe(tap());
   }
 }

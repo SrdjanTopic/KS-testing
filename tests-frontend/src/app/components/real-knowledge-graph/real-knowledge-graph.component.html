@@ -1,27 +1,69 @@
-<div class="wrapper">
-  <div class="buttons">
-    <p>Controls</p>
-    <div class="addConcept">
-      <label for="label">Input concept name</label>
-      <input id="label" type="text" [(ngModel)]="conceptInputLabel" />
-      <button
-        [ngClass]="!conceptInputLabel ? 'disabledBtn' : 'addConceptBtn'"
-        (click)="addNode()"
-        [disabled]="!conceptInputLabel"
-      >
-        Add Concept
-      </button>
+<div class="modalWrapper">
+  <div class="modalContent">
+    <div class="modalInfo">
+      <div class="questionsList">
+        <p
+          id="ppp"
+          *ngFor="let test of tests"
+          [ngClass]="
+            test.id == selectedTestId ? 'questionSelected' : 'question'
+          "
+          (click)="drawForTest(test.id)"
+        >
+          T{{ test.testNumber }}. {{ test.name }}
+        </p>
+      </div>
+      <div class="buttons">
+        <button
+          (click)="generateKnowledgeSpaceForTest()"
+          mat-stroked-button
+          [ngClass]="
+            selectedTestId !== 0
+              ? ['btn', 'btn-info', 'btn-lg']
+              : ['btn', 'btn-info', 'btn-lg', 'disabled']
+          "
+        >
+          Generate KS for test</button
+        ><button
+          (click)="saveRealKS()"
+          mat-stroked-button
+          [ngClass]="
+            isRealKSGenerated
+              ? ['btn', 'btn-primary', 'btn-lg']
+              : ['btn', 'btn-primary', 'btn-lg', 'disabled']
+          "
+        >
+          Save KS
+        </button>
+      </div>
     </div>
-    <button class="addRelationBtn" (click)="addEdge()">Add Relation</button>
-    <button
-      id="removeSelectionBtn"
-      class="removeSelectedBtn"
-      (click)="removeSelected()"
-    >
-      Remove Selected
-    </button>
-    <button class="saveGraphBtn" (click)="saveGraph()">Save Graph</button>
-    <button (click)="getAllResultsForIITA()">Generate Real KS</button>
+    <div class="visWrapper">
+      <div id="visNetwork" #visNetwork></div>
+      <span *ngIf="selectedTestId === 0" class="orangeSpan"
+        >Select a test to display its real knowledge space!</span
+      >
+      <span
+        *ngIf="relations.length === 0 && selectedTestId !== 0"
+        class="redSpan"
+        >There is no real knowledge space for this test. You can generate a new
+        one!</span
+      >
+      <span
+        *ngIf="
+          relations.length > 0 && selectedTestId !== 0 && realKS.length > 0
+        "
+        class="greenSpan"
+        >Real knowledge space for this test generated successfully! You can save
+        this KS and override the last one.</span
+      >
+      <span
+        *ngIf="
+          relations.length > 0 && selectedTestId !== 0 && realKS.length === 0
+        "
+        class="blueSpan"
+        >This is an existing knowledge space for this test! You can always
+        generate a new one.</span
+      >
+    </div>
   </div>
-  <div id="visNetwork" #visNetwork></div>
 </div>

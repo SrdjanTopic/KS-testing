@@ -249,27 +249,4 @@ export class KnowledgeGraphComponent implements OnInit {
       .toPromise();
     window.location.reload();
   }
-
-  getAllResultsForIITA() {
-    this.studentAnswerService
-      .getAllResultsForIITA()
-      .pipe()
-      .subscribe((results) => {
-        this.studentAnswerService.generateRealKS(results).subscribe((res) => {
-          this.realKS = res.implications.map((implication: any) => ({
-            sourceId: implication[0] + 1,
-            destinationId: implication[1] + 1,
-          }));
-          this.realKS = this.realKS.filter((ks: any, index: number) => {
-            if (ks.sourceId === 0 || ks.destinationId === 0) return false;
-            else return true;
-          });
-          console.log(this.realKS);
-          this.realRelationService
-            .saveRealRelations(this.realKS)
-            .pipe()
-            .subscribe((res) => console.log(res));
-        });
-      });
-  }
 }

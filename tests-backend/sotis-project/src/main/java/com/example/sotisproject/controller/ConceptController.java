@@ -1,7 +1,6 @@
 package com.example.sotisproject.controller;
 
 import com.example.sotisproject.model.Concept;
-import com.example.sotisproject.model.Test;
 import com.example.sotisproject.service.ConceptService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -18,6 +17,11 @@ public class ConceptController {
     @GetMapping("/")
     public List<Concept> getConcepts(){
         return conceptService.getConcepts();
+    }
+
+    @GetMapping("/{testId}")
+    public List<Concept> getConceptsForTest(@PathVariable("testId") Long testId){
+        return conceptService.getConceptsForTest(testId);
     }
 
     @PostMapping("/add")
