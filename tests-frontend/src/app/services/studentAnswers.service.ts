@@ -15,6 +15,15 @@ export class StudentAnswerService {
     });
   }
 
+  getTestResultsForIITA(testId: Number) {
+    return this.http.get(
+      `${environment.apiUrl}/studentAnswers/allResults/${testId}`,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      }
+    );
+  }
+
   generateRealKS(results: any) {
     return this.http
       .post<any>(`http://localhost:5000/iita`, results)

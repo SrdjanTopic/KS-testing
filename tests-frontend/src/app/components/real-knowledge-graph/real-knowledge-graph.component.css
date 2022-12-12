@@ -1,102 +1,98 @@
-.wrapper {
+.modalWrapper {
+  height: 90%;
+  width: 100%;
+  padding: 1em;
+}
+
+.modalWrapper .modalContent {
   display: flex;
-  align-items: center;
-  background-color: white;
-  height: 93%;
+  width: 100%;
+  height: 100%;
   padding: 1em;
   gap: 1em;
 }
 
-.wrapper #visNetwork {
+.modalWrapper .modalContent .modalInfo {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modalWrapper .modalContent .modalInfo .questionsList {
+  width: 100%;
+  height: 85%;
+  font-weight: bold;
+  user-select: none;
+  overflow-y: auto;
+}
+
+.modalWrapper .modalContent .modalInfo .questionsList .question {
+  padding: 0.2em;
+  cursor: pointer;
+  border-radius: 0.5em;
+  background-color: hsl(0, 100%, 80%);
+  border: 2px red solid;
+  margin-block-end: 0.3em;
+}
+
+.modalWrapper .modalContent .modalInfo .questionsList .questionSelected {
+  padding: 0.2em;
+  cursor: pointer;
+  border-radius: 0.5em;
+  border: 2px red solid;
+  background-color: hsl(0, 100%, 90%);
+  margin-block-end: 0.3em;
+}
+
+.modalWrapper .modalContent .modalInfo .questionsList .question:hover {
+  background-color: hsl(0, 100%, 90%);
+}
+
+.modalWrapper .modalContent .modalInfo .buttons {
+  width: 100%;
+  display: flex;
+}
+
+.modalWrapper .modalContent .modalInfo .buttons button {
+  transition: 0.5s;
+}
+
+.modalWrapper .modalContent .visWrapper {
   width: 80%;
-  height: 95%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalWrapper .modalContent .visWrapper #visNetwork {
+  width: 100%;
+  height: 90%;
   border-radius: 1em;
   box-shadow: 0 0 1em black;
-  background-color: white;
 }
 
-.wrapper .buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1em;
-  height: 95%;
-  gap: 2em;
-}
-
-.wrapper .buttons button {
-  border: none;
-  background-color: black;
-  color: white;
+.modalWrapper .modalContent .visWrapper span {
   font-size: 1.5em;
-  padding: 0.3em;
-  transition: 0.3s;
-  border-radius: 0.5em;
+  margin-top: 1em;
+  user-select: none;
 }
 
-.wrapper .buttons button:hover {
-  background-color: gray;
+.modalWrapper .modalContent .visWrapper .redSpan {
+  color: red;
 }
 
-.wrapper .buttons p {
-  font-size: 2em;
+.modalWrapper .modalContent .visWrapper .orangeSpan {
+  color: orange;
 }
 
-.wrapper .buttons .addConcept {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5em;
+.modalWrapper .modalContent .visWrapper .greenSpan {
+  color: green;
 }
 
-.wrapper .buttons .addConcept label {
-  font-size: 1.3em;
-}
-
-.wrapper .buttons .addConcept input {
-  font-size: 1.3em;
-  border: none;
-  outline: 3px hsl(90, 100%, 60%) solid;
-  border-radius: 0.2em;
-  transition: 0.3s;
-}
-
-.wrapper .buttons .addConcept input:focus {
-  outline: 3px hsl(90, 100%, 30%) solid;
-}
-
-.wrapper .buttons .addConcept .addConceptBtn {
-  background-color: hsl(90, 100%, 60%);
-}
-.wrapper .buttons .addConcept .addConceptBtn:hover {
-  background-color: hsl(90, 100%, 30%);
-}
-
-.wrapper .buttons .addRelationBtn {
-  background-color: hsl(200, 100%, 60%);
-}
-
-.wrapper .buttons .addRelationBtn:hover {
-  background-color: hsl(200, 100%, 30%);
-}
-
-.wrapper .buttons .removeSelectedBtn {
-  background-color: hsl(0, 100%, 60%);
-}
-
-.wrapper .buttons .removeSelectedBtn:hover {
-  background-color: hsl(0, 100%, 30%);
-}
-
-.wrapper .buttons .saveGraphBtn {
-  margin-top: 8em;
-}
-
-.wrapper .buttons .disabledBtn {
-  background-color: gray;
-  color: hsl(0, 0%, 70%);
-}
-.wrapper .buttons .disabledBtn:hover {
-  background-color: gray;
+.modalWrapper .modalContent .visWrapper .blueSpan {
+  color: hsl(240, 100%, 60%);
 }

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RealRelationService } from 'src/app/services/realRelation.service';
 import { StudentAnswerService } from 'src/app/services/studentAnswers.service';
+import { TestService } from 'src/app/services/test.service';
 import { DataSet } from 'vis-data';
 import { Network } from 'vis-network';
 import { ConceptService } from '../../services/concept.service';
@@ -12,9 +13,10 @@ import { RelationService } from '../../services/relation.service';
   styleUrls: ['./real-knowledge-graph.component.css'],
 })
 export class RealKnowledgeGraphComponent implements OnInit {
-  realKS: any = [];
+  tests: any = [];
 
-  conceptInputLabel: string = '';
+  realKS: any = [];
+  isRealKSGenerated: boolean = false;
 
   concepts: any = [];
   relations: any = [];
@@ -22,30 +24,29 @@ export class RealKnowledgeGraphComponent implements OnInit {
   edges!: DataSet<any>;
   startNodes!: DataSet<any>;
   startEdges!: DataSet<any>;
-  numberOfNodes: number = 0;
 
-  isSelected: boolean = false;
+  selectedTestId: number = 0;
 
   @ViewChild('visNetwork', { static: false }) visNetwork!: ElementRef;
   private networkInstance: Network | null = null;
 
   constructor(
-    private relationService: RelationService,
     private conceptService: ConceptService,
     private studentAnswerService: StudentAnswerService,
-    private realRelationService: RealRelationService
+    private realRelationService: RealRelationService,
+    private testService: TestService
   ) {}
 
   ngOnInit(): void {}
 
   async ngAfterViewInit(): Promise<void> {
-    (<HTMLInputElement>(
-      document.getElementById('removeSelectionBtn')
-    )).classList.add('disabledBtn');
-    (<HTMLInputElement>document.getElementById('removeSelectionBtn')).disabled =
-      true;
-    await this.loadConcepts();
-    await this.loadRelations();
+    this.tests = [];
+    await this.loadTests();
+  }
+
+  async draw(testId?: number) {
+    await this.loadConcepts(testId);
+    await this.loadRelations(testId);
     this.loadNodes();
     this.loadEdges();
 
@@ -53,124 +54,33 @@ export class RealKnowledgeGraphComponent implements OnInit {
 
     const container = this.visNetwork;
 
-    let selectedNode: any = null;
-    let selectedEdges: any[] = [];
-
     const options = {
       interaction: { hover: true },
-      nodes: {
-        fixed: {
-          x: false,
-          y: false,
-        },
-      },
-      physics: {
-        enabled: true,
-        barnesHut: {
-          centralGravity: 0.8,
-        },
-      },
-      manipulation: {
-        enabled: true,
-        addNode: function (nodeData: any, callback: (arg0: any) => void) {
-          nodeData.label = (<HTMLInputElement>(
-            document.getElementById('label')
-          )).value;
-          nodeData.id = data.nodes.get()[data.nodes.get().length - 1].id + 1;
-          nodeData.x = -100;
-          nodeData.y = 100;
-          callback(nodeData);
-        },
-        addEdge: function (edgeData: any, callback: (arg0: any) => void) {
-          edgeData.from === edgeData.to ||
-          data.edges
-            .get()
-            .some(
-              (edge) => edge.to === edgeData.to && edge.from === edgeData.from
-            ) ||
-          data.edges
-            .get()
-            .some(
-              (edge) => edge.to === edgeData.from && edge.from === edgeData.to
-            )
-            ? alert('You cannot connect concepts in this way!')
-            : callback(edgeData);
-        },
-        deleteNode: function (data: any, callback: (arg0: any) => void) {
-          selectedNode ? callback(data) : alert('Nothing is selected!');
-          selectedNode = null;
-        },
-        deleteEdge: function (data: any, callback: (arg0: any) => void) {
-          selectedEdges.length > 0
-            ? callback(data)
-            : alert('Nothing is selected!');
-          selectedEdges.length = 0;
-        },
-      },
       edges: {
         arrows: 'to',
       },
     };
     this.networkInstance = new Network(container.nativeElement, data, options);
-
-    // --SELECT--
-    // this.networkInstance.on('select', function (params) {
-    //   console.log('select Event:', params);
-    // });
-
-    this.networkInstance.on('selectNode', function (this: any, params) {
-      selectedNode = data.nodes.get(this.getNodeAt(params.pointer.DOM));
-      (<HTMLInputElement>(
-        document.getElementById('removeSelectionBtn')
-      )).disabled = false;
-      (<HTMLInputElement>(
-        document.getElementById('removeSelectionBtn')
-      )).classList.remove('disabledBtn');
-      console.log('Selected NODE: ', selectedNode);
-    });
-    this.networkInstance.on('selectEdge', function (this: any, params) {
-      selectedEdges = params.edges.map((edge: any) => data.edges.get(edge));
-      (<HTMLInputElement>(
-        document.getElementById('removeSelectionBtn')
-      )).disabled = false;
-      (<HTMLInputElement>(
-        document.getElementById('removeSelectionBtn')
-      )).classList.remove('disabledBtn');
-      console.log('Selected EDGES: ', selectedEdges);
-    });
-    // --DESELECT--
-    this.networkInstance.on('deselectNode', function (this: any, params) {
-      (<HTMLInputElement>(
-        document.getElementById('removeSelectionBtn')
-      )).disabled = true;
-      (<HTMLInputElement>(
-        document.getElementById('removeSelectionBtn')
-      )).classList.add('disabledBtn');
-      console.log('DEselect NODE:', selectedNode);
-      selectedNode = null;
-    });
-    this.networkInstance.on('deselectEdge', function (this: any, params) {
-      (<HTMLInputElement>(
-        document.getElementById('removeSelectionBtn')
-      )).disabled = true;
-      (<HTMLInputElement>(
-        document.getElementById('removeSelectionBtn')
-      )).classList.add('disabledBtn');
-      console.log('DEselect EDGES: ', selectedEdges);
-      selectedEdges = [];
-    });
   }
 
-  async loadConcepts() {
-    this.concepts = await this.conceptService.getConcepts().toPromise();
-    this.numberOfNodes = this.concepts.length;
+  async loadConcepts(testId?: number) {
+    if (testId)
+      this.concepts = await this.conceptService
+        .getConceptsForTest(testId)
+        .toPromise();
   }
 
-  async loadRelations() {
-    this.relations = await this.realRelationService
-      .getRealRelations()
-      .toPromise();
-    console.log(this.relations);
+  async loadRelations(testId?: number) {
+    if (testId)
+      this.relations = await this.realRelationService
+        .getRealRelationsForTest(testId)
+        .toPromise();
+    else {
+      this.relations = this.realKS.map((rks: any) => ({
+        realSource: { id: rks.sourceId },
+        realDestination: { id: rks.destinationId },
+      }));
+    }
   }
 
   loadNodes() {
@@ -203,77 +113,53 @@ export class RealKnowledgeGraphComponent implements OnInit {
     );
   }
 
-  addNode() {
-    this.networkInstance?.addNodeMode();
-  }
-
-  addEdge() {
-    this.networkInstance?.addEdgeMode();
-  }
-
-  removeSelected() {
-    this.networkInstance?.deleteSelected();
-    (<HTMLInputElement>(
-      document.getElementById('removeSelectionBtn')
-    )).classList.add('disabledBtn');
-    (<HTMLInputElement>document.getElementById('removeSelectionBtn')).disabled =
-      true;
-  }
-
-  async saveGraph() {
-    const deletionConcepts = this.startNodes
-      .get()
-      .filter((sn) => !this.nodes.get().some((n) => sn.id === n.id));
-    const additionConcepts = this.nodes
-      .get()
-      .filter((n) => !this.startNodes.get().some((sn) => sn.id === n.id));
-    console.log('Add concepts', additionConcepts);
-    console.log('Delete concepts', deletionConcepts);
-    if (deletionConcepts.length > 0)
-      await this.conceptService
-        .deleteConcepts(
-          deletionConcepts.map((node) => ({ id: node.id, concept: node.label }))
-        )
-        .toPromise();
-    if (additionConcepts.length > 0)
-      await this.conceptService
-        .addConcepts(
-          additionConcepts.map((node) => ({ id: node.id, concept: node.label }))
-        )
-        .toPromise();
-
-    await this.relationService
-      .updateRelations(
-        this.edges.get().map((relation) => ({
-          source: this.nodes.get(relation.from),
-          destination: this.nodes.get(relation.to),
-        }))
-      )
-      .toPromise();
+  async saveRealKS() {
+    this.realRelationService
+      .saveRealRelationsForTest(this.realKS, this.selectedTestId)
+      .pipe()
+      .subscribe((res) => console.log(res));
     window.location.reload();
   }
 
-  getAllResultsForIITA() {
+  async generateKnowledgeSpaceForTest() {
+    if (this.selectedTestId === 0) return;
     this.studentAnswerService
-      .getAllResultsForIITA()
+      .getTestResultsForIITA(this.selectedTestId)
       .pipe()
-      .subscribe((results) => {
-        this.studentAnswerService.generateRealKS(results).subscribe((res) => {
-          this.realKS = res.implications.map((implication: any) => ({
-            sourceId: implication[0],
-            destinationId: implication[1],
-          }));
-          console.log(this.realKS);
-          this.realKS = this.realKS.filter((ks: any, index: number) => {
-            if (ks.sourceId === 0 || ks.destinationId === 0) return false;
-            else return true;
+      .subscribe((results: any) => {
+        if (results[this.concepts[0].id].length < 25) {
+          alert(
+            `This test must have at least 25 submissions to generate a knowledge space for it! \n\nNumber of submissions: ${
+              results[this.concepts[0].id].length
+            }`
+          );
+          return;
+        }
+        this.studentAnswerService
+          .generateRealKS(results)
+          .subscribe(async (res) => {
+            this.realKS = res.implications.map((implication: any) => ({
+              sourceId: implication[0] + 1,
+              destinationId: implication[1] + 1,
+            }));
+            await this.draw(undefined);
+            this.isRealKSGenerated = true;
           });
-          console.log(this.realKS);
-          // this.realRelationService
-          //   .saveRealRelations(this.realKS)
-          //   .pipe()
-          //   .subscribe((res) => console.log(res));
-        });
       });
+  }
+  async loadTests() {
+    this.tests = await this.testService.getTests().toPromise();
+    this.tests = this.tests.map((t: any, index: number) => ({
+      ...t,
+      testNumber: index + 1,
+    }));
+  }
+
+  async drawForTest(testId: number) {
+    if (this.selectedTestId === testId) return;
+    this.selectedTestId = testId;
+    this.realKS = [];
+    this.isRealKSGenerated = false;
+    await this.draw(testId);
   }
 }

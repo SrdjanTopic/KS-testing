@@ -113,50 +113,6 @@ export class AddTestComponent implements OnInit {
     };
     this.networkInstance = new Network(container.nativeElement, data, options);
 
-    // --CLICKS--
-    // this.networkInstance.on('click', function (this: any, params) {
-    //   params.event = '[original event]';
-    //   console.log(
-    //     'click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM)
-    //   );
-    //   params.selectedNode = this.getNodeAt(params.pointer.DOM);
-    // });
-    // this.networkInstance.on('doubleClick', function (params) {
-    //   params.event = '[original event]';
-    // });
-    // --CONTEXT
-    // this.networkInstance.on('oncontext', function (params) {
-    //   params.event = '[original event]';
-    // });
-    // --DRAG--
-    // this.networkInstance.on('dragStart', function (params) {
-    //   // There's no point in displaying this event on screen, it gets immediately overwritten
-    //   params.event = '[original event]';
-    // });
-    // this.networkInstance.on('dragging', function (params) {
-    //   params.event = '[original event]';
-    // });
-    // this.networkInstance.on('dragEnd', function (this: any, params) {
-    //   params.event = '[original event]';
-    //   console.log('dragEnd Event:', params);
-    //   console.log(
-    //     'dragEnd event, getNodeAt returns: ' +
-    //       this.getNodeAt(params.pointer.DOM)
-    //   );
-    // });
-    // this.networkInstance.on('controlNodeDragging', function (params) {
-    //   params.event = '[original event]';
-    // });
-    // this.networkInstance.on('controlNodeDragEnd', function (params) {
-    //   params.event = '[original event]';
-    //   console.log('controlNodeDragEnd Event:', params);
-    // });
-    // --MISC--
-    // this.networkInstance.on('zoom', function (params) {});
-    // this.networkInstance.on('showPopup', function (params) {});
-    // this.networkInstance.on('hidePopup', function () {
-    //   console.log('hidePopup Event');
-    // });
     // --SELECT--
     // this.networkInstance.on('select', function (params) {
     //   console.log('select Event:', params);
@@ -179,22 +135,6 @@ export class AddTestComponent implements OnInit {
       console.log('DEselect EDGES: ', selectedEdges);
       selectedEdges = [];
     });
-
-    // --HOVER--
-    // this.networkInstance.on('hoverNode', function (params) {
-    //   console.log('hoverNode Event:', params);
-    // });
-    // this.networkInstance.on('hoverEdge', function (params) {
-    //   console.log('hoverEdge Event:', params);
-    // });
-
-    // --BLUR--
-    // this.networkInstance.on('blurNode', function (params) {
-    //   console.log('blurNode Event:', params);
-    // });
-    // this.networkInstance.on('blurEdge', function (params) {
-    //   console.log('blurEdge Event:', params);
-    // });
   }
 
   async ngAfterViewInit(): Promise<void> {

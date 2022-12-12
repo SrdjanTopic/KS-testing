@@ -4,6 +4,7 @@ import com.example.sotisproject.model.Concept;
 import com.example.sotisproject.model.Question;
 import com.example.sotisproject.repository.ConceptRepository;
 import com.example.sotisproject.repository.QuestionRepository;
+import com.example.sotisproject.repository.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class ConceptService {
     private ConceptRepository conceptRepository;
     private QuestionRepository questionRepository;
+    private TestRepository testRepository;
 
     public List<Concept> getConcepts() {
         return conceptRepository.findAll();
@@ -38,5 +40,13 @@ public class ConceptService {
             conceptList.add(concept);
         });
         return conceptList;
+    }
+
+    public List<Concept> getConceptsForTest(Long testId) {
+        List<Concept> concepts = new ArrayList<>();
+        testRepository.findById(testId).get().getQuestions().forEach(question -> {
+            concepts.add(question.getConcept());
+        });
+        return concepts;
     }
 }
