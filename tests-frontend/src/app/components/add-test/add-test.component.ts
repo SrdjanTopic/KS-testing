@@ -232,7 +232,7 @@ export class AddTestComponent implements OnInit {
         this.test.teacher = user;
         this.testService
           .saveTest(this.test)
-          .subscribe((test) => (this.test = test));
+          .subscribe((test) => window.location.reload());
       },
       error: (error) => {
         console.error('There was an error!', error);

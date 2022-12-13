@@ -7,24 +7,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class RealRelation {
+public class RealKnowledgeSpace {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Concept realSource;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Concept realDestination;
+    private LocalDateTime creationDate;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    private RealKnowledgeSpace realKnowledgeSpace;
+    private Test test;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "realKnowledgeSpace", cascade = CascadeType.ALL)
+    private List<RealRelation> relations;
 }

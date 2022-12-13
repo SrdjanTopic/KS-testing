@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RealRelationRepository extends JpaRepository<RealRelation, Long> {
-    List<RealRelation> findAllByTestId(Long testId);
+    List<RealRelation> findAllByRealKnowledgeSpaceId(Long KSId);
 }

@@ -25,5 +25,6 @@ def iitaEndpoint():
     data_frame.index = np.arange(1, len(data_frame) + 1)
     print(data_frame)
     response = iita(data_frame, v=1)
-    print(pd.Series(response).to_json())
-    return pd.Series(response).to_json()
+    res = response
+    res['concepts'] = data_frame.columns
+    return pd.Series(res).to_json()

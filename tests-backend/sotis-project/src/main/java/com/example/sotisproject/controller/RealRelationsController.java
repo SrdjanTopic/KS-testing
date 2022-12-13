@@ -20,15 +20,15 @@ public class RealRelationsController {
         return relationService.getRealRelations();
     }
 
-    @GetMapping("/{testId}")
-    public List<RealRelation> getRelationsForTest(@PathVariable("testId") Long testId){
-        return relationService.getRealRelationsForTest(testId);
+    @GetMapping("/{KSId}")
+    public List<RealRelation> getRelationsForTest(@PathVariable("KSId") Long KSId){
+        return relationService.findAllByRealKnowledgeSpaceId(KSId);
     }
 
-    @PostMapping("/{testId}/create")
+    @PostMapping("/{KSId}/create")
     public List<RealRelation>addConcepts(
-            @PathVariable("testId") Long testId,
+            @PathVariable("KSId") Long KSId,
             @RequestBody List<RealRelationsDTO> realRelationsDTOS){
-        return relationService.createRealRelations(realRelationsDTOS, testId);
+        return relationService.createRealRelations(realRelationsDTOS, KSId);
     }
 }

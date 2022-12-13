@@ -12,4 +12,5 @@ import lombok.Setter;
 public class RealRelationsDTO {
     private Long sourceId;
     private Long destinationId;
+    private Long realKSId;
 }

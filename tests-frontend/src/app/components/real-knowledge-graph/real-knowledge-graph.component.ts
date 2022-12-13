@@ -1,11 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { RealRelationService } from 'src/app/services/realRelation.service';
+import { RealKSService } from 'src/app/services/realKS.service';
 import { StudentAnswerService } from 'src/app/services/studentAnswers.service';
 import { TestService } from 'src/app/services/test.service';
 import { DataSet } from 'vis-data';
 import { Network } from 'vis-network';
 import { ConceptService } from '../../services/concept.service';
-import { RelationService } from '../../services/relation.service';
 
 @Component({
   selector: 'app-real-knowledge-graph',
@@ -14,6 +13,9 @@ import { RelationService } from '../../services/relation.service';
 })
 export class RealKnowledgeGraphComponent implements OnInit {
   tests: any = [];
+  selectedTest: any;
+  selectedTestId: number = 0;
+  selectedKS: number = 0;
 
   realKS: any = [];
   isRealKSGenerated: boolean = false;
@@ -25,16 +27,14 @@ export class RealKnowledgeGraphComponent implements OnInit {
   startNodes!: DataSet<any>;
   startEdges!: DataSet<any>;
 
-  selectedTestId: number = 0;
-
   @ViewChild('visNetwork', { static: false }) visNetwork!: ElementRef;
   private networkInstance: Network | null = null;
 
   constructor(
     private conceptService: ConceptService,
     private studentAnswerService: StudentAnswerService,
-    private realRelationService: RealRelationService,
-    private testService: TestService
+    private testService: TestService,
+    private realKSService: RealKSService
   ) {}
 
   ngOnInit(): void {}
@@ -44,9 +44,8 @@ export class RealKnowledgeGraphComponent implements OnInit {
     await this.loadTests();
   }
 
-  async draw(testId?: number) {
-    await this.loadConcepts(testId);
-    await this.loadRelations(testId);
+  async draw(ksId?: number) {
+    this.loadRelations(ksId);
     this.loadNodes();
     this.loadEdges();
 
@@ -69,13 +68,15 @@ export class RealKnowledgeGraphComponent implements OnInit {
         .getConceptsForTest(testId)
         .toPromise();
   }
-
-  async loadRelations(testId?: number) {
-    if (testId)
-      this.relations = await this.realRelationService
-        .getRealRelationsForTest(testId)
-        .toPromise();
-    else {
+  loadRelations(ksId?: number) {
+    if (ksId) {
+      if (this.selectedTest.realKnowledgeSpaces.length > 0) {
+        const ks = this.selectedTest.realKnowledgeSpaces.filter(
+          (rks: any) => rks.id === ksId
+        )[0];
+        this.relations = ks.relations;
+      } else this.relations = [];
+    } else {
       this.relations = this.realKS.map((rks: any) => ({
         realSource: { id: rks.sourceId },
         realDestination: { id: rks.destinationId },
@@ -114,11 +115,10 @@ export class RealKnowledgeGraphComponent implements OnInit {
   }
 
   async saveRealKS() {
-    this.realRelationService
-      .saveRealRelationsForTest(this.realKS, this.selectedTestId)
+    this.realKSService
+      .createRealKSForTest(this.realKS, this.selectedTestId)
       .pipe()
-      .subscribe((res) => console.log(res));
-    window.location.reload();
+      .subscribe((res) => window.location.reload());
   }
 
   async generateKnowledgeSpaceForTest() {
@@ -138,11 +138,16 @@ export class RealKnowledgeGraphComponent implements OnInit {
         this.studentAnswerService
           .generateRealKS(results)
           .subscribe(async (res) => {
-            this.realKS = res.implications.map((implication: any) => ({
-              sourceId: implication[0] + 1,
-              destinationId: implication[1] + 1,
+            const concepts = res.concepts.map((c: any) => parseInt(c));
+            const implications = res.implications.map((implication: any) =>
+              implication.map((i: any) => concepts[i])
+            );
+            this.realKS = implications.map((implication: any) => ({
+              sourceId: implication[0],
+              destinationId: implication[1],
             }));
             await this.draw(undefined);
+            this.selectedKS = 0;
             this.isRealKSGenerated = true;
           });
       });
@@ -152,14 +157,40 @@ export class RealKnowledgeGraphComponent implements OnInit {
     this.tests = this.tests.map((t: any, index: number) => ({
       ...t,
       testNumber: index + 1,
+      realKnowledgeSpaces: t.realKnowledgeSpaces.map((rks: any, i: number) => ({
+        ...rks,
+        rksNum: i + 1,
+        creationDate: rks.creationDate
+          .replace('T', ' ')
+          .replace('-', '.')
+          .replace('-', '.')
+          .slice(0, 16),
+      })),
     }));
   }
 
-  async drawForTest(testId: number) {
-    if (this.selectedTestId === testId) return;
+  async drawForKS(ksId: number) {
+    if (this.selectedKS === ksId) {
+      this.selectedKS = 0;
+      await this.draw(undefined);
+      return;
+    }
+    this.selectedKS = ksId;
+    await this.draw(ksId);
+  }
+
+  async selectTest(testId: number) {
+    if (this.selectedTestId === testId) {
+      this.selectedKS = 0;
+      this.selectedTestId = 0;
+      return;
+    }
+    this.selectedKS = 0;
     this.selectedTestId = testId;
+    this.selectedTest = this.tests.filter((test: any) => test.id === testId)[0];
     this.realKS = [];
     this.isRealKSGenerated = false;
-    await this.draw(testId);
+    await this.loadConcepts(testId);
+    await this.draw(undefined);
   }
 }
