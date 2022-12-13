@@ -1,0 +1,155 @@
+.modalWrapper {
+    height: 90%;
+    width: 100%;
+    padding: 1em;
+  }
+  
+  .modalWrapper .modalContent {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    gap: 1em;
+  }
+  
+  .modalWrapper .modalContent .modalInfo {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .modalWrapper .modalContent .modalInfo .testsList {
+    width: 100%;
+    height: 85%;
+    font-weight: bold;
+    user-select: none;
+    overflow-y: auto;
+  }
+  
+  .modalWrapper .modalContent .modalInfo .testsList .testInfo .test {
+    padding: 0.2em;
+    cursor: pointer;
+    border-radius: 0.5em;
+    background-color: hsl(225, 100%, 80%);
+    border: 2px hsl(225, 100%, 50%) solid;
+    margin-block-end: 0.3em;
+  }
+  
+  .modalWrapper .modalContent .modalInfo .testsList .testInfo .testSelected {
+    padding: 0.2em;
+    cursor: pointer;
+    border-radius: 0.5em;
+    border: 2px hsl(225, 100%, 50%) solid;
+    background-color: hsl(225, 100%, 90%);
+    margin-block-end: 0.3em;
+  }
+  
+  .modalWrapper .modalContent .modalInfo .testsList .testInfo .test:hover {
+    background-color: hsl(225, 100%, 90%);
+  }
+  
+  .modalWrapper .modalContent .modalInfo .testsList .testInfo .ksVersionList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-weight: 500;
+    font-size: 1em;
+    user-select: none;
+    overflow-y: auto;
+  }
+  
+  .modalWrapper
+    .modalContent
+    .modalInfo
+    .testsList
+    .testInfo
+    .ksVersionList
+    .version {
+    width: 95%;
+    padding: 0.1em;
+    padding-left: 0.2em;
+    cursor: pointer;
+    border-radius: 0.5em;
+    background-color: hsl(210, 100%, 80%);
+    border: 1px hsl(210, 100%, 50%) solid;
+    margin-block-end: 0.2em;
+  }
+  
+  .modalWrapper
+    .modalContent
+    .modalInfo
+    .testsList
+    .testInfo
+    .ksVersionList
+    .versionSelected {
+    width: 95%;
+    padding: 0.1em;
+    padding-left: 0.2em;
+    cursor: pointer;
+    border-radius: 0.5em;
+    border: 1px hsl(210, 100%, 50%) solid;
+    background-color: hsl(210, 100%, 90%);
+    margin-block-end: 0.2em;
+  }
+  
+  .modalWrapper
+    .modalContent
+    .modalInfo
+    .testsList
+    .testInfo
+    .ksVersionList
+    .version:hover {
+    background-color: hsl(225, 100%, 90%);
+  }
+  
+  .modalWrapper .modalContent .modalInfo .buttons {
+    width: 100%;
+    display: flex;
+    gap: 1em;
+  }
+  
+  .modalWrapper .modalContent .modalInfo .buttons button {
+    transition: 0.5s;
+  }
+  
+  .modalWrapper .modalContent .visWrapper {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .modalWrapper .modalContent .visWrapper #visNetwork {
+    width: 100%;
+    height: 90%;
+    border-radius: 1em;
+    box-shadow: 0 0 1em black;
+  }
+  
+  .modalWrapper .modalContent .visWrapper span {
+    font-size: 1.5em;
+    margin-top: 1em;
+    user-select: none;
+  }
+  
+  .modalWrapper .modalContent .visWrapper .redSpan {
+    color: red;
+  }
+  
+  .modalWrapper .modalContent .visWrapper .orangeSpan {
+    color: orange;
+  }
+  
+  .modalWrapper .modalContent .visWrapper .greenSpan {
+    color: green;
+  }
+  
+  .modalWrapper .modalContent .visWrapper .blueSpan {
+    color: hsl(240, 100%, 60%);
+  }
+  

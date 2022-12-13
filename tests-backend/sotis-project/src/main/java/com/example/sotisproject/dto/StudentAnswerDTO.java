@@ -2,7 +2,7 @@ package com.example.sotisproject.dto;
 
 import com.example.sotisproject.model.Answer;
 import com.example.sotisproject.model.Question;
-import com.example.sotisproject.model.Test;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

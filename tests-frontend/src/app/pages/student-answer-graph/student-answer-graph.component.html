@@ -1,0 +1,88 @@
+<div class="modalWrapper">
+    <div class="modalContent">
+      <div class="modalInfo">
+        <div class="testsList">
+          <div *ngFor="let student of students" class="testInfo">
+            <p
+              id="ppp"
+              [ngClass]="student.id == selectedStudentId ? 'testSelected' : 'test'"
+              (click)="selectStudent(student.id)"
+            >
+              T{{ student.studentNumber }}. {{ student.name }}
+            </p>
+            <div *ngIf="student.id == selectedStudentId" class="ksVersionList">
+              <p
+                id="ppp"
+                *ngFor="let rks of student.realKnowledgeSpaces"
+                [ngClass]="rks.id == selectedKS ? 'versionSelected' : 'version'"
+                (click)="drawForKS(rks.id)"
+              >
+                v{{ rks.rksNum }}. {{ rks.creationDate }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="buttons">
+          <button
+            (click)="generateKnowledgeSpaceForStudent()"
+            mat-stroked-button
+            [ngClass]="
+              selectedStudentId !== 0
+                ? ['btn', 'btn-info', 'btn-lg']
+                : ['btn', 'btn-info', 'btn-lg', 'disabled']
+            "
+          >
+            Generate KS for student</button
+          ><button
+            (click)="saveRealKS()"
+            mat-stroked-button
+            [ngClass]="
+              isRealKSGenerated
+                ? ['btn', 'btn-primary', 'btn-lg']
+                : ['btn', 'btn-primary', 'btn-lg', 'disabled']
+            "
+          >
+            Save KS
+          </button>
+        </div>
+      </div>
+      <div class="visWrapper">
+        <div id="visNetwork" #visNetwork></div>
+        <span *ngIf="selectedStudentId === 0" class="orangeSpan"
+          >Select a student to display its real knowledge space!</span
+        >
+        <span
+          *ngIf="
+            selectedStudentId !== 0 && selectedStudent.realKnowledgeSpaces.length === 0
+          "
+          class="redSpan"
+          >There is no real knowledge space for this student. You can generate a new
+          one!</span
+        >
+        <span
+          *ngIf="
+            selectedStudentId !== 0 &&
+            selectedStudent.realKnowledgeSpaces.length > 0 &&
+            selectedKS === 0 &&
+            !isRealKSGenerated
+          "
+          class="orangeSpan"
+          >This student has a version of its knowledge space! Please select one of
+          the versions.</span
+        >
+        <span *ngIf="isRealKSGenerated" class="greenSpan"
+          >Real knowledge space for this student generated successfully! You can save
+          this KS as a new version.</span
+        >
+        <span
+          *ngIf="
+            relations.length > 0 && selectedStudentId !== 0 && realKS.length === 0
+          "
+          class="blueSpan"
+          >This is an existing knowledge space for this student! You can always
+          generate a new one.</span
+        >
+      </div>
+    </div>
+  </div>
+  

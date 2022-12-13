@@ -7,6 +7,7 @@ import { KnowledgeGraphComponent } from './components/knowledge-graph/knowledge-
 import { LoginComponent } from './components/login/login.component';
 import { TestRealizationComponent } from './pages/test-realization/test-realization.component';
 import { RealKnowledgeGraphComponent } from './components/real-knowledge-graph/real-knowledge-graph.component';
+import { StudentAnswerGraphComponent } from './pages/student-answer-graph/student-answer-graph.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'test/:id/submit',
     component: TestRealizationComponent,
+  },
+  {
+    path: 'test/:id/answers/graph',
+    component: StudentAnswerGraphComponent,
   },
 ];
 

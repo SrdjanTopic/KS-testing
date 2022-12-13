@@ -1,14 +1,24 @@
 package com.example.sotisproject.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.stereotype.Service;
+
+import com.example.sotisproject.dto.AnswerConceptDTO;
+import com.example.sotisproject.model.Answer;
 import com.example.sotisproject.model.Concept;
+import com.example.sotisproject.model.Question;
 import com.example.sotisproject.model.Student;
 import com.example.sotisproject.repository.ConceptRepository;
 import com.example.sotisproject.repository.StudentRepository;
 import com.example.sotisproject.repository.TestRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.*;
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
@@ -57,5 +67,29 @@ public class StudentAnswerService {
             });
         });
         return results;
+    }
+    
+    public List<AnswerConceptDTO> getStudentAnswersForTest(Long studentId,Long testId){
+        List<Answer> studentAnswers = studentRepository.findById(studentId).get().getAnswers();
+        List<AnswerConceptDTO> studentTestAnswers = new ArrayList<>();
+        studentAnswers.forEach(answer-> {
+        	if(answer.getQuestion().getTest().getId() != testId) {
+        		studentTestAnswers.add(new AnswerConceptDTO(answer,answer.getQuestion().getConcept()));
+        	}
+        });
+        return studentTestAnswers;
+    }
+    
+    public Set<Student> getStudentsForTest(Long testId){
+        Set<Question> testQuestions = testRepository.findById(testId).get().getQuestions();
+        Set<Student> students = new HashSet<>();
+        testQuestions.forEach(question -> {
+        	if(question.getTest().getId() == testId) {
+        		question.getAnswers().forEach(answer ->{
+        			students.addAll(answer.getStudents());
+        		});
+        	}
+        });
+        return students;
     }
 }

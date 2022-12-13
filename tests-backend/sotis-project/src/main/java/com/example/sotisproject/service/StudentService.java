@@ -42,4 +42,9 @@ public class StudentService {
         testIds.forEach(testId->studentTestDTOList.add(new StudentTestDTO(testRepository.findById(testId).get())));
         return studentTestDTOList;
     }
+    
+    public List<Student> findStudentsForTest(Long id) {
+        List<Student> students = studentRepository.findByTests_Id(id);
+        return students;
+    }
 }
