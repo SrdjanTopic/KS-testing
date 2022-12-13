@@ -1,14 +1,18 @@
 package com.example.sotisproject.service;
 
 import com.example.sotisproject.dto.RealRelationsDTO;
+import com.example.sotisproject.model.RealKnowledgeSpace;
 import com.example.sotisproject.model.RealRelation;
 import com.example.sotisproject.model.Test;
 import com.example.sotisproject.repository.ConceptRepository;
+import com.example.sotisproject.repository.RealKnowledgeSpaceRepository;
 import com.example.sotisproject.repository.RealRelationRepository;
 import com.example.sotisproject.repository.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,23 +22,26 @@ public class RealRelationService {
     private RealRelationRepository relationRepository;
     private ConceptRepository conceptRepository;
     private TestRepository testRepository;
+    private RealKnowledgeSpaceRepository realKnowledgeSpaceRepository;
 
     public List<RealRelation> getRealRelations() {
         return relationRepository.findAll();
     }
 
-    public List<RealRelation> getRealRelationsForTest(Long testId) {
-        return relationRepository.findAllByTestId(testId);
+    public List<RealRelation> findAllByRealKnowledgeSpaceId(Long testId) {
+        return relationRepository.findAllByRealKnowledgeSpaceId(testId);
     }
 
     public List<RealRelation> createRealRelations(List<RealRelationsDTO> realRelationsDTOS, Long testID) {
         Test test = testRepository.findById(testID).get();
+        RealKnowledgeSpace realKnowledgeSpace = new RealKnowledgeSpace(null, LocalDateTime.now(), test, null);
+        RealKnowledgeSpace rks = realKnowledgeSpaceRepository.save(realKnowledgeSpace);
         List<RealRelation> relationList = new ArrayList<>();
-        relationRepository.deleteAll();
         realRelationsDTOS.forEach((relation -> {
-            RealRelation realRelation = new RealRelation(null, test, null, null);
+            RealRelation realRelation = new RealRelation(null, null, null, null);
             realRelation.setRealSource(conceptRepository.findById(relation.getSourceId()).get());
             realRelation.setRealDestination(conceptRepository.findById(relation.getDestinationId()).get());
+            realRelation.setRealKnowledgeSpace(rks);
             relationList.add(relationRepository.save(realRelation));
         }));
         return relationList;

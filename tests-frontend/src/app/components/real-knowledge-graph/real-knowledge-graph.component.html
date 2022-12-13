@@ -1,17 +1,26 @@
 <div class="modalWrapper">
   <div class="modalContent">
     <div class="modalInfo">
-      <div class="questionsList">
-        <p
-          id="ppp"
-          *ngFor="let test of tests"
-          [ngClass]="
-            test.id == selectedTestId ? 'questionSelected' : 'question'
-          "
-          (click)="drawForTest(test.id)"
-        >
-          T{{ test.testNumber }}. {{ test.name }}
-        </p>
+      <div class="testsList">
+        <div *ngFor="let test of tests" class="testInfo">
+          <p
+            id="ppp"
+            [ngClass]="test.id == selectedTestId ? 'testSelected' : 'test'"
+            (click)="selectTest(test.id)"
+          >
+            T{{ test.testNumber }}. {{ test.name }}
+          </p>
+          <div *ngIf="test.id == selectedTestId" class="ksVersionList">
+            <p
+              id="ppp"
+              *ngFor="let rks of test.realKnowledgeSpaces"
+              [ngClass]="rks.id == selectedKS ? 'versionSelected' : 'version'"
+              (click)="drawForKS(rks.id)"
+            >
+              v{{ rks.rksNum }}. {{ rks.creationDate }}
+            </p>
+          </div>
+        </div>
       </div>
       <div class="buttons">
         <button
@@ -43,18 +52,27 @@
         >Select a test to display its real knowledge space!</span
       >
       <span
-        *ngIf="relations.length === 0 && selectedTestId !== 0"
+        *ngIf="
+          selectedTestId !== 0 && selectedTest.realKnowledgeSpaces.length === 0
+        "
         class="redSpan"
         >There is no real knowledge space for this test. You can generate a new
         one!</span
       >
       <span
         *ngIf="
-          relations.length > 0 && selectedTestId !== 0 && realKS.length > 0
+          selectedTestId !== 0 &&
+          selectedTest.realKnowledgeSpaces.length > 0 &&
+          selectedKS === 0 &&
+          !isRealKSGenerated
         "
-        class="greenSpan"
+        class="orangeSpan"
+        >This test has a version of its knowledge space! Please select one of
+        the versions.</span
+      >
+      <span *ngIf="isRealKSGenerated" class="greenSpan"
         >Real knowledge space for this test generated successfully! You can save
-        this KS and override the last one.</span
+        this KS as a new version.</span
       >
       <span
         *ngIf="

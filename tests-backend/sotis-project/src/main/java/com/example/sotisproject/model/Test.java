@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -27,9 +28,10 @@ public class Test {
     @OneToMany(mappedBy = "test", fetch = FetchType.EAGER)
     private Set<Question> questions;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     private Teacher teacher;
 
     @OneToMany(mappedBy = "test", fetch = FetchType.EAGER)
-    private Set<RealRelation> realRelations;
+    private List<RealKnowledgeSpace> realKnowledgeSpaces;
 }
