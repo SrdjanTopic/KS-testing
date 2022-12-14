@@ -100,7 +100,7 @@ export class TestPublishingComponent implements OnInit {
         rksId: this.selectedRksId === 0 ? null : this.selectedRksId,
       })
       .toPromise();
-    console.log(res);
+    window.location.reload();
   }
 
   onSelectChange(event: any) {
@@ -112,5 +112,6 @@ export class TestPublishingComponent implements OnInit {
     const res = await this.testPublishingService
       .rePublishOldVersionOfTest(this.selectedPublicationId)
       .toPromise();
+    window.location.reload();
   }
 }

@@ -32,7 +32,10 @@
         </p>
       </td>
       <td>
-        <p *ngIf="test.testPublications.length > 0" class="publishedP">
+        <p
+          *ngIf="test.testPublications.length > 0 && test.publication"
+          class="publishedP"
+        >
           {{
             test.publication.publicationDate
               .replace("T", " ")
@@ -49,7 +52,7 @@
         <select
           [value]="test.publication.id"
           (change)="onSelectChange($event)"
-          *ngIf="test.testPublications.length > 0"
+          *ngIf="test.testPublications.length > 0 && test.publication"
         >
           <option
             default

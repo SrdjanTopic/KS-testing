@@ -20,7 +20,7 @@ public class TestPublicationService {
     private RealKnowledgeSpaceRepository realKnowledgeSpaceRepository;
 
     public TestPublication publishNewVersionOfTest(NewTestPublicationDTO newTestPublicationDTO){
-        List<TestPublication> testPublicationList = testPublicationRepository.findAll();
+        List<TestPublication> testPublicationList = testPublicationRepository.findAllByTestId(newTestPublicationDTO.getTestId());
         testPublicationList.forEach(testPublication -> {
             testPublication.setIsPublished(false);
             testPublicationRepository.save(testPublication);
@@ -33,14 +33,15 @@ public class TestPublicationService {
     }
 
     public TestPublication rePublishOlderVersionOfTest(Long publicationId){
-        List<TestPublication> testPublicationList = testPublicationRepository.findAll();
-        testPublicationList.forEach(testPublication -> {
-            testPublication.setIsPublished(false);
-            testPublicationRepository.save(testPublication);
-        });
-
         TestPublication testPublication = testPublicationRepository.findById(publicationId).get();
         testPublication.setIsPublished(true);
+
+        List<TestPublication> testPublicationList = testPublicationRepository.findAllByTestId(testPublication.getTest().getId());
+        testPublicationList.forEach(testPublicationn -> {
+            testPublicationn.setIsPublished(false);
+            testPublicationRepository.save(testPublicationn);
+        });
+
         return testPublicationRepository.save(testPublication);
     }
 
