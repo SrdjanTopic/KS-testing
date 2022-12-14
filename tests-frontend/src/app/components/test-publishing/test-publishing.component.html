@@ -1,0 +1,126 @@
+<div class="wrapper">
+  <h1 class="title">Test publishing</h1>
+  <table class="testsTable">
+    <tr>
+      <th class="numTh">#</th>
+      <th class="testNameTh">Name</th>
+      <th class="numOfQTh">Num of questions</th>
+      <th class="maxPointsTh">Max points</th>
+      <th class="statusTh">Status</th>
+      <th class="lastPubTh">Last publication</th>
+      <th class="publicationsTh">Publications</th>
+    </tr>
+    <tr *ngFor="let test of tests">
+      <td>
+        <p>{{ test.testNum }}</p>
+      </td>
+      <td>
+        <p>{{ test.name }}</p>
+      </td>
+      <td>
+        <p>{{ test.questions.length }}</p>
+      </td>
+      <td>
+        <p>{{ test.maxPoints }}</p>
+      </td>
+      <td>
+        <p *ngIf="test.testPublications.length > 0" class="publishedP">
+          Published
+        </p>
+        <p *ngIf="test.testPublications.length === 0" class="unpublishedP">
+          Unpublished
+        </p>
+      </td>
+      <td>
+        <p *ngIf="test.testPublications.length > 0" class="publishedP">
+          {{
+            test.publication.publicationDate
+              .replace("T", " ")
+              .replace("-", ".")
+              .replace("-", ".")
+              .slice(0, 16)
+          }}
+        </p>
+        <p *ngIf="test.testPublications.length === 0" class="unpublishedP">
+          ---
+        </p>
+      </td>
+      <td>
+        <select
+          [value]="test.publication.id"
+          (change)="onSelectChange($event)"
+          *ngIf="test.testPublications.length > 0"
+        >
+          <option
+            default
+            *ngFor="let pub of test.testPublications"
+            [value]="pub.id"
+          >
+            p{{ pub.pubNum }}. {{ pub.publicationDate }}
+          </option>
+        </select>
+        <p *ngIf="test.testPublications.length === 0" class="unpublishedP">
+          ---
+        </p>
+      </td>
+      <td class="publishTd">
+        <button
+          (click)="openPublishModal(test.id)"
+          class="btn btn-primary btn-sm"
+        >
+          Publish new version
+        </button>
+      </td>
+      <td class="republishTd">
+        <button
+          (click)="republishPreviousVersionOfTest()"
+          [ngClass]="
+            test.publication
+              ? ['btn', 'btn-secondary', 'btn-sm']
+              : ['btn', 'btn-secondary', 'btn-sm', 'disabled']
+          "
+        >
+          Republish
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div
+  [ngClass]="isModalOpen ? 'modalBackgroundActive' : 'modalBackgroundDisabled'"
+>
+  <div class="modalWrapper">
+    <button
+      (click)="changeModalState()"
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+    ></button>
+    <div class="modalContent">
+      <h2 class="modalTitle">Select a knowledge space for this publication</h2>
+      <p
+        (click)="selectRealKS(0)"
+        [ngClass]="selectedRksId === 0 ? 'sksSelected' : 'sks'"
+      >
+        Supposed knowledge space
+      </p>
+      <div class="divider"></div>
+      <div *ngIf="selectedTestId !== 0" class="rksList">
+        <p
+          (click)="selectRealKS(rks.id)"
+          *ngFor="let rks of selectedTest.realKnowledgeSpaces"
+          [ngClass]="selectedRksId === rks.id ? 'rksSelected' : 'rks'"
+        >
+          v{{ rks.rksNum }}. {{ rks.creationDate }}
+        </p>
+      </div>
+      <button
+        (click)="publishNewVersionOfTest()"
+        class="btn btn-success btn-lg"
+      >
+        Publish new version
+      </button>
+    </div>
+  </div>
+</div>

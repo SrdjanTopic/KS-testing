@@ -34,9 +34,24 @@
   height: 330px;
   justify-content: space-between;
   border-radius: 0.5em;
+  position: relative;
 }
 .wrapper .tests-wrapper .test:hover {
   background-color: hsl(240, 100%, 90%);
+}
+
+.wrapper .tests-wrapper .test .testNotPublished {
+  position: absolute;
+  width: fit-content;
+  padding: 0.1em 0.2em 0.1em 0.2em;
+  padding-block-end: 0;
+  top: -0.5em;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: darkred;
+  color: white;
+  border-radius: 0.5em;
 }
 
 .wrapper .tests-wrapper .test .test-name {

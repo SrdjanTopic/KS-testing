@@ -3,6 +3,9 @@
   <a *appHasRole="['ROLE_TEACHER']" [routerLink]="['/test/add']">Add Test</a>
   <div class="tests-wrapper">
     <div class="test" *ngFor="let test of tests">
+      <div *ngIf="test.testPublications.length === 0" class="testNotPublished">
+        not published
+      </div>
       <b class="test-name">
         {{ test.name }}
       </b>

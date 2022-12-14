@@ -34,4 +34,7 @@ public class Test {
 
     @OneToMany(mappedBy = "test", fetch = FetchType.EAGER)
     private List<RealKnowledgeSpace> realKnowledgeSpaces;
+
+    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER)
+    private List<TestPublication> testPublications;
 }

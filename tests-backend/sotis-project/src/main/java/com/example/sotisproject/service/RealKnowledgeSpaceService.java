@@ -40,7 +40,7 @@ public class RealKnowledgeSpaceService {
 
     public RealKnowledgeSpace createKnowledgeSpaceForTest(List<RealRelationsDTO> realRelationsDTOS, Long testID){
         Test test = testRepository.findById(testID).get();
-        RealKnowledgeSpace rks = realKnowledgeSpaceRepository.save(new RealKnowledgeSpace(null, LocalDateTime.now(), test, null));
+        RealKnowledgeSpace rks = realKnowledgeSpaceRepository.save(new RealKnowledgeSpace(null, LocalDateTime.now(), test, null, null));
         List<RealRelation> relationList = new ArrayList<>();
         realRelationsDTOS.forEach((relation -> {
             RealRelation realRelation = new RealRelation(null, null, null, null);

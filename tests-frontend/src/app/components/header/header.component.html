@@ -16,6 +16,14 @@
         >Add test</a
       >
     </li>
+    <li>
+      <a
+        [routerLink]="['/tests/publishing']"
+        routerLinkActive="router-link-active"
+        *appHasRole="['ROLE_TEACHER']"
+        >Test publishing</a
+      >
+    </li>
   </ul>
   <ul *ngIf="!currentUser">
     <li>
@@ -47,7 +55,7 @@
           [routerLink]="['/graph']"
           routerLinkActive="router-link-active"
           *appHasRole="['ROLE_TEACHER']"
-          >Knowledge space</a
+          >Supposed KS</a
         >
       </li>
       <li>

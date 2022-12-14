@@ -107,6 +107,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(HttpMethod.POST, "/auth/login");
 
 		web.ignoring().antMatchers(HttpMethod.GET, "/tests/");
+		web.ignoring().antMatchers(HttpMethod.GET, "/tests/{id}");
+		web.ignoring().antMatchers(HttpMethod.GET, "/tests/published");
+		web.ignoring().antMatchers(HttpMethod.GET, "/tests/{id}/published");
+		web.ignoring().antMatchers(HttpMethod.GET, "/tests/unpublished");
 		web.ignoring().antMatchers(HttpMethod.POST, "/tests/add");
 		web.ignoring().antMatchers(HttpMethod.POST, "/tests/submit");
 
@@ -130,6 +134,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		web.ignoring().antMatchers(HttpMethod.GET, "/realKS/{testId}");
 		web.ignoring().antMatchers(HttpMethod.POST, "/realKS/{testId}/create");
+
+		web.ignoring().antMatchers(HttpMethod.GET, "/testPublications/{testId}");
+		web.ignoring().antMatchers(HttpMethod.POST, "/testPublications/{publicationId}/republish");
+		web.ignoring().antMatchers(HttpMethod.POST, "/testPublications/publishNewVersion");
 
 	
 		// Ovim smo dozvolili pristup statickim resursima aplikacije

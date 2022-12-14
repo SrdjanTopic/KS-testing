@@ -11,7 +11,6 @@ import com.example.sotisproject.repository.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,22 +18,22 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class RealRelationService {
-    private RealRelationRepository relationRepository;
+    private RealRelationRepository realRelationRepository;
     private ConceptRepository conceptRepository;
     private TestRepository testRepository;
     private RealKnowledgeSpaceRepository realKnowledgeSpaceRepository;
 
     public List<RealRelation> getRealRelations() {
-        return relationRepository.findAll();
+        return realRelationRepository.findAll();
     }
 
     public List<RealRelation> findAllByRealKnowledgeSpaceId(Long testId) {
-        return relationRepository.findAllByRealKnowledgeSpaceId(testId);
+        return realRelationRepository.findAllByRealKnowledgeSpaceId(testId);
     }
 
     public List<RealRelation> createRealRelations(List<RealRelationsDTO> realRelationsDTOS, Long testID) {
         Test test = testRepository.findById(testID).get();
-        RealKnowledgeSpace realKnowledgeSpace = new RealKnowledgeSpace(null, LocalDateTime.now(), test, null);
+        RealKnowledgeSpace realKnowledgeSpace = new RealKnowledgeSpace(null, LocalDateTime.now(), test, null, null);
         RealKnowledgeSpace rks = realKnowledgeSpaceRepository.save(realKnowledgeSpace);
         List<RealRelation> relationList = new ArrayList<>();
         realRelationsDTOS.forEach((relation -> {
@@ -42,18 +41,18 @@ public class RealRelationService {
             realRelation.setRealSource(conceptRepository.findById(relation.getSourceId()).get());
             realRelation.setRealDestination(conceptRepository.findById(relation.getDestinationId()).get());
             realRelation.setRealKnowledgeSpace(rks);
-            relationList.add(relationRepository.save(realRelation));
+            relationList.add(realRelationRepository.save(realRelation));
         }));
         return relationList;
     }
 
-    public List<Long> getConceptOrder(){
+    public List<Long> getConceptOrderForKnowledgeSpace(Long ksId){
         List<Long> sources = new ArrayList<>();
         List<Long> destinations = new ArrayList<>();
         List<Long> conceptOrder = new ArrayList<>();
         List<Long> currentConcepts = new ArrayList<>();
         List<Long> tempCurr = new ArrayList<>();
-        List<RealRelation> relationList = relationRepository.findAll();
+        List<RealRelation> relationList = realRelationRepository.findAllByRealKnowledgeSpaceId(ksId);
         relationList.forEach(relation -> {
             sources.add(relation.getRealSource().getId());
             destinations.add(relation.getRealDestination().getId());

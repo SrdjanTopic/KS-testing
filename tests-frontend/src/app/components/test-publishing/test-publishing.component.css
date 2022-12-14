@@ -1,0 +1,204 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+}
+
+.wrapper .title {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.wrapper .testsTable {
+  width: 100%;
+}
+
+.wrapper .testsTable th,
+td {
+  padding: 0.3em;
+}
+
+.wrapper .testsTable th {
+  border: 2px solid hsl(200, 50%, 50%);
+}
+
+.wrapper .testsTable .numTh {
+  width: 2em;
+}
+
+.wrapper .testsTable .testNameTh {
+  /* width: 50%; */
+}
+
+.wrapper .testsTable .numOfQTh {
+  width: 9em;
+}
+
+.wrapper .testsTable .maxPointsTh {
+  width: 6em;
+}
+
+.wrapper .testsTable .statusTh {
+  width: 7em;
+}
+
+.wrapper .testsTable .lastPubTh {
+  width: 10em;
+}
+
+.wrapper .testsTable td {
+  border: 2px solid hsl(200, 50%, 75%);
+}
+
+.wrapper .testsTable td p {
+  margin-block-end: 0;
+}
+
+.wrapper .testsTable td .publishedP {
+  color: green;
+}
+
+.wrapper .testsTable td .unpublishedP {
+  color: red;
+}
+
+.wrapper .testsTable td .btn {
+  transition: 0.3s;
+}
+
+.wrapper .testsTable .publishTd {
+  width: 11em;
+  border: none;
+}
+
+.wrapper .testsTable .republishTd {
+  width: 5em;
+  border: none;
+}
+
+/*  */
+.modalBackgroundActive {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  background-color: hsl(0, 0%, 50%, 0.5);
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+
+.modalBackgroundActive .modalWrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  height: 75%;
+  width: 30%;
+  background-color: white;
+  opacity: 1;
+  border-radius: 1em;
+  padding: 1em;
+  margin-top: 1em;
+}
+
+.modalBackgroundActive .modalWrapper .btn-close {
+  float: right;
+  scale: 1.5 1.5;
+}
+
+.modalBackgroundActive .modalWrapper .modalContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 95%;
+  padding: 1em;
+  margin-top: 2em;
+  align-items: center;
+}
+
+.modalBackgroundActive .modalWrapper .modalContent .modalTitle {
+  text-align: center;
+}
+
+.modalBackgroundActive .modalWrapper .modalContent .rksList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+  gap: 0.5em;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.modalBackgroundActive .modalWrapper .modalContent .rksList p {
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border-radius: 0.5em;
+  font-weight: bold;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  user-select: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modalBackgroundActive .modalWrapper .modalContent p {
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border-radius: 0.5em;
+  font-weight: bold;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  user-select: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modalBackgroundActive .modalWrapper .modalContent .divider {
+  margin-top: 0.5em;
+  width: 80%;
+  border: 1px solid black;
+}
+
+.modalBackgroundActive .modalWrapper .modalContent .sks {
+  border: 1px solid hsl(240, 100%, 50%);
+}
+.modalBackgroundActive .modalWrapper .modalContent .sks:hover {
+  background-color: hsl(240, 100%, 70%);
+}
+.modalBackgroundActive .modalWrapper .modalContent .sksSelected {
+  border: 1px solid hsl(240, 100%, 50%);
+  background-color: hsl(240, 100%, 70%);
+}
+
+.modalBackgroundActive .modalWrapper .modalContent .rksList .rks {
+  border: 1px solid hsl(200, 100%, 50%);
+}
+.modalBackgroundActive .modalWrapper .modalContent .rksList .rks:hover {
+  background-color: hsl(200, 100%, 70%);
+}
+.modalBackgroundActive .modalWrapper .modalContent .rksList .rksSelected {
+  border: 1px solid hsl(200, 100%, 50%);
+  background-color: hsl(200, 100%, 70%);
+}
+
+.modalBackgroundDisabled {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: 50% 50%;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}

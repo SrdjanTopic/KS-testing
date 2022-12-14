@@ -26,7 +26,7 @@ public class RealRelationsController {
     }
 
     @PostMapping("/{KSId}/create")
-    public List<RealRelation>addConcepts(
+    public List<RealRelation> addConcepts(
             @PathVariable("KSId") Long KSId,
             @RequestBody List<RealRelationsDTO> realRelationsDTOS){
         return relationService.createRealRelations(realRelationsDTOS, KSId);

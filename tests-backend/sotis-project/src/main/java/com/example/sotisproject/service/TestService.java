@@ -19,6 +19,7 @@ public class TestService {
     private QuestionService questionService;
     private StudentRepository studentRepository;
     private RelationService relationService;
+    private RealRelationService realRelationService;
 
     public Test addTest(Test test){
         Test newTest = testRepository.save(test);
@@ -54,5 +55,36 @@ public class TestService {
         });
         test.setQuestions(questions);
         return test;
+    }
+
+    public Test getPublishedTestById(Long testId){
+        Test test = testRepository.findByIdAndTestPublicationsIsPublishedTrue(testId);
+        Set<Question> questions = new LinkedHashSet<>();
+        List<Long> conceptOrder;
+        final Long[] ksId = new Long[1];
+        test.getTestPublications().forEach(testPublication -> {
+            if(testPublication.getIsPublished()) {
+                ksId[0] = testPublication.getRealKnowledgeSpace().getId();
+            }
+        });
+        if(ksId[0] ==null) conceptOrder = relationService.getConceptOrder();
+        else conceptOrder = realRelationService.getConceptOrderForKnowledgeSpace(ksId[0]);
+
+        conceptOrder.forEach(concept->{
+            test.getQuestions().forEach(question -> {
+                if (Objects.equals(question.getConcept().getId(), concept)) {
+                    questions.add(question);
+                }
+            });
+        });
+        test.setQuestions(questions);
+        return test;
+    }
+
+    public List<Test> getAllPublishedTests(){
+        return testRepository.findAllByTestPublicationsIsPublishedTrue();
+    }
+
+    public List<Test> getAllUnpublishedTests() { return testRepository.findAllByTestPublicationsNull();
     }
 }
