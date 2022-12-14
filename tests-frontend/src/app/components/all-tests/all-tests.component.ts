@@ -25,14 +25,29 @@ export class AllTestsComponent implements OnInit {
   }
 
   loadTests() {
-    this.testService
-      .getTests()
-      .pipe()
-      .subscribe((tests) => {
-        this.tests = tests;
-        this.fillTestPoints();
-        this.fillTestConcepts();
-      });
+    if (
+      this.currentUser &&
+      this.currentUser.roles.some(
+        (role: any) => role.authority === 'ROLE_TEACHER'
+      )
+    )
+      this.testService
+        .getTests()
+        .pipe()
+        .subscribe((tests) => {
+          this.tests = tests;
+          this.fillTestPoints();
+          this.fillTestConcepts();
+        });
+    else
+      this.testService
+        .getPublishedTests()
+        .pipe()
+        .subscribe((tests) => {
+          this.tests = tests;
+          this.fillTestPoints();
+          this.fillTestConcepts();
+        });
   }
 
   fillTestPoints() {

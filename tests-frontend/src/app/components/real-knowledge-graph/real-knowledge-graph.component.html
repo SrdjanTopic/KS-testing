@@ -53,7 +53,9 @@
       >
       <span
         *ngIf="
-          selectedTestId !== 0 && selectedTest.realKnowledgeSpaces.length === 0
+          selectedTestId !== 0 &&
+          selectedTest.realKnowledgeSpaces.length === 0 &&
+          !isRealKSGenerated
         "
         class="redSpan"
         >There is no real knowledge space for this test. You can generate a new

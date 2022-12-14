@@ -24,6 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BaseTestComponent } from './components/base-test/base-test.component';
 import { TestRealizationComponent } from './pages/test-realization/test-realization.component';
 import { RealKnowledgeGraphComponent } from './components/real-knowledge-graph/real-knowledge-graph.component';
+import { TestPublishingComponent } from './components/test-publishing/test-publishing.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { RealKnowledgeGraphComponent } from './components/real-knowledge-graph/r
     BaseTestComponent,
     TestRealizationComponent,
     RealKnowledgeGraphComponent,
+    TestPublishingComponent,
   ],
   imports: [
     BrowserModule,

@@ -37,14 +37,29 @@ public class TestController {
         return testService.getTests();
     }
 
-    @PostMapping("/add")
-    public Test addTest(@RequestBody Test test){
-        return testService.addTest(test);
+    @GetMapping("/published")
+    public List<Test> getAllPublishedTests(){
+        return testService.getAllPublishedTests();
+    }
+
+    @GetMapping("/unpublished")
+    public List<Test> getAllUnpublishedTests(){
+        return testService.getAllUnpublishedTests();
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<Test> getTest(@PathVariable("id") Long id){
         return new ResponseEntity<Test>(testService.getTest(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/published")
+    public ResponseEntity<Test> getPublishedTestById(@PathVariable("id") Long id){
+        return new ResponseEntity<Test>(testService.getPublishedTestById(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public Test addTest(@RequestBody Test test){
+        return testService.addTest(test);
     }
     
     @PostMapping("/submit")

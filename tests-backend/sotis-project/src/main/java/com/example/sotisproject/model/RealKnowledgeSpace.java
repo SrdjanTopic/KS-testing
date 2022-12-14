@@ -28,4 +28,8 @@ public class RealKnowledgeSpace {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "realKnowledgeSpace", cascade = CascadeType.ALL)
     private List<RealRelation> relations;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "realKnowledgeSpace", cascade = CascadeType.ALL)
+    private List<TestPublication> testPublications;
 }
