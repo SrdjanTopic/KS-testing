@@ -92,4 +92,22 @@ insert into answer (question_id, answer) values (11, 'Data Types'); --answer_id:
 insert into answer (question_id, answer) values (11, 'Member functions'); --answer_id:25
 
 -- STUDENT ANSWERS
--- insert into student_answers (students_id, answers_id) values (2, 1);
+insert into student_answers (students_id, answers_id) values (3, 1);
+insert into student_answers (students_id, answers_id) values (2, 3);
+insert into student_answers (students_id, answers_id) values (3, 4);
+insert into student_answers (students_id, answers_id) values (2, 5);
+insert into student_answers (students_id, answers_id) values (3, 7);
+insert into student_answers (students_id, answers_id) values (2, 12);
+insert into student_answers (students_id, answers_id) values (3, 13);
+insert into student_answers (students_id, answers_id) values (2, 16);
+insert into student_answers (students_id, answers_id) values (3, 17);
+insert into student_answers (students_id, answers_id) values (2, 23);
+insert into student_answers (students_id, answers_id) values (3, 2);
+insert into student_answers (students_id, answers_id) values (2, 6);
+insert into student_answers (students_id, answers_id) values (3, 8);
+insert into student_answers (students_id, answers_id) values (3, 9);
+insert into student_answers (students_id, answers_id) values (2, 10);
+insert into student_answers (students_id, answers_id) values (3, 11);
+insert into student_answers (students_id, answers_id) values (2, 14);
+insert into student_answers (students_id, answers_id) values (3, 15);
+insert into student_answers (students_id, answers_id) values (2, 18);
