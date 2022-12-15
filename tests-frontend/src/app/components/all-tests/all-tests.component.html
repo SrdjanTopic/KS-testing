@@ -28,6 +28,9 @@
         <a *appHasRole="['ROLE_TEACHER']" [routerLink]="['/test/', test.id]"
           >View Test</a
         >
+        <a *appHasRole="['ROLE_TEACHER']" [routerLink]="['/test', test.id,'answers','graph']"
+          >View Graph</a
+        >
         <a
           *appHasRole="['ROLE_STUDENT']"
           [routerLink]="['/test/', test.id, 'submit']"

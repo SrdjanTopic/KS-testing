@@ -25,6 +25,7 @@ import { BaseTestComponent } from './components/base-test/base-test.component';
 import { TestRealizationComponent } from './pages/test-realization/test-realization.component';
 import { RealKnowledgeGraphComponent } from './components/real-knowledge-graph/real-knowledge-graph.component';
 import { TestPublishingComponent } from './components/test-publishing/test-publishing.component';
+import { StudentAnswerGraphComponent } from './pages/student-answer-graph/student-answer-graph.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { TestPublishingComponent } from './components/test-publishing/test-publi
     TestRealizationComponent,
     RealKnowledgeGraphComponent,
     TestPublishingComponent,
+    StudentAnswerGraphComponent,
   ],
   imports: [
     BrowserModule,

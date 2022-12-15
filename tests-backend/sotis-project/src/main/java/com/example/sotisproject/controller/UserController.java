@@ -1,8 +1,8 @@
 package com.example.sotisproject.controller;
 
-import com.example.sotisproject.dto.UserDTO;
-import com.example.sotisproject.model.User;
-import com.example.sotisproject.service.UserService;
+import java.security.InvalidParameterException;
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.InvalidParameterException;
-import java.security.Principal;
+import com.example.sotisproject.model.User;
+import com.example.sotisproject.service.UserService;
 
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)

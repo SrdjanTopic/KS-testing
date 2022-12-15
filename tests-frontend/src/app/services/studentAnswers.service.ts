@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { IUser } from '../model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -30,9 +32,28 @@ export class StudentAnswerService {
       .pipe(tap());
   }
 
+  getAnswersForTest(studentId: number, testId: number): Observable<any> {
+    return this.http.get<any>(environment.apiUrl + `/studentAnswers/${studentId}/test/${testId}`).pipe(
+      tap((data) => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  getStudentsForTest(id: number): Observable<IUser> {
+    return this.http.get<IUser>(environment.apiUrl + `/studentAnswers/test/${id}`).pipe(
+      tap((data) => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
   try() {
     return this.http.get(`http://localhost:5000/`, {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
+  }
+
+  private handleError(err: HttpErrorResponse) {
+    console.log(err.message);
+    return throwError(() => new Error('Error'));
   }
 }

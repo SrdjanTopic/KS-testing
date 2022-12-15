@@ -1,16 +1,15 @@
 package com.example.sotisproject.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter

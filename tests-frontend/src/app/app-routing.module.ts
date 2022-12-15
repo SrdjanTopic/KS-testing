@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TestRealizationComponent } from './pages/test-realization/test-realization.component';
 import { RealKnowledgeGraphComponent } from './components/real-knowledge-graph/real-knowledge-graph.component';
 import { TestPublishingComponent } from './components/test-publishing/test-publishing.component';
+import { StudentAnswerGraphComponent } from './pages/student-answer-graph/student-answer-graph.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'tests/publishing',
     component: TestPublishingComponent,
+  },
+  {
+    path: 'test/:id/answers/graph',
+    component: StudentAnswerGraphComponent,
   },
 ];
 

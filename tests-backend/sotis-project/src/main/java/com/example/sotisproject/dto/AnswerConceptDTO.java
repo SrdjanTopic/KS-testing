@@ -1,6 +1,7 @@
 package com.example.sotisproject.dto;
 
 import com.example.sotisproject.model.Answer;
+import com.example.sotisproject.model.Concept;
 import com.example.sotisproject.model.Question;
 
 import lombok.AllArgsConstructor;
@@ -12,12 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class StudentAnswerDTO {
-    private Long answerId;
-    private Question question;
-
-    public StudentAnswerDTO(Answer answer){
-        answerId = answer.getId();
-        question = answer.getQuestion();
-    };
+public class AnswerConceptDTO {
+	   private Answer answer;
+	   private Question question;
 }

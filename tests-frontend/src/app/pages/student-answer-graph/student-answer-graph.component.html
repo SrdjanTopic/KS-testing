@@ -1,0 +1,32 @@
+<div class="modalWrapper">
+  <div class="modalContent">
+    <div class="modalInfo">
+      <div class="testsList">
+        <div *ngFor="let student of students" class="testInfo">
+          <p
+            id="ppp"
+            [ngClass]="
+              student.id == selectedStudentId ? 'testSelected' : 'test'
+            "
+            (click)="selectStudent(student.id)"
+          >
+            S{{ student.studentNumber }}. {{ student.firstName }}
+            {{ student.lastName }}
+          </p>
+        </div>
+      </div>
+      <div class="buttons">
+        <button
+          mat-stroked-button
+          class="btn btn-info"
+          (click)="resetGraph()"
+        >
+          Reset graph
+        </button>
+      </div>
+    </div>
+    <div class="visWrapper">
+      <div id="visNetwork" #visNetwork></div>
+    </div>
+  </div>
+</div>
