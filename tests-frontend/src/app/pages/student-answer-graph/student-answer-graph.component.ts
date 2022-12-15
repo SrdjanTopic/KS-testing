@@ -142,14 +142,14 @@ export class StudentAnswerGraphComponent implements OnInit {
           this.concepts.map((concept: any) => ({
             id: concept.id,
             label: concept.concept,
-            color: concept.points > 0 ? 'aqua' : 'red',
+            color: concept.points > 0 ? '#86a9eb' : '#ed6b94',
           }))
         );
         this.startNodes = new DataSet<any>(
           this.concepts.map((concept: any) => ({
             id: concept.id,
             label: concept.concept,
-            color: concept.points > 0 ? 'aqua' : 'red',
+            color: concept.points > 0 ? '#86a9eb' : '#ed6b94',
           }))
         );
         this.loadConcepts();
