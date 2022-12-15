@@ -82,6 +82,7 @@ export class StudentAnswerGraphComponent implements OnInit {
     await this.loadConcepts();
     await this.loadRelations();
     await this.loadStudents();
+    this.loadInitialNodes();
     this.loadEdges();
     const data = { nodes: this.nodes, edges: this.edges };
 
@@ -111,6 +112,22 @@ export class StudentAnswerGraphComponent implements OnInit {
     // this.networkInstance.on('select', function (params) {
     //   console.log('select Event:', params);
     // });
+    await this.draw();
+  }
+
+  loadInitialNodes() {
+    this.nodes = new DataSet<any>(
+      this.concepts.map((concept: any) => ({
+        id: concept.id,
+        label: concept.concept,
+      }))
+    );
+    this.startNodes = new DataSet<any>(
+      this.concepts.map((concept: any) => ({
+        id: concept.id,
+        label: concept.concept,
+      }))
+    );
   }
 
   async loadConcepts() {
@@ -189,5 +206,13 @@ export class StudentAnswerGraphComponent implements OnInit {
       (student: any) => student.id === studentId
     )[0];
     await this.loadNodes();
+  }
+
+  async resetGraph(){
+    this.selectedStudentId=0;
+    await this.loadConcepts();
+    this.loadInitialNodes();
+    
+    await this.draw();
   }
 }

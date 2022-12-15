@@ -153,3 +153,10 @@
     color: hsl(240, 100%, 60%);
   }
   
+  .wrapper .buttons .removeSelectedBtn {
+    background-color: hsl(0, 100%, 60%);
+  }
+  
+  .wrapper .buttons .removeSelectedBtn:hover {
+    background-color: hsl(0, 100%, 30%);
+  }
