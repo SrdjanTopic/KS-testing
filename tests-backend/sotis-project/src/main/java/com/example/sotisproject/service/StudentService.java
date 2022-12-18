@@ -4,6 +4,7 @@ import com.example.sotisproject.dto.StudentAnswerDTO;
 import com.example.sotisproject.dto.StudentTestDTO;
 import com.example.sotisproject.model.Answer;
 import com.example.sotisproject.model.Student;
+import com.example.sotisproject.model.Test;
 import com.example.sotisproject.repository.AnswerRepository;
 import com.example.sotisproject.repository.StudentRepository;
 import com.example.sotisproject.repository.TestRepository;
@@ -39,12 +40,32 @@ public class StudentService {
             if(!testIds.contains(answer.getQuestion().getTest().getId()))
                 testIds.add(answer.getQuestion().getTest().getId());
         });
-        testIds.forEach(testId->studentTestDTOList.add(new StudentTestDTO(testRepository.findById(testId).get())));
+        testIds.forEach(testId->{
+            List<StudentAnswerDTO> studentAnswerDTOList = new ArrayList<>();
+            Test test = testRepository.findById(testId).get();
+            answers.forEach(answer -> {
+                if(answer.getQuestion().getTest().getId()==testId)
+                    studentAnswerDTOList.add(new StudentAnswerDTO(answer));
+            });
+            studentTestDTOList.add(new StudentTestDTO(test.getId(), test.getName(), studentAnswerDTOList));
+        });
+
+
         return studentTestDTOList;
     }
     
     public List<Student> findStudentsForTest(Long id) {
         List<Student> students = studentRepository.findByTests_Id(id);
         return students;
+    }
+
+    public List<StudentAnswerDTO> getSubmittedTestForStudent(Long studentId, Long testId){
+        List<Answer> answers = answerRepository.findAllByStudentsId(studentId);
+        List<StudentAnswerDTO> studentAnswerDTOList = new ArrayList<>();
+        answers.forEach(answer -> {
+            if(answer.getQuestion().getTest().getId()==testId)
+                studentAnswerDTOList.add(new StudentAnswerDTO(answer));
+        });
+        return studentAnswerDTOList;
     }
 }

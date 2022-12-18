@@ -25,11 +25,10 @@
           <p>Max points:</p>
           <b>{{ test.maxPoints }}</b>
         </div>
-        <a *appHasRole="['ROLE_TEACHER']" [routerLink]="['/test/', test.id]"
-          >View Test</a
-        >
-        <a *appHasRole="['ROLE_TEACHER']" [routerLink]="['/test', test.id,'answers','graph']"
-          >View Graph</a
+        <a
+          *appHasRole="['ROLE_TEACHER']"
+          [routerLink]="['/test', test.id, 'answers', 'graph']"
+          >View Knowledge State</a
         >
         <a
           *appHasRole="['ROLE_STUDENT']"
