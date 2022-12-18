@@ -68,46 +68,45 @@ insert into answer (question_id, answer, is_correct) values (5, 'Javascript', tr
 insert into answer (question_id, answer) values (5, 'C#'); --answer_id:16
 insert into answer (question_id, answer) values (5, 'Java'); --answer_id:17
 insert into answer (question_id, answer) values (5, 'Python'); --answer_id:18
-insert into answer (question_id, answer, is_correct) values (6, 'All answers', true); --answer_id:15
-insert into answer (question_id, answer) values (6, 'factory'); --answer_id:16
-insert into answer (question_id, answer) values (6, 'service'); --answer_id:17
-insert into answer (question_id, answer) values (6, 'value'); --answer_id:18
-insert into answer (question_id, answer, is_correct) values (7, '@extend', true); --answer_id:19
-insert into answer (question_id, answer) values (7, '@media'); --answer_id:20
-insert into answer (question_id, answer) values (7, 'None'); --answer_id:21
-insert into answer (question_id, answer, is_correct) values (8, 'All answers', true); --answer_id:22
-insert into answer (question_id, answer) values (8, 'Interfaces'); --answer_id:23
-insert into answer (question_id, answer) values (8, 'Data Types'); --answer_id:24
-insert into answer (question_id, answer) values (8, 'Member functions'); --answer_id:25
-insert into answer (question_id, answer, is_correct) values (9, 'All answers', true); --answer_id:22
-insert into answer (question_id, answer) values (9, 'factory'); --answer_id:16
-insert into answer (question_id, answer) values (9, 'service'); --answer_id:17
-insert into answer (question_id, answer) values (9, 'value'); --answer_id:18
-insert into answer (question_id, answer, is_correct) values (10, '@extend', true); --answer_id:19
-insert into answer (question_id, answer) values (10, '@media'); --answer_id:20
-insert into answer (question_id, answer) values (10, 'None'); --answer_id:21
-insert into answer (question_id, answer, is_correct) values (11, 'All answers', true); --answer_id:22
-insert into answer (question_id, answer) values (11, 'Interfaces'); --answer_id:23
-insert into answer (question_id, answer) values (11, 'Data Types'); --answer_id:24
-insert into answer (question_id, answer) values (11, 'Member functions'); --answer_id:25
+insert into answer (question_id, answer, is_correct) values (6, 'All answers', true); --answer_id:19
+insert into answer (question_id, answer) values (6, 'factory'); --answer_id:20
+insert into answer (question_id, answer) values (6, 'service'); --answer_id:21
+insert into answer (question_id, answer) values (6, 'value'); --answer_id:22
+insert into answer (question_id, answer, is_correct) values (7, '@extend', true); --answer_id:23
+insert into answer (question_id, answer) values (7, '@media'); --answer_id:24
+insert into answer (question_id, answer) values (7, 'None'); --answer_id:25
+insert into answer (question_id, answer, is_correct) values (8, 'All answers', true); --answer_id:26
+insert into answer (question_id, answer) values (8, 'Interfaces'); --answer_id:27
+insert into answer (question_id, answer) values (8, 'Data Types'); --answer_id:28
+insert into answer (question_id, answer) values (8, 'Member functions'); --answer_id:29
+insert into answer (question_id, answer, is_correct) values (9, 'All answers', true); --answer_id:30
+insert into answer (question_id, answer) values (9, 'factory'); --answer_id:31
+insert into answer (question_id, answer) values (9, 'service'); --answer_id:32
+insert into answer (question_id, answer) values (9, 'value'); --answer_id:33
+insert into answer (question_id, answer, is_correct) values (10, '@extend', true); --answer_id:34
+insert into answer (question_id, answer) values (10, '@media'); --answer_id:35
+insert into answer (question_id, answer) values (10, 'None'); --answer_id:36
+insert into answer (question_id, answer, is_correct) values (11, 'All answers', true); --answer_id:37
+insert into answer (question_id, answer) values (11, 'Interfaces'); --answer_id:38
+insert into answer (question_id, answer) values (11, 'Data Types'); --answer_id:39
+insert into answer (question_id, answer) values (11, 'Member functions'); --answer_id:40
 
 -- STUDENT ANSWERS
-insert into student_answers (students_id, answers_id) values (3, 1);
 insert into student_answers (students_id, answers_id) values (2, 3);
-insert into student_answers (students_id, answers_id) values (3, 4);
 insert into student_answers (students_id, answers_id) values (2, 5);
-insert into student_answers (students_id, answers_id) values (3, 7);
-insert into student_answers (students_id, answers_id) values (2, 12);
-insert into student_answers (students_id, answers_id) values (3, 13);
+insert into student_answers (students_id, answers_id) values (2, 10);
+insert into student_answers (students_id, answers_id) values (2, 14);
 insert into student_answers (students_id, answers_id) values (2, 16);
-insert into student_answers (students_id, answers_id) values (3, 17);
+insert into student_answers (students_id, answers_id) values (2, 19);
 insert into student_answers (students_id, answers_id) values (2, 23);
+insert into student_answers (students_id, answers_id) values (2, 28);
+insert into student_answers (students_id, answers_id) values (3, 1);
+insert into student_answers (students_id, answers_id) values (3, 4);
+insert into student_answers (students_id, answers_id) values (3, 7);
+insert into student_answers (students_id, answers_id) values (3, 13);
+insert into student_answers (students_id, answers_id) values (3, 17);
 insert into student_answers (students_id, answers_id) values (3, 2);
-insert into student_answers (students_id, answers_id) values (2, 6);
 insert into student_answers (students_id, answers_id) values (3, 8);
 insert into student_answers (students_id, answers_id) values (3, 9);
-insert into student_answers (students_id, answers_id) values (2, 10);
 insert into student_answers (students_id, answers_id) values (3, 11);
-insert into student_answers (students_id, answers_id) values (2, 14);
 insert into student_answers (students_id, answers_id) values (3, 15);
-insert into student_answers (students_id, answers_id) values (2, 18);

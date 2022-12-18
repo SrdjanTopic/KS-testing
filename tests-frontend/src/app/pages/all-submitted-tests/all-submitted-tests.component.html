@@ -1,39 +1,33 @@
-<div class="modalWrapper">
-  <div class="modalContent">
-    <div class="modalInfo">
-      <div class="testsList">
-        <div *ngFor="let student of students" class="testInfo">
-          <p
-            id="ppp"
-            [ngClass]="
-              student.id == selectedStudentId ? 'studentSelected' : 'student'
-            "
-            (click)="selectStudent(student.id)"
-          >
-            {{ student.firstName }}
-            {{ student.lastName }}
-            <button
-              (click)="viewResults()"
-              mat-stroked-button
-              [ngClass]="
-                student.id == selectedStudentId
-                  ? 'btn btn-primary btn-sm viewResults'
-                  : 'btn btn-primary btn-sm disabled viewResults'
-              "
-            >
-              view results
-            </button>
-          </p>
+<div class="wrapper">
+  <h1>All Tests</h1>
+  <div class="tests-wrapper">
+    <div class="test" *ngFor="let test of tests">
+      <b class="test-name">
+        {{ test.name }}
+      </b>
+      <div class="underline"></div>
+      <div class="concepts">
+        <p>Concepts:</p>
+        <div class="concept">
+          <b *ngFor="let concept of test.concepts">{{ concept }}</b>
         </div>
       </div>
-      <div class="buttons">
-        <button mat-stroked-button class="btn btn-info" (click)="resetGraph()">
-          Reset graph
-        </button>
+      <div class="info">
+        <div class="number-of-questions">
+          <p>Number of questions:</p>
+          <b>{{ test.questions.length }}</b>
+        </div>
+        <div class="number-of-points">
+          <p>Result:</p>
+          <b
+            [ngClass]="test.myPoints / test.maxPoints < 0.51 ? 'fail' : 'pass'"
+            >{{ test.myPoints }}</b
+          >
+          <b>/</b>
+          <b>{{ test.maxPoints }}</b>
+        </div>
+        <button (click)="viewResults(test.id)">View results</button>
       </div>
-    </div>
-    <div class="visWrapper">
-      <div id="visNetwork" #visNetwork></div>
     </div>
   </div>
 </div>

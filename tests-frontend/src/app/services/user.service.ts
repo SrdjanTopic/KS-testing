@@ -3,27 +3,19 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../model/user';
 import { AuthService } from './auth.service';
-import { catchError, distinctUntilChanged, map , tap} from 'rxjs/operators';
-import {
-  BehaviorSubject,
-  Observable,
-  throwError,
-} from 'rxjs';
+import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
   private currentUserSubject = new BehaviorSubject<IUser>({} as IUser);
   public currentUser = this.currentUserSubject
     .asObservable()
     .pipe(distinctUntilChanged());
 
-  constructor(
-    private http: HttpClient,
-    authenticationService: AuthService
-  ) {
+  constructor(private http: HttpClient, authenticationService: AuthService) {
     if (authenticationService.isLoggedIn()) {
       this.getCurrentUser().subscribe({
         next: (user) => {

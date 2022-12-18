@@ -54,7 +54,7 @@ export class RealKnowledgeGraphComponent implements OnInit {
     const container = this.visNetwork;
 
     const options = {
-      interaction: { hover: true },
+      interaction: { selectable: false, hover: false, dragNodes: false },
       edges: {
         arrows: 'to',
       },
@@ -181,6 +181,10 @@ export class RealKnowledgeGraphComponent implements OnInit {
 
   async selectTest(testId: number) {
     if (this.selectedTestId === testId) {
+      this.networkInstance?.selectNodes(
+        this.concepts.map((concept: any) => concept.id)
+      );
+      this.networkInstance?.deleteSelected();
       this.selectedKS = 0;
       this.selectedTestId = 0;
       return;

@@ -1,126 +1,149 @@
-.modalWrapper {
-  height: 90%;
-  width: 100%;
-  padding: 1em;
-}
-
-.modalWrapper .modalContent {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  padding: 1em;
-  gap: 1em;
-}
-
-.modalWrapper .modalContent .modalInfo {
+.wrapper {
   display: flex;
   flex-direction: column;
-  width: 20%;
-  height: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
-.modalWrapper .modalContent .modalInfo .testsList {
-  width: 100%;
-  height: 85%;
-  font-weight: bold;
+.wrapper a {
+  font-size: 1.5em;
+  text-decoration: none;
+}
+
+.wrapper a:hover {
+  text-decoration: underline;
+}
+
+.wrapper .tests-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 90%;
+  text-align: center;
+}
+
+.wrapper .tests-wrapper .test {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em;
+  padding: 2em;
+  background-color: hsl(240, 100%, 95%);
+  border: hsl(240, 100%, 90%) 1px solid;
+  transition: 0.3s;
   user-select: none;
+  height: 330px;
+  justify-content: space-between;
+  border-radius: 0.5em;
+  position: relative;
+}
+.wrapper .tests-wrapper .test:hover {
+  background-color: hsl(240, 100%, 90%);
+}
+
+.wrapper .tests-wrapper .test .testNotPublished {
+  position: absolute;
+  width: fit-content;
+  padding: 0.1em 0.2em 0.1em 0.2em;
+  padding-block-end: 0;
+  top: -0.5em;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: darkred;
+  color: white;
+  border-radius: 0.5em;
+}
+
+.wrapper .tests-wrapper .test .test-name {
+  font-size: 1.7em;
+}
+
+.wrapper .tests-wrapper .test .info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper .tests-wrapper .test .concepts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 7em;
+}
+
+.wrapper .tests-wrapper .test .concepts .concept {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 7em;
   overflow-y: auto;
 }
 
-.modalWrapper .modalContent .modalInfo .testsList .testInfo .student {
-  padding: 0.2em;
-  cursor: pointer;
-  border-radius: 0.5em;
-  background-color: hsl(225, 100%, 80%);
-  border: 2px hsl(225, 100%, 50%) solid;
-  margin-block-end: 0.3em;
+.wrapper .tests-wrapper .test .info .number-of-questions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.modalWrapper .modalContent .modalInfo .testsList .testInfo .studentSelected {
-  padding: 0.2em;
-  cursor: pointer;
-  border-radius: 0.5em;
-  border: 2px hsl(225, 100%, 50%) solid;
-  background-color: hsl(225, 100%, 90%);
-  margin-block-end: 0.3em;
+.wrapper .tests-wrapper .test .info .number-of-points {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.viewResults {
-  height: 25px;
-  width: fit-content;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  padding: 0 0.3em 0 0.3em;
-  cursor: default;
-  transition: 0.3s;
+.wrapper .tests-wrapper .test .concepts p {
+  font-size: 1.3em;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
-.modalWrapper .modalContent .modalInfo .testsList .testInfo .student:hover {
-  background-color: hsl(225, 100%, 90%);
+.wrapper .tests-wrapper .test .info .number-of-questions p {
+  font-size: 1.3em;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
-.modalWrapper .modalContent .modalInfo .buttons {
-  width: 100%;
-  display: flex;
-  gap: 1em;
+.wrapper .tests-wrapper .test .info .number-of-questions b {
+  font-size: 1.3em;
+  text-decoration: underline;
 }
 
-.modalWrapper .modalContent .modalInfo .buttons button {
-  transition: 0.5s;
+.wrapper .tests-wrapper .test .info .number-of-points p {
+  font-size: 1.3em;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
-.modalWrapper .modalContent .visWrapper {
-  width: 80%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.wrapper .tests-wrapper .test .info .number-of-points b {
+  font-size: 1.3em;
+  text-decoration: underline;
 }
 
-.modalWrapper .modalContent .visWrapper #visNetwork {
-  width: 100%;
-  height: 90%;
-  border-radius: 1em;
-  box-shadow: 0 0 1em black;
-}
-
-.modalWrapper .modalContent .visWrapper span {
-  font-size: 1.5em;
-  margin-top: 1em;
-  user-select: none;
-}
-
-.modalWrapper .modalContent .visWrapper .redSpan {
+.wrapper .tests-wrapper .test .info .number-of-points .fail {
   color: red;
 }
 
-.modalWrapper .modalContent .visWrapper .orangeSpan {
-  color: orange;
-}
-
-.modalWrapper .modalContent .visWrapper .greenSpan {
+.wrapper .tests-wrapper .test .info .number-of-points .pass {
   color: green;
 }
 
-.modalWrapper .modalContent .visWrapper .blueSpan {
-  color: hsl(240, 100%, 60%);
+.wrapper .tests-wrapper .test .info button {
+  font-size: 1.3em;
+  border: none;
+  color: white;
+  background-color: hsl(260, 100%, 75%);
+  cursor: pointer;
+  width: fit-content;
+  border-radius: 0.2em;
+  margin-top: 1em;
+  padding: 0.5em;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
-.wrapper .buttons .removeSelectedBtn {
-  background-color: hsl(0, 100%, 60%);
-}
-
-.wrapper .buttons .removeSelectedBtn:hover {
-  background-color: hsl(0, 100%, 30%);
+.wrapper .tests-wrapper .test .info button:hover {
+  background-color: hsl(260, 100%, 65%);
 }
 
 .modalBackgroundActive {

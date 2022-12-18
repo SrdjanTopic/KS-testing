@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConceptService } from 'src/app/services/concept.service';
-import { RealKSService } from 'src/app/services/realKS.service';
-import { RealRelationService } from 'src/app/services/realRelation.service';
 import { RelationService } from 'src/app/services/relation.service';
 import { StudentService } from 'src/app/services/student.service';
 import { StudentAnswerService } from 'src/app/services/studentAnswers.service';
@@ -36,6 +34,13 @@ export class StudentAnswerGraphComponent implements OnInit {
 
   isSelected: boolean = false;
 
+  selectedTest: { questions: any; id: any; name: any } = {
+    questions: [],
+    id: 0,
+    name: '',
+  };
+  isModalOpen = false;
+
   @ViewChild('visNetwork', { static: false }) visNetwork!: ElementRef;
   private networkInstance: Network | null = null;
 
@@ -43,11 +48,16 @@ export class StudentAnswerGraphComponent implements OnInit {
     private relationService: RelationService,
     private conceptService: ConceptService,
     private studentAnswerService: StudentAnswerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private studentService: StudentService,
+    private testService: TestService
   ) {}
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
+    this.testService.getTest(this.id).subscribe((test) => {
+      this.test = test;
+    });
   }
 
   async draw() {
@@ -89,19 +99,7 @@ export class StudentAnswerGraphComponent implements OnInit {
     const container = this.visNetwork;
 
     const options = {
-      interaction: { hover: true },
-      nodes: {
-        fixed: {
-          x: false,
-          y: false,
-        },
-      },
-      physics: {
-        enabled: true,
-        barnesHut: {
-          centralGravity: 0.8,
-        },
-      },
+      interaction: { selectable: false, hover: false, dragNodes: false },
       edges: {
         arrows: 'to',
       },
@@ -112,7 +110,7 @@ export class StudentAnswerGraphComponent implements OnInit {
     // this.networkInstance.on('select', function (params) {
     //   console.log('select Event:', params);
     // });
-    await this.draw();
+    //await this.draw();
   }
 
   loadInitialNodes() {
@@ -139,40 +137,39 @@ export class StudentAnswerGraphComponent implements OnInit {
     this.relations = await this.relationService.getRelations().toPromise();
   }
 
-  async loadNodes() {
-    this.studentAnswerService
-      .getAnswersForTest(this.selectedStudentId, this.id)
-      .subscribe((answers) => {
-        this.concepts.forEach((concept: { concept: any; points: number }) => {
-          concept.points = 0;
-          answers.forEach((element: { answer: any; question: any }) => {
-            if (concept.concept == element.question.concept.concept)
-              element.answer.isCorrect
-                ? (concept.points = +element.question.points)
-                : (concept.points = -element.question.points);
-          });
-        });
-        this.concepts.forEach((element: { concept: any; points: any }) => {
-          console.log(element.points, element.concept);
-        });
-        this.nodes = new DataSet<any>(
-          this.concepts.map((concept: any) => ({
-            id: concept.id,
-            label: concept.concept,
-            color: concept.points > 0 ? '#86a9eb' : '#ed6b94',
-          }))
-        );
-        this.startNodes = new DataSet<any>(
-          this.concepts.map((concept: any) => ({
-            id: concept.id,
-            label: concept.concept,
-            color: concept.points > 0 ? '#86a9eb' : '#ed6b94',
-          }))
-        );
-        this.loadConcepts();
-        this.draw();
-      });
-  }
+  // async loadNodes() {
+  //   this.studentAnswerService
+  //     .getAnswersForTest(this.selectedStudentId, this.id)
+  //     .subscribe((answers) => {
+  //       this.concepts.forEach((concept: { concept: any; points: number }) => {
+  //         concept.points = 0;
+  //         answers.forEach((element: { answer: any; question: any }) => {
+  //           if (concept.concept == element.question.concept.concept)
+  //             element.answer.isCorrect
+  //               ? (concept.points = +element.question.points)
+  //               : (concept.points = -element.question.points);
+  //         });
+  //       });
+  //       this.concepts.forEach((element: { concept: any; points: any }) => {
+  //         console.log(element.points, element.concept);
+  //       });
+  //       this.nodes = new DataSet<any>(
+  //         this.concepts.map((concept: any) => ({
+  //           id: concept.id,
+  //           label: concept.concept,
+  //           color: concept.points > 0 ? '#97c2fc' : '#ed6b94',
+  //         }))
+  //       );
+  //       this.startNodes = new DataSet<any>(
+  //         this.concepts.map((concept: any) => ({
+  //           id: concept.id,
+  //           label: concept.concept,
+  //           color: concept.points > 0 ? '#97c2fc' : '#ed6b94',
+  //         }))
+  //       );
+  //       this.draw();
+  //     });
+  // }
 
   loadEdges() {
     this.edges = new DataSet<any>(
@@ -189,14 +186,6 @@ export class StudentAnswerGraphComponent implements OnInit {
     );
   }
 
-  addNode() {
-    this.networkInstance?.addNodeMode();
-  }
-
-  addEdge() {
-    this.networkInstance?.addEdgeMode();
-  }
-
   async selectStudent(studentId: number) {
     if (this.selectedStudentId == studentId) {
       return;
@@ -205,14 +194,55 @@ export class StudentAnswerGraphComponent implements OnInit {
     this.selectedStudent = this.students.filter(
       (student: any) => student.id === studentId
     )[0];
-    await this.loadNodes();
+    this.studentAnswerService
+      .getAnswersForTest(this.selectedStudentId, this.id)
+      .subscribe((answers) => {
+        this.concepts.forEach((concept: { concept: any; points: number }) => {
+          concept.points = 0;
+          answers.forEach((element: { answer: any; question: any }) => {
+            if (concept.concept == element.question.concept.concept)
+              element.answer.isCorrect
+                ? (concept.points = +element.question.points)
+                : (concept.points = -element.question.points);
+          });
+        });
+        this.concepts.forEach((element: any) => {
+          this.nodes.update({ id: element.id, color: '#97c2fc' });
+        });
+
+        this.concepts
+          .filter((concept: any) => concept.points <= 0)
+          .forEach((element: any) => {
+            this.nodes.update({ id: element.id, color: '#ed6b94' });
+          });
+      });
   }
 
-  async resetGraph(){
-    this.selectedStudentId=0;
-    await this.loadConcepts();
-    this.loadInitialNodes();
-    
-    await this.draw();
+  async resetGraph() {
+    this.selectedStudentId = 0;
+    this.concepts.forEach((element: any) => {
+      this.nodes.update({ id: element.id, color: '#97c2fc' });
+    });
+  }
+
+  viewResults() {
+    if (this.selectedStudentId !== 0) {
+      this.studentService
+        .getTestForStudent(this.selectedStudentId, this.id)
+        .pipe()
+        .subscribe((test) => {
+          this.selectedTest.name = this.test.name;
+          this.selectedTest.questions = test;
+          this.selectedTest.questions.forEach(
+            (question: any, index: number) => {
+              this.selectedTest.questions[index].questionNumber = index + 1;
+            }
+          );
+          this.changeModalState();
+        });
+    }
+  }
+  changeModalState() {
+    this.isModalOpen = !this.isModalOpen;
   }
 }
