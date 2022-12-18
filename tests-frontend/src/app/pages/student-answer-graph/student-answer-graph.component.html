@@ -6,27 +6,86 @@
           <p
             id="ppp"
             [ngClass]="
-              student.id == selectedStudentId ? 'testSelected' : 'test'
+              student.id == selectedStudentId ? 'studentSelected' : 'student'
             "
             (click)="selectStudent(student.id)"
           >
-            S{{ student.studentNumber }}. {{ student.firstName }}
+            {{ student.firstName }}
             {{ student.lastName }}
+            <button
+              (click)="viewResults()"
+              mat-stroked-button
+              [ngClass]="
+                student.id == selectedStudentId
+                  ? 'btn btn-primary btn-sm viewResults'
+                  : 'btn btn-primary btn-sm disabled viewResults'
+              "
+            >
+              view results
+            </button>
           </p>
         </div>
       </div>
       <div class="buttons">
-        <button
-          mat-stroked-button
-          class="btn btn-info"
-          (click)="resetGraph()"
-        >
+        <button mat-stroked-button class="btn btn-info" (click)="resetGraph()">
           Reset graph
         </button>
       </div>
     </div>
     <div class="visWrapper">
       <div id="visNetwork" #visNetwork></div>
+    </div>
+  </div>
+</div>
+
+<div
+  [ngClass]="isModalOpen ? 'modalBackgroundActive' : 'modalBackgroundDisabled'"
+>
+  <div class="modalWrapper">
+    <button
+      (click)="changeModalState()"
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+    ></button>
+    <div class="modalContent">
+      <div class="testWrapper">
+        <div class="test">
+          <div class="testName">
+            <h1>{{ selectedTest.name }}</h1>
+          </div>
+          <div class="testContent">
+            <form>
+              <div class="question" *ngFor="let q of selectedTest.questions">
+                <div class="questionText">
+                  <b class="questionQuestion"
+                    >Q{{ q.questionNumber }}. {{ q.question.question }}</b
+                  >
+                  <span class="questionPoints"
+                    >({{ q.question.points }} points)</span
+                  >
+                </div>
+                <mat-radio-group
+                  aria-labelledby="radio-group-label"
+                  class="answers"
+                  [ngModelOptions]="{ standalone: true }"
+                  [ngModel]="q.answerId"
+                >
+                  <mat-radio-button
+                    *ngFor="let a of q.question.answers"
+                    [value]="a.id"
+                    [ngClass]="
+                      a.isCorrect ? 'correctAnswer' : 'incorrectAnswer'
+                    "
+                  >
+                    <span class="answerText">{{ a.answer }}</span>
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

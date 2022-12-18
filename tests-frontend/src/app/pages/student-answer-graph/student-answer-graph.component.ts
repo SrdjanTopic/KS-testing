@@ -2,7 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConceptService } from 'src/app/services/concept.service';
 import { RelationService } from 'src/app/services/relation.service';
+import { StudentService } from 'src/app/services/student.service';
 import { StudentAnswerService } from 'src/app/services/studentAnswers.service';
+import { TestService } from 'src/app/services/test.service';
 import { DataSet } from 'vis-data';
 import { Network } from 'vis-network';
 
@@ -32,6 +34,13 @@ export class StudentAnswerGraphComponent implements OnInit {
 
   isSelected: boolean = false;
 
+  selectedTest: { questions: any; id: any; name: any } = {
+    questions: [],
+    id: 0,
+    name: '',
+  };
+  isModalOpen = false;
+
   @ViewChild('visNetwork', { static: false }) visNetwork!: ElementRef;
   private networkInstance: Network | null = null;
 
@@ -39,11 +48,16 @@ export class StudentAnswerGraphComponent implements OnInit {
     private relationService: RelationService,
     private conceptService: ConceptService,
     private studentAnswerService: StudentAnswerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private studentService: StudentService,
+    private testService: TestService
   ) {}
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
+    this.testService.getTest(this.id).subscribe((test) => {
+      this.test = test;
+    });
   }
 
   async draw() {
@@ -209,5 +223,26 @@ export class StudentAnswerGraphComponent implements OnInit {
     this.concepts.forEach((element: any) => {
       this.nodes.update({ id: element.id, color: '#97c2fc' });
     });
+  }
+
+  viewResults() {
+    if (this.selectedStudentId !== 0) {
+      this.studentService
+        .getTestForStudent(this.selectedStudentId, this.id)
+        .pipe()
+        .subscribe((test) => {
+          this.selectedTest.name = this.test.name;
+          this.selectedTest.questions = test;
+          this.selectedTest.questions.forEach(
+            (question: any, index: number) => {
+              this.selectedTest.questions[index].questionNumber = index + 1;
+            }
+          );
+          this.changeModalState();
+        });
+    }
+  }
+  changeModalState() {
+    this.isModalOpen = !this.isModalOpen;
   }
 }

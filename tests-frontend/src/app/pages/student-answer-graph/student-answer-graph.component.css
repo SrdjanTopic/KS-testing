@@ -1,162 +1,281 @@
 .modalWrapper {
-    height: 90%;
-    width: 100%;
-    padding: 1em;
-  }
-  
-  .modalWrapper .modalContent {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 1em;
-    gap: 1em;
-  }
-  
-  .modalWrapper .modalContent .modalInfo {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    height: 100%;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .modalWrapper .modalContent .modalInfo .testsList {
-    width: 100%;
-    height: 85%;
-    font-weight: bold;
-    user-select: none;
-    overflow-y: auto;
-  }
-  
-  .modalWrapper .modalContent .modalInfo .testsList .testInfo .test {
-    padding: 0.2em;
-    cursor: pointer;
-    border-radius: 0.5em;
-    background-color: hsl(225, 100%, 80%);
-    border: 2px hsl(225, 100%, 50%) solid;
-    margin-block-end: 0.3em;
-  }
-  
-  .modalWrapper .modalContent .modalInfo .testsList .testInfo .testSelected {
-    padding: 0.2em;
-    cursor: pointer;
-    border-radius: 0.5em;
-    border: 2px hsl(225, 100%, 50%) solid;
-    background-color: hsl(225, 100%, 90%);
-    margin-block-end: 0.3em;
-  }
-  
-  .modalWrapper .modalContent .modalInfo .testsList .testInfo .test:hover {
-    background-color: hsl(225, 100%, 90%);
-  }
-  
-  .modalWrapper .modalContent .modalInfo .testsList .testInfo .ksVersionList {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    font-weight: 500;
-    font-size: 1em;
-    user-select: none;
-    overflow-y: auto;
-  }
-  
-  .modalWrapper
-    .modalContent
-    .modalInfo
-    .testsList
-    .testInfo
-    .ksVersionList
-    .version {
-    width: 95%;
-    padding: 0.1em;
-    padding-left: 0.2em;
-    cursor: pointer;
-    border-radius: 0.5em;
-    background-color: hsl(210, 100%, 80%);
-    border: 1px hsl(210, 100%, 50%) solid;
-    margin-block-end: 0.2em;
-  }
-  
-  .modalWrapper
-    .modalContent
-    .modalInfo
-    .testsList
-    .testInfo
-    .ksVersionList
-    .versionSelected {
-    width: 95%;
-    padding: 0.1em;
-    padding-left: 0.2em;
-    cursor: pointer;
-    border-radius: 0.5em;
-    border: 1px hsl(210, 100%, 50%) solid;
-    background-color: hsl(210, 100%, 90%);
-    margin-block-end: 0.2em;
-  }
-  
-  .modalWrapper
-    .modalContent
-    .modalInfo
-    .testsList
-    .testInfo
-    .ksVersionList
-    .version:hover {
-    background-color: hsl(225, 100%, 90%);
-  }
-  
-  .modalWrapper .modalContent .modalInfo .buttons {
-    width: 100%;
-    display: flex;
-    gap: 1em;
-  }
-  
-  .modalWrapper .modalContent .modalInfo .buttons button {
-    transition: 0.5s;
-  }
-  
-  .modalWrapper .modalContent .visWrapper {
-    width: 80%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .modalWrapper .modalContent .visWrapper #visNetwork {
-    width: 100%;
-    height: 90%;
-    border-radius: 1em;
-    box-shadow: 0 0 1em black;
-  }
-  
-  .modalWrapper .modalContent .visWrapper span {
-    font-size: 1.5em;
-    margin-top: 1em;
-    user-select: none;
-  }
-  
-  .modalWrapper .modalContent .visWrapper .redSpan {
-    color: red;
-  }
-  
-  .modalWrapper .modalContent .visWrapper .orangeSpan {
-    color: orange;
-  }
-  
-  .modalWrapper .modalContent .visWrapper .greenSpan {
-    color: green;
-  }
-  
-  .modalWrapper .modalContent .visWrapper .blueSpan {
-    color: hsl(240, 100%, 60%);
-  }
-  
-  .wrapper .buttons .removeSelectedBtn {
-    background-color: hsl(0, 100%, 60%);
-  }
-  
-  .wrapper .buttons .removeSelectedBtn:hover {
-    background-color: hsl(0, 100%, 30%);
-  }
+  height: 90%;
+  width: 100%;
+  padding: 1em;
+}
+
+.modalWrapper .modalContent {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+  gap: 1em;
+}
+
+.modalWrapper .modalContent .modalInfo {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modalWrapper .modalContent .modalInfo .testsList {
+  width: 100%;
+  height: 85%;
+  font-weight: bold;
+  user-select: none;
+  overflow-y: auto;
+}
+
+.modalWrapper .modalContent .modalInfo .testsList .testInfo .student {
+  padding: 0.2em;
+  cursor: pointer;
+  border-radius: 0.5em;
+  background-color: hsl(225, 100%, 80%);
+  border: 2px hsl(225, 100%, 50%) solid;
+  margin-block-end: 0.3em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalWrapper .modalContent .modalInfo .testsList .testInfo .studentSelected {
+  padding: 0.2em;
+  cursor: pointer;
+  border-radius: 0.5em;
+  border: 2px hsl(225, 100%, 50%) solid;
+  background-color: hsl(225, 100%, 90%);
+  margin-block-end: 0.3em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.viewResults {
+  height: 25px;
+  width: fit-content;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding: 0 0.3em 0 0.3em;
+  cursor: default;
+  transition: 0.3s;
+}
+
+.modalWrapper .modalContent .modalInfo .testsList .testInfo .student:hover {
+  background-color: hsl(225, 100%, 90%);
+}
+
+.modalWrapper .modalContent .modalInfo .buttons {
+  width: 100%;
+  display: flex;
+  gap: 1em;
+}
+
+.modalWrapper .modalContent .modalInfo .buttons button {
+  transition: 0.5s;
+}
+
+.modalWrapper .modalContent .visWrapper {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalWrapper .modalContent .visWrapper #visNetwork {
+  width: 100%;
+  height: 90%;
+  border-radius: 1em;
+  box-shadow: 0 0 1em black;
+}
+
+.modalWrapper .modalContent .visWrapper span {
+  font-size: 1.5em;
+  margin-top: 1em;
+  user-select: none;
+}
+
+.modalWrapper .modalContent .visWrapper .redSpan {
+  color: red;
+}
+
+.modalWrapper .modalContent .visWrapper .orangeSpan {
+  color: orange;
+}
+
+.modalWrapper .modalContent .visWrapper .greenSpan {
+  color: green;
+}
+
+.modalWrapper .modalContent .visWrapper .blueSpan {
+  color: hsl(240, 100%, 60%);
+}
+
+.wrapper .buttons .removeSelectedBtn {
+  background-color: hsl(0, 100%, 60%);
+}
+
+.wrapper .buttons .removeSelectedBtn:hover {
+  background-color: hsl(0, 100%, 30%);
+}
+
+.modalBackgroundActive {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  background-color: hsl(0, 0%, 50%, 0.5);
+  width: 100%;
+  height: 100%;
+  transition: 1s;
+  opacity: 1;
+}
+
+.modalBackgroundActive .modalWrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  height: 85%;
+  width: 95%;
+  background-color: white;
+  opacity: 1;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+.modalBackgroundActive .modalWrapper .btn-close {
+  float: right;
+  scale: 1.5 1.5;
+}
+
+.modalBackgroundActive .modalWrapper .modalContent {
+  width: 100%;
+  height: 95%;
+  padding: 1em;
+  gap: 1em;
+}
+
+.modalBackgroundDisabled {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: 50% 50%;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: 1s;
+}
+
+.modalBackgroundDisabled .modalWrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  height: 85%;
+  width: 95%;
+  background-color: white;
+  opacity: 1;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+.modalBackgroundDisabled .modalWrapper .btn-close {
+  float: right;
+  scale: 1.5 1.5;
+}
+
+.modalBackgroundDisabled .modalWrapper .modalContent {
+  display: flex;
+  width: 100%;
+  height: 95%;
+  padding: 1.3em;
+  gap: 1em;
+  overflow-y: auto;
+}
+
+.testWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.test {
+  padding: 1em;
+  border: 1px hsl(0, 0%, 80%) solid;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.5em lightgray;
+  width: 90%;
+  height: 100%;
+}
+
+.testName {
+  display: flex;
+  justify-content: center;
+}
+
+.testName h1 {
+  font-weight: bold;
+}
+
+.testContent {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  overflow-y: auto;
+}
+
+.question {
+  background-color: hsl(0, 0%, 97%);
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.questionText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.questionQuestion {
+  font-size: 1.2em;
+}
+
+.answers {
+  margin-left: 4ch;
+  margin-top: 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  width: 90%;
+}
+
+.correctAnswer {
+  padding: 0.2em;
+  background-color: hsl(120, 100%, 80%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.incorrectAnswer {
+  padding: 0.2em;
+  background-color: hsl(0, 100%, 85%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.answerText {
+  white-space: normal;
+  margin-right: 1em;
+  user-select: none;
+}
+
+.submitBtn {
+  margin-top: 1em;
+}

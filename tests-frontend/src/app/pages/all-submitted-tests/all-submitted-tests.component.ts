@@ -15,7 +15,6 @@ export class AllSubmittedTestsComponent implements OnInit {
     id: 0,
     name: '',
   };
-  chosenItem: any = [];
 
   constructor(
     private studentService: StudentService,
