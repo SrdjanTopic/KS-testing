@@ -169,7 +169,6 @@
   opacity: 1;
   border-radius: 1em;
   padding: 1em;
-  margin-top: 1em;
 }
 
 .modalBackgroundActive .modalWrapper .btn-close {
@@ -181,9 +180,7 @@
   width: 100%;
   height: 95%;
   padding: 1em;
-  margin-top: 2em;
   gap: 1em;
-  overflow-y: auto;
 }
 
 .modalBackgroundDisabled {
@@ -202,7 +199,7 @@
   top: 50%;
   left: 50%;
   translate: -50% -50%;
-  height: 90%;
+  height: 85%;
   width: 95%;
   background-color: white;
   opacity: 1;
@@ -225,10 +222,11 @@
   overflow-y: auto;
 }
 
-.wrapper {
+.testWrapper {
   width: 100%;
   display: flex;
   justify-content: center;
+  height: 100%;
 }
 
 .test {
@@ -238,6 +236,7 @@
   border-radius: 0.5em;
   box-shadow: 0 0 0.5em lightgray;
   width: 90%;
+  height: 100%;
 }
 
 .testName {
@@ -252,6 +251,8 @@
 .testContent {
   display: flex;
   flex-direction: column;
+  height: 90%;
+  overflow-y: auto;
 }
 
 .question {
