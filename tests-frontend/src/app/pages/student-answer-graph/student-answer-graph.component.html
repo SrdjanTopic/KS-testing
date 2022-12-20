@@ -81,6 +81,15 @@
                     <span class="answerText">{{ a.answer }}</span>
                   </mat-radio-button>
                 </mat-radio-group>
+                <div class="qtiButton">
+                  <button
+                    mat-stroked-button
+                    class="btn btn-success btn-lg"
+                    (click)="generateQTI(q)"
+                  >
+                    Generate QTI
+                  </button>
+                </div>
               </div>
             </form>
           </div>
