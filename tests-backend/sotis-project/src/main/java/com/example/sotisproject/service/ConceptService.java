@@ -27,7 +27,7 @@ public class ConceptService {
     public List<Concept> addConcepts(List<Concept> concepts) {
         List<Concept> conceptList = new ArrayList<>();
         concepts.forEach((concept -> conceptList.add(conceptRepository.save(concept))));
-        ontologyService.addConcepts(conceptList);
+        //ontologyService.addConcepts(conceptList);
         return conceptList;
     }
 
@@ -42,7 +42,7 @@ public class ConceptService {
             conceptRepository.deleteById(concept.getId());
             conceptList.add(concept);
         });
-        ontologyService.deleteConcepts(conceptList);
+        //ontologyService.deleteConcepts(conceptList);
         return conceptList;
     }
 

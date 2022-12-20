@@ -4,37 +4,37 @@
       <h1>{{ test.name }}</h1>
     </div>
     <div *appHasRole="['ROLE_TEACHER']" class="testName">
-      <div class="form-group">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label class="form-control-label" for="input-name"
-            >Test name</mat-label
-          >
-          <input
-            matInput
-            type="text"
-            id="input-name"
-            name="name"
-            [(ngModel)]="test.name"
-          />
-        </mat-form-field>
-      </div>
+      <mat-form-field appearance="fill" style="width: 30%">
+        <mat-label class="form-control-label" for="input-name"
+          >Test name</mat-label
+        >
+        <input
+          matInput
+          type="text"
+          id="input-name"
+          name="name"
+          [(ngModel)]="test.name"
+          style="font-size: 2em"
+        />
+      </mat-form-field>
     </div>
     <div class="testContent">
       <form>
-        <div class="question" *ngFor="let q of test.questions">
-          <div class="questionText">
-            <b class="questionQuestion"
-              >Q{{ q.questionNumber }}. {{ q.question }}</b
-            >
+        <div class="questions" *ngFor="let q of test.questions">
+          <div class="question">
             <button
               *appHasRole="['ROLE_TEACHER']"
-              mat-stroked-button
               (click)="removeQuestion(q)"
               class="btn btn-danger btn-sm ml-2"
             >
               Remove
             </button>
-            <span class="questionPoints">({{ q.points }} points)</span>
+            <div class="questionText">
+              <b class="questionQuestion"
+                >Q{{ q.questionNumber }}. {{ q.question }}</b
+              >
+              <span class="questionPoints">({{ q.points }} points)</span>
+            </div>
           </div>
           <mat-radio-group
             aria-labelledby="radio-group-label"
@@ -43,22 +43,84 @@
             [ngModel]="q.answers"
             (change)="radioChange($event, q)"
           >
-            <mat-radio-button *ngFor="let a of q.answers" [value]="a.answer">
-              <span class="answerText">{{ a.answer }}</span>
+            <div class="answers-radios" *ngFor="let a of q.answers">
               <button
                 *appHasRole="['ROLE_TEACHER']"
                 (click)="removeAnswer(a, q)"
-                class="btn btn-danger btn-sm ml-2"
-                mat-stroked-button
+                class="btn btn-warning btn-sm ml-2 remAnswerBtn"
               >
-                Remove
-              </button>
-            </mat-radio-button>
+                Remove</button
+              ><mat-radio-button [value]="a.answer">
+                <span class="answerText">{{ a.answer }}</span>
+              </mat-radio-button>
+            </div>
           </mat-radio-group>
+          <div class="addAnswer" *appHasRole="['ROLE_TEACHER']">
+            <mat-form-field
+              style="width: 84%"
+              appearance="fill"
+              class="addAnswerText"
+            >
+              <mat-label for="input-answer"
+                >Answer for Q{{ q.questionNumber }}:</mat-label
+              >
+              <input
+                matInput
+                type="text"
+                name="answer"
+                id="input-answer"
+                [(ngModel)]="answerText[q.questionNumber]"
+              />
+            </mat-form-field>
+            <button
+              class="btn btn-info mt-2"
+              (click)="addAnswer(q.questionNumber)"
+            >
+              Add answer
+            </button>
+          </div>
         </div>
+        <div class="addQuestion" *appHasRole="['ROLE_TEACHER']">
+          <mat-form-field
+            style="width: 80%"
+            appearance="fill"
+            class="addQuestionText"
+          >
+            <mat-label class="form-control-label" for="input-question"
+              >Add a question</mat-label
+            >
+            <textarea
+              matInput
+              type="text"
+              id="input-question"
+              name="question"
+              [(ngModel)]="questionText"
+            ></textarea>
+          </mat-form-field>
+          <mat-form-field
+            style="width: 7%"
+            appearance="fill"
+            class="addQuestionPoints"
+          >
+            <mat-label class="form-control-label" for="input-question"
+              >Points</mat-label
+            >
+            <input
+              matInput
+              type="number"
+              id="input-points"
+              name="points"
+              [(ngModel)]="points"
+              min="1"
+            />
+          </mat-form-field>
+          <button (click)="addQuestionClicked()" class="btn btn-primary">
+            Add question
+          </button>
+        </div>
+
         <button
           *appHasRole="['ROLE_STUDENT']"
-          mat-stroked-button
           (click)="submitTest()"
           class="btn btn-success btn-lg submitBtn"
         >

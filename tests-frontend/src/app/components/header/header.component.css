@@ -1,6 +1,7 @@
 .navbar {
   user-select: none;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   font-size: 1.5em;
   background-color: hsl(236, 100%, 78%);
@@ -93,4 +94,9 @@
   width: 100%;
   cursor: pointer;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.svg {
+  height: 40px;
+  width: 40px;
 }

@@ -1,6 +1,11 @@
 <div class="wrapper">
   <h1>All Tests</h1>
-  <a *appHasRole="['ROLE_TEACHER']" [routerLink]="['/test/add']">Add Test</a>
+  <a
+    *appHasRole="['ROLE_TEACHER']"
+    [routerLink]="['/test/add']"
+    class="addTestBtn"
+    >Add Test</a
+  >
   <div class="tests-wrapper">
     <div class="test" *ngFor="let test of tests">
       <div *ngIf="test.testPublications.length === 0" class="testNotPublished">

@@ -35,7 +35,7 @@ public class QuestionService {
 
     public Question addQuestion(Question question){
         Question newQuestion = questionRepository.save(new Question(null, question.getQuestion(), question.getPoints(), question.getTest(),null, question.getConcept()));
-        ontologyService.addQuestion(question);
+        //ontologyService.addQuestion(question);
         question.getAnswers().forEach((Answer answer)->{
             answer.setQuestion(newQuestion);
             answerService.addAnswer(answer);

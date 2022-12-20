@@ -1,7 +1,9 @@
 <nav class="navbar">
   <ul>
     <li>
-      <a [routerLink]="['']" routerLinkActive="router-link-active">Home</a>
+      <a [routerLink]="['']" routerLinkActive="router-link-active">
+        <img src="../../../assets/stuTestLogo.svg" class="svg" />
+      </a>
     </li>
     <li>
       <a [routerLink]="['/tests']" routerLinkActive="router-link-active"
@@ -32,9 +34,7 @@
       >
     </li>
     <li>
-      <a [routerLink]="['/signup']" routerLinkActive="router-link-active"
-        >Signup</a
-      >
+      <a [routerLink]="['']" routerLinkActive="router-link-active">Signup</a>
     </li>
   </ul>
   <div class="user-menu" *ngIf="currentUser">

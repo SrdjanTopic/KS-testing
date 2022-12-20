@@ -41,8 +41,6 @@ export class AddTestComponent implements OnInit {
   relations: any = [];
   nodes!: DataSet<any>;
   edges!: DataSet<any>;
-  startNodes!: DataSet<any>;
-  startEdges!: DataSet<any>;
   numberOfNodes: number = 0;
 
   isSelected: boolean = false;
@@ -186,12 +184,6 @@ export class AddTestComponent implements OnInit {
         to: relation.destination.id,
       }))
     );
-    this.startEdges = new DataSet<any>(
-      this.relations.map((relation: any) => ({
-        from: relation.source.id,
-        to: relation.destination.id,
-      }))
-    );
   }
 
   addEdge() {
@@ -210,6 +202,18 @@ export class AddTestComponent implements OnInit {
     this.isModalOpen = !this.isModalOpen;
   }
   addTest() {
+    if (
+      this.test.questions.some(
+        (q: IQuestion) => !q.answers.some((a: IAnswer) => a.isCorrect)
+      )
+    ) {
+      alert('Please check for every question the correct answer!');
+      return;
+    }
+    if (this.test.questions.some((q: IQuestion) => q.answers.length < 2)) {
+      alert('Every question must have atleast 2 answers!');
+      return;
+    }
     this.edges.get().forEach((edge) => {
       this.test.questions.forEach((question, index: number) => {
         if (edge.from === `Q${question.questionNumber}`) {
@@ -241,14 +245,6 @@ export class AddTestComponent implements OnInit {
   }
 
   async addQuestion() {
-    this.questionNumber = this.questionNumber + 1;
-    this.test.questions.push({
-      id: null,
-      question: this.questionText,
-      points: this.points,
-      questionNumber: this.questionNumber,
-      answers: [],
-    });
     await this.draw();
   }
 

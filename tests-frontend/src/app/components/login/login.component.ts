@@ -15,10 +15,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    this.authService
-      .login({ username: this.username, password: this.password })
-      .subscribe((data: any) => {
-        window.location.replace('');
-      });
+    if (this.username !== '' && this.password !== '')
+      this.authService
+        .login({ username: this.username, password: this.password })
+        .subscribe((data: any) => {
+          window.location.replace('');
+        });
+    else alert('Plese input username and password!');
   }
 }

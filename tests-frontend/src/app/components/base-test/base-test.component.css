@@ -27,17 +27,24 @@
   flex-direction: column;
 }
 
-.question {
+.questions {
   background-color: hsl(0, 0%, 97%);
   padding: 1em;
   display: flex;
   flex-direction: column;
 }
 
+.question {
+  display: flex;
+  gap: 0.5em;
+  width: 100%;
+}
+
 .questionText {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 90%;
 }
 
 .questionQuestion {
@@ -60,4 +67,39 @@
 
 .submitBtn {
   margin-top: 1em;
+}
+
+/* Add test */
+.addQuestion {
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.addQuestion .addQuestionText {
+  margin-bottom: -1.34375em;
+}
+
+.addQuestion .addQuestionPoints {
+  margin-bottom: -1.34375em;
+}
+
+.addAnswer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1em;
+  justify-content: flex-end;
+  margin-top: 1em;
+}
+
+.addAnswer .addAnswerText {
+  margin-bottom: -1.34375em;
+}
+
+.answers-radios {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }

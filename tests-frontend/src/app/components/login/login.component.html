@@ -1,8 +1,30 @@
-<div class="wrapper">
+<div class="wrapper" type="submit">
   <h1>Login</h1>
-  <label for="username">Username</label>
-  <input id="username" type="text" [(ngModel)]="username" />
-  <label for="password">Password</label>
-  <input id="password" type="password" [(ngModel)]="password" />
-  <button (click)="login()">LOGIN</button>
+  <img src="../../../assets/img_avatar.png" alt="avatar" />
+
+  <div class="form-outline">
+    <input
+      id="username"
+      type="text"
+      [(ngModel)]="username"
+      class="form-control"
+      required
+    />
+    <label class="form-label" for="username">Username</label>
+  </div>
+
+  <div class="form-outline">
+    <input
+      id="password"
+      type="password"
+      [(ngModel)]="password"
+      class="form-control"
+      required
+    />
+    <label class="form-label" for="password">Password</label>
+  </div>
+
+  <button (click)="login()" type="button" class="btn btn-primary btn-block">
+    Sign in
+  </button>
 </div>

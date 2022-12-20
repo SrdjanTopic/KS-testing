@@ -1,127 +1,21 @@
-<div class="container mt-5">
-  <div class="row">
-    <div class="col">
-      <div *appHasRole="['ROLE_TEACHER']" class="row">
-        <form>
-          <div class="d-flex flex-column justify-content-center">
-            <div
-              style="width: 100%"
-              class="d-flex flex-column justify-content-center"
-            >
-              <div
-                class="form-group d-flex flex-column justify-content-center"
-                style="width: 100%"
-              >
-                <mat-form-field style="width: 90%" appearance="fill">
-                  <mat-label class="form-control-label" for="input-question"
-                    >Add a question</mat-label
-                  >
-                  <textarea
-                    matInput
-                    type="text"
-                    id="input-question"
-                    name="question"
-                    [(ngModel)]="questionText"
-                  ></textarea>
-                </mat-form-field>
-              </div>
-            </div>
-            <div
-              style="width: 100%"
-              class="d-flex flex-column justify-content-center"
-            >
-              <div
-                style="width: 100%"
-                class="form-group d-flex flex-column justify-content-center"
-              >
-                <mat-form-field style="width: 20%" appearance="fill">
-                  <mat-label class="form-control-label" for="input-question"
-                    >Points</mat-label
-                  >
-                  <input
-                    matInput
-                    type="number"
-                    id="input-points"
-                    name="points"
-                    [(ngModel)]="points"
-                    min="0"
-                  />
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="mt-2">
-            <button
-              mat-stroked-button
-              (click)="addQuestion()"
-              class="btn btn-info"
-            >
-              Add question
-            </button>
-          </div>
-        </form>
-      </div>
-      <div *appHasRole="['ROLE_TEACHER']" class="row">
-        <form>
-          <div class="row">
-            <div class="mt-2 form-group col-md-7">
-              <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label for="input-answer"
-                  >Answer for question {{ questionNumber }}:</mat-label
-                >
-                <input
-                  matInput
-                  type="text"
-                  name="answer"
-                  id="input-answer"
-                  [(ngModel)]="answerText"
-                />
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="mt-2 form-group col-md-6">
-              <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label for="input-answer">Question number:</mat-label>
-                <input
-                  matInput
-                  type="number"
-                  name="answer"
-                  id="input-answer"
-                  [(ngModel)]="questionNumber"
-                />
-              </mat-form-field>
-            </div>
-          </div>
-          <div>
-            <button
-              mat-stroked-button
-              (click)="addAnswer()"
-              class="btn btn-info mt-2"
-            >
-              Add answer
-            </button>
-          </div>
-          <hr class="my-4" />
-          <div class="mt-2 text-right">
-            <button
-              mat-stroked-button
-              (click)="changeModalState()"
-              class="btn btn-primary btn-lg"
-            >
-              Connect concepts
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="col">
-      <app-base-test
-        (numberChanged)="change($event)"
-        [questionNumber]="questionNumber"
-      ></app-base-test>
-    </div>
-    <div class="col"></div>
+<div class="wrapper">
+  <h1>Add test</h1>
+  <div class="col">
+    <app-base-test
+      (numberChanged)="change($event)"
+      (addQuestion)="addQuestion()"
+      [questionNumber]="questionNumber"
+    ></app-base-test>
+  </div>
+  <div class="mt-2 text-right">
+    <button
+      mat-stroked-button
+      (click)="changeModalState()"
+      class="btn btn-primary btn-lg"
+      style="margin-left: 5em"
+    >
+      Connect concepts
+    </button>
   </div>
 </div>
 
