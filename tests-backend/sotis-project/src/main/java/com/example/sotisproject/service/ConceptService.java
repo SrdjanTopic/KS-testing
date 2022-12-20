@@ -1,5 +1,6 @@
 package com.example.sotisproject.service;
 
+import com.example.sotisproject.jena.service.OntologyService;
 import com.example.sotisproject.model.Concept;
 import com.example.sotisproject.model.Question;
 import com.example.sotisproject.repository.ConceptRepository;
@@ -17,6 +18,7 @@ public class ConceptService {
     private ConceptRepository conceptRepository;
     private QuestionRepository questionRepository;
     private TestRepository testRepository;
+    private OntologyService ontologyService;
 
     public List<Concept> getConcepts() {
         return conceptRepository.findAll();
@@ -25,6 +27,7 @@ public class ConceptService {
     public List<Concept> addConcepts(List<Concept> concepts) {
         List<Concept> conceptList = new ArrayList<>();
         concepts.forEach((concept -> conceptList.add(conceptRepository.save(concept))));
+        ontologyService.addConcepts(conceptList);
         return conceptList;
     }
 
@@ -39,6 +42,7 @@ public class ConceptService {
             conceptRepository.deleteById(concept.getId());
             conceptList.add(concept);
         });
+        ontologyService.deleteConcepts(conceptList);
         return conceptList;
     }
 
