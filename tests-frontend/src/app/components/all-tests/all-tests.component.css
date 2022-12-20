@@ -5,13 +5,22 @@
   justify-content: center;
 }
 
-.wrapper a {
-  font-size: 1.5em;
-  text-decoration: none;
+.wrapper h1 {
+  font-size: 2em;
+  font-weight: bold;
 }
 
-.wrapper a:hover {
-  text-decoration: underline;
+.wrapper .addTestBtn {
+  font-size: 1.5em;
+  text-decoration: none;
+  background-color: hsl(235, 100%, 80%);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  color: white;
+}
+
+.wrapper .addTestBtn:hover {
+  background-color: hsl(235, 100%, 70%);
 }
 
 .wrapper .tests-wrapper {

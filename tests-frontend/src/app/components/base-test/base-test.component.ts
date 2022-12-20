@@ -22,11 +22,12 @@ export class BaseTestComponent implements OnInit {
   user: IUser = initUser;
   question: IQuestion = initQuestion;
   answer: IAnswer = initAnswer;
+  points: number = 1;
   questionText: string = '';
-  answerText: string = '';
-  points: number = 0;
+  answerText: string[] = [''];
   @Input() questionNumber: number = 0;
   @Output() numberChanged = new EventEmitter<number>();
+  @Output() addQuestion = new EventEmitter<any>();
   isCorrect: boolean = false;
   id!: number;
   submitTestAnswers: ISubmitTestAnswers = initSubmitTestAnswers;
@@ -82,7 +83,7 @@ export class BaseTestComponent implements OnInit {
   }
 
   radioChange(answer: MatRadioChange, question: IQuestion) {
-    if (this.user.roles[0].authority=='ROLE_STUDENT') {
+    if (this.user.roles[0].authority == 'ROLE_STUDENT') {
       const a: IAnswer | undefined = question.answers.find(
         (ans) => ans.answer === answer.value
       );
@@ -92,7 +93,7 @@ export class BaseTestComponent implements OnInit {
       a
         ? this.submitTestAnswers.answers.push({ ...a, questionId: question.id })
         : null;
-    } else if (this.user.roles[0].authority=='ROLE_TEACHER') {
+    } else if (this.user.roles[0].authority == 'ROLE_TEACHER') {
       question.answers.forEach((a) => {
         if (a.answer === answer.value) {
           a.isCorrect = true;
@@ -126,5 +127,35 @@ export class BaseTestComponent implements OnInit {
         console.error('There was an error!', error);
       },
     });
+  }
+
+  addQuestionClicked() {
+    if (this.questionText !== '') {
+      this.questionNumber = this.questionNumber + 1;
+      this.test.questions.push({
+        id: null,
+        question: this.questionText,
+        points: this.points,
+        questionNumber: this.questionNumber,
+        answers: [],
+      });
+      this.answerText.push('');
+      this.questionText = '';
+      this.addQuestion.emit();
+    }
+  }
+
+  addAnswer(questionNumber: number) {
+    if (this.answerText[questionNumber] !== '')
+      this.test.questions.forEach((q) => {
+        if (q.questionNumber === questionNumber) {
+          q.answers.push({
+            id: null,
+            answer: this.answerText[questionNumber],
+            isCorrect: this.isCorrect,
+          });
+        }
+      });
+    this.answerText[questionNumber] = '';
   }
 }

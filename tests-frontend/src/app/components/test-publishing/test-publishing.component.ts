@@ -25,7 +25,6 @@ export class TestPublishingComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.tests = [];
     await this.loadTests();
-    console.log(this.tests);
   }
 
   async loadTests() {
