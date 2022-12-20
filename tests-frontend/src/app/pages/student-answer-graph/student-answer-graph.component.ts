@@ -1,3 +1,4 @@
+import { IQuestion } from './../../model/question';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConceptService } from 'src/app/services/concept.service';
@@ -7,6 +8,7 @@ import { StudentAnswerService } from 'src/app/services/studentAnswers.service';
 import { TestService } from 'src/app/services/test.service';
 import { DataSet } from 'vis-data';
 import { Network } from 'vis-network';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-student-answer-graph',
@@ -50,7 +52,8 @@ export class StudentAnswerGraphComponent implements OnInit {
     private studentAnswerService: StudentAnswerService,
     private route: ActivatedRoute,
     private studentService: StudentService,
-    private testService: TestService
+    private testService: TestService,
+    private questionService: QuestionService
   ) {}
 
   ngOnInit(): void {
@@ -244,5 +247,8 @@ export class StudentAnswerGraphComponent implements OnInit {
   }
   changeModalState() {
     this.isModalOpen = !this.isModalOpen;
+  }
+  generateQTI(question:any){
+    this.questionService.qti(question.question).subscribe();
   }
 }

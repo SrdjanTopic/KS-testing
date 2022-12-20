@@ -256,6 +256,15 @@
   width: 90%;
 }
 
+.qtiButton {
+  margin-left: 4ch;
+  margin-top: 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  width: 20%;
+}
+
 .correctAnswer {
   padding: 0.2em;
   background-color: hsl(120, 100%, 80%);

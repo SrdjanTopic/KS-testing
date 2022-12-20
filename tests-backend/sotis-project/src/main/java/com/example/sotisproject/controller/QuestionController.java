@@ -28,7 +28,7 @@ public class QuestionController {
        if(resource==null){
     	   return new ResponseEntity<FileSystemResource>(resource, HttpStatus.BAD_REQUEST);
        }
-       return new ResponseEntity<FileSystemResource>(resource, HttpStatus.BAD_REQUEST);
+       return new ResponseEntity<FileSystemResource>(resource, HttpStatus.OK);
     }
 
 }

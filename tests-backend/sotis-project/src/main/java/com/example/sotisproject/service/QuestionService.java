@@ -43,7 +43,7 @@ public class QuestionService {
     public FileSystemResource qti(Question question) {
     	 question = questionRepository.findById(question.getId()).get();
          Answer correctAnswer = new Answer();
-         String filePath = getClass().getResource("/qti/question.xml").toString().substring(6);
+         String filePath = new File("").getAbsolutePath() + "\\..\\..\\qti\\question.xml";
          if(question!= null)
          {
              Set<Answer> answers = question.getAnswers();
