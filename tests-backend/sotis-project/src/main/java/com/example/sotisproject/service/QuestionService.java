@@ -1,6 +1,5 @@
 package com.example.sotisproject.service;
 
-import com.example.sotisproject.jena.service.OntologyService;
 import java.io.File;
 import java.util.Set;
 
@@ -20,6 +19,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.example.sotisproject.jena.service.OntologyService;
 import com.example.sotisproject.model.Answer;
 import com.example.sotisproject.model.Question;
 import com.example.sotisproject.repository.QuestionRepository;
@@ -43,8 +43,8 @@ public class QuestionService {
         return newQuestion;
     }
     
-    public FileSystemResource qti(Question question) {
-    	 question = questionRepository.findById(question.getId()).get();
+    public FileSystemResource qti(Long questionId) {
+    	 Question question= questionRepository.findById(questionId).get();
          Answer correctAnswer = new Answer();
          String filePath = new File("").getAbsolutePath() + "\\..\\..\\qti\\question.xml";
          if(question!= null)

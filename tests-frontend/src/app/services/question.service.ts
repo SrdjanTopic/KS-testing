@@ -12,8 +12,8 @@ export class QuestionService {
 
   constructor(private http: HttpClient) { }
 
-  qti(question: IQuestion): Observable<IQuestion> {
-    return this.http.post<IQuestion>(environment.apiUrl + '/questions/qti', question).pipe(
+  qti(questionId: number): Observable<any> {
+    return this.http.get<any>(environment.apiUrl + `/questions/qti/${questionId}`).pipe(
       tap((data) => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );

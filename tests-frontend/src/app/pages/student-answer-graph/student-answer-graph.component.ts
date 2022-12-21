@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { IQuestion } from './../../model/question';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -23,6 +24,7 @@ export class StudentAnswerGraphComponent implements OnInit {
   selectedStudentId: number = 0;
   answers: any = [];
   conceptPoints: number = 0;
+  url = environment.apiUrl;
 
   concepts: any = [];
   relations: any = [];
@@ -249,6 +251,6 @@ export class StudentAnswerGraphComponent implements OnInit {
     this.isModalOpen = !this.isModalOpen;
   }
   generateQTI(question:any){
-    this.questionService.qti(question.question).subscribe();
+    this.questionService.qti(question.question.id).subscribe();
   }
 }

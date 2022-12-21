@@ -82,13 +82,13 @@
                   </mat-radio-button>
                 </mat-radio-group>
                 <div class="qtiButton">
-                  <button
+                  <a
                     mat-stroked-button
                     class="btn btn-success btn-lg"
-                    (click)="generateQTI(q)"
+                    href="{{url}}/questions/qti/{{q.question.id}}"
                   >
                     Generate QTI
-                  </button>
+                </a>
                 </div>
               </div>
             </form>
