@@ -1,6 +1,7 @@
 package com.example.sotisproject.service;
 
 import com.example.sotisproject.dto.SubmitAnswersDTO;
+import com.example.sotisproject.jena.service.OntologyService;
 import com.example.sotisproject.model.Answer;
 import com.example.sotisproject.model.Question;
 import com.example.sotisproject.model.Student;
@@ -20,6 +21,7 @@ public class TestService {
     private StudentRepository studentRepository;
     private RelationService relationService;
     private RealRelationService realRelationService;
+    private OntologyService ontologyService;
 
     public Test addTest(Test test){
         Test newTest = testRepository.save(test);
@@ -27,6 +29,8 @@ public class TestService {
             question.setTest(newTest);
             questionService.addQuestion(question);
         });
+        ontologyService.addQuestions((List<Question>) test.getQuestions());
+        ontologyService.addTest(newTest);
         return newTest;
     }
     

@@ -35,8 +35,8 @@ insert into relation (source_id, destination_id) values (3,5);
 insert into relation (source_id, destination_id) values (8,6);
 insert into relation (source_id, destination_id) values (3,8);
 -- TEST INSERT
-insert into test (name) values ('Web developer fundamentals'); --test_id:1
-insert into test (name) values ('Some kind of test'); --test_id:2
+insert into test (name, teacher_id) values ('Web developer fundamentals',1); --test_id:1
+insert into test (name, teacher_id) values ('Some kind of test',1); --test_id:2
 -- QUESTION INSERT
 insert into question (test_id, concept_id, question) values (1, 1, 'Which tag do we use in HTML for inserting a line-break?'); --question_id:1
 insert into question (test_id, concept_id, points, question) values (1, 2, 15, 'How can we change the background color of an element in CSS?'); --question_id:2

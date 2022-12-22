@@ -1,6 +1,7 @@
 package com.example.sotisproject.service;
 
 import java.io.File;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -35,11 +36,11 @@ public class QuestionService {
 
     public Question addQuestion(Question question){
         Question newQuestion = questionRepository.save(new Question(null, question.getQuestion(), question.getPoints(), question.getTest(),null, question.getConcept()));
-        //ontologyService.addQuestion(question);
         question.getAnswers().forEach((Answer answer)->{
             answer.setQuestion(newQuestion);
             answerService.addAnswer(answer);
         });
+        ontologyService.addAnswers((List<Answer>) question.getAnswers());
         return newQuestion;
     }
     
