@@ -5,7 +5,8 @@ import com.example.sotisproject.model.*;
 import com.example.sotisproject.repository.*;
 import lombok.AllArgsConstructor;
 import org.apache.jena.ontology.*;
-import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.query.*;
+import org.apache.jena.rdf.model.*;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -22,18 +23,49 @@ public class OntologyService {
     private TeacherRepository teacherRepository;
     private StudentRepository studentRepository;
     private AnswerRepository answerRepository;
+    private RelationRepository relationRepository;
     private static final String ontologyPath = new File("").getAbsolutePath() + "\\..\\sotisOntology.owl";
     private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
     private static final String NS = "http://www.example.org/ontology/sotis#";
 
-    //@EventListener(ApplicationReadyEvent.class)
-    public void initializeStart(){
-        addStudents(studentRepository.findAll());
-        addTeachers(teacherRepository.findAll());
-        addConcepts(conceptRepository.findAll());
-        addTests(testRepository.findAll());
-        addQuestions(questionRepository.findAll());
-        addAnswers(answerRepository.findAll());
+    @EventListener(ApplicationReadyEvent.class)
+    public void initializeStart() {
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
+            String queryString = "" +
+                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
+                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+                    "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                    "SELECT ?conceptName\n" +
+                    "WHERE {ns:CSS ns:isSourceFor ?uri . ?uri ns:conceptName ?conceptName}";
+            Query query = QueryFactory.create(queryString);
+            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
+                ResultSet results = qexec.execSelect();
+//                ResultSetFormatter.out(System.out, results, query);
+                for (; results.hasNext(); ) {
+                    QuerySolution soln = results.nextSolution();
+                    //System.out.println(soln.toString());
+                    Literal s = soln.getLiteral("conceptName");
+                    System.out.println(s);
+                }
+            }
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        addStudents(studentRepository.findAll());
+//        addTeachers(teacherRepository.findAll());
+//        addConcepts(conceptRepository.findAll());
+//        addTests(testRepository.findAll());
+//        addQuestions(questionRepository.findAll());
+//        addAnswers(answerRepository.findAll());
+//        addRelations(relationRepository.findAll());
     }
 
     public void addStudents(List<Student> students){
@@ -214,6 +246,54 @@ public class OntologyService {
 
                 });
             });
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addRelations(List<Relation> relations){
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
+
+            relations.forEach(relation -> {
+                Individual sourceConcept = stuTestModel.getIndividual(NS+relation.getSource().getConcept().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
+                Individual destinationConcept = stuTestModel.getIndividual(NS+relation.getDestination().getConcept().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
+
+                sourceConcept.addProperty(sotisOntologyModel.getIsSourceFor(), destinationConcept);
+                System.out.println("CONNECTED CONCEPTS: " + relation.getSource().getConcept() + "-->" + relation.getDestination().getConcept());
+            });
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteRelations(){
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+
+            SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
+
+            List<Concept> concepts = conceptRepository.findAll();
+            concepts.forEach(concept -> {
+                Individual conceptInd = stuTestModel.getIndividual(NS + concept.getConcept().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
+                StmtIterator it = conceptInd.listProperties();
+                it.forEach(statement -> {
+                    if(statement.getPredicate().equals(sotisOntologyModel.getIsSourceFor()) || statement.getPredicate().equals(sotisOntologyModel.getIsDestinationFor())){
+                        System.out.println(statement.getPredicate().toString());
+                        System.out.println("DELETED CONNECTIONS for CONCEPT: " + concept.getConcept());
+                    }
+                });
+            });
+
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {

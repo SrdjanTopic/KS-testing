@@ -3,14 +3,17 @@ package com.example.sotisproject.service;
 import com.example.sotisproject.jena.service.OntologyService;
 import com.example.sotisproject.model.Concept;
 import com.example.sotisproject.model.Question;
+import com.example.sotisproject.model.Relation;
 import com.example.sotisproject.repository.ConceptRepository;
 import com.example.sotisproject.repository.QuestionRepository;
+import com.example.sotisproject.repository.RelationRepository;
 import com.example.sotisproject.repository.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
@@ -18,6 +21,7 @@ public class ConceptService {
     private ConceptRepository conceptRepository;
     private QuestionRepository questionRepository;
     private TestRepository testRepository;
+    private RelationRepository relationRepository;
     private OntologyService ontologyService;
 
     public List<Concept> getConcepts() {
@@ -27,7 +31,7 @@ public class ConceptService {
     public List<Concept> addConcepts(List<Concept> concepts) {
         List<Concept> conceptList = new ArrayList<>();
         concepts.forEach((concept -> conceptList.add(conceptRepository.save(concept))));
-        //ontologyService.addConcepts(conceptList);
+        ontologyService.addConcepts(conceptList);
         return conceptList;
     }
 
@@ -42,7 +46,7 @@ public class ConceptService {
             conceptRepository.deleteById(concept.getId());
             conceptList.add(concept);
         });
-        //ontologyService.deleteConcepts(conceptList);
+        ontologyService.deleteConcepts(conceptList);
         return conceptList;
     }
 
@@ -52,5 +56,19 @@ public class ConceptService {
             concepts.add(question.getConcept());
         });
         return concepts;
+    }
+
+    public List<Concept> getAllPreviousConceptsForConcept(String conceptName){
+        List<Relation> relations = relationRepository.findAllByDestinationConcept(conceptName);
+        List<Concept> returnConcepts = new ArrayList<>();
+        relations.forEach(relation -> returnConcepts.add(relation.getSource()));
+        return returnConcepts;
+    }
+
+    public List<Concept> getAllNextConceptsForConcept(String conceptName){
+        List<Relation> relations = relationRepository.findAllBySourceConcept(conceptName);
+        List<Concept> returnConcepts = new ArrayList<>();
+        relations.forEach(relation -> returnConcepts.add(relation.getDestination()));
+        return returnConcepts;
     }
 }

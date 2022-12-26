@@ -239,14 +239,13 @@ export class KnowledgeGraphComponent implements OnInit {
         )
         .toPromise();
 
-    await this.relationService
+    this.relationService
       .updateRelations(
         this.edges.get().map((relation) => ({
           source: this.nodes.get(relation.from),
           destination: this.nodes.get(relation.to),
         }))
       )
-      .toPromise();
-    window.location.reload();
+      .subscribe((res) => window.location.reload());
   }
 }

@@ -13,18 +13,15 @@ public class SotisOntologyModel {
     private OntClass questionClass;
     private OntClass conceptClass;
     private OntClass answerClass;
-    private OntClass relationClass;
     private OntClass userClass;
     private OntClass teacherClass;
     private OntClass studentClass;
-    private OntClass roleClass;
 
     // data properties
     private OntProperty id;
     private OntProperty username;
     private OntProperty userFirstName;
     private OntProperty userLastName;
-    private OntProperty roleName;
     private OntProperty testName;
     private OntProperty conceptName;
     private OntProperty questionQuestion;
@@ -48,28 +45,24 @@ public class SotisOntologyModel {
     private OntProperty testTeacher;
     private OntProperty teacherTest;
 
-    private OntProperty roleUser;
-    private OntProperty userRole;
-
-    private OntProperty relationDestination;
-    private OntProperty relationSource;
+    private OntProperty isSourceFor;
+    private OntProperty isDestinationFor;
 
     public SotisOntologyModel(OntModel ontModel){
+        // classes
         testClass = ontModel.getOntClass(NS+"Test");
         questionClass = ontModel.getOntClass(NS+"Question");
         conceptClass = ontModel.getOntClass(NS+"Concept");
         answerClass = ontModel.getOntClass(NS+"Answer");
-        relationClass = ontModel.getOntClass(NS+"Relation");
         userClass = ontModel.getOntClass(NS+"User");
         teacherClass = ontModel.getOntClass(NS+"Teacher");
         studentClass = ontModel.getOntClass(NS+"Student");
 
-
+        // data properties
         id = ontModel.getOntProperty(NS+"id");
         username = ontModel.getOntProperty(NS+"username");
         userFirstName = ontModel.getOntProperty(NS+"userFirstName");
         userLastName = ontModel.getOntProperty(NS+"userLastName");
-//        roleName = ontModel.getOntProperty(NS+"roleName");
         testName = ontModel.getOntProperty(NS+"testName");
         conceptName = ontModel.getOntProperty(NS+"conceptName");
         questionQuestion = ontModel.getOntProperty(NS+"questionQuestion");
@@ -77,8 +70,7 @@ public class SotisOntologyModel {
         answerAnswer = ontModel.getOntProperty(NS+"answerAnswer");
         answerIsCorrect = ontModel.getOntProperty(NS+"answerIsCorrect");
 
-
-
+        // object properties
         answerQuestion = ontModel.getOntProperty(NS+"answerQuestion");
         questionAnswers = ontModel.getOntProperty(NS+"questionAnswers");
 
@@ -94,10 +86,7 @@ public class SotisOntologyModel {
         testTeacher = ontModel.getOntProperty(NS+"testTeacher");
         teacherTest = ontModel.getOntProperty(NS+"teacherTest");
 
-//        roleUser = ontModel.getOntProperty(NS+"roleUser");
-//        userRole = ontModel.getOntProperty(NS+"userRole");
-
-        relationDestination = ontModel.getOntProperty(NS+"relationDestination");
-        relationSource = ontModel.getOntProperty(NS+"relationSource");
+        isSourceFor = ontModel.getOntProperty(NS+"isSourceFor");
+        isDestinationFor = ontModel.getOntProperty(NS+"isDestinationFor");
     }
 }

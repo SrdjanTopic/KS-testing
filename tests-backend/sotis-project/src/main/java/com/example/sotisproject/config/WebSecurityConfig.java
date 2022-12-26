@@ -142,6 +142,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(HttpMethod.POST, "/testPublications/{publicationId}/republish");
 		web.ignoring().antMatchers(HttpMethod.POST, "/testPublications/publishNewVersion");
 
+
+		web.ignoring().antMatchers(HttpMethod.GET, "/sparql/{conceptName}/directNextConcepts");
 	
 		// Ovim smo dozvolili pristup statickim resursima aplikacije
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "favicon.ico", "/**/*.html",
