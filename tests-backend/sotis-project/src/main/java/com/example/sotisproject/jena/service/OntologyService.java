@@ -37,22 +37,50 @@ public class OntologyService {
             SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
-                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-                    "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
-                    "SELECT ?conceptName\n" +
-                    "WHERE {ns:CSS ns:isSourceFor ?uri . ?uri ns:conceptName ?conceptName}";
+//                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+//                    "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
+//                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+//                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                    "" +
+                    "SELECT * \n" +
+                    "WHERE" +
+                    "{" +
+                        "{" +
+                            "SELECT ?test \n" +
+                            "WHERE" +
+                            "{ " +
+                                "{ " +
+                                    "SELECT (CONCAT(?argConceptName,\",\",GROUP_CONCAT(?conceptName;SEPARATOR=\",\")) AS ?allConceptNames)\n" +
+                                    "WHERE { " +
+                                        "?y ns:isDestinationFor+ ?x . " +
+                                        "?y ns:conceptName ?argConceptName ." +
+                                        "?x ns:conceptName ?conceptName ." +
+                                        "FILTER(?argConceptName=\"Typescript\" )" +
+                                    "}" +
+                                    "GROUP BY ?argConceptName" +
+                                " }" +
+                                "?test a ns:Test . " +
+                                "?test ns:testQuestions ?question . " +
+                                "?question ns:questionConcept ?concept . " +
+                                "?concept ns:conceptName ?testConceptName ." +
+                                "FILTER NOT EXISTS{FILTER CONTAINS(?allConceptNames , ?testConceptName)} ." +
+                            "}" +
+                            "GROUP BY ?test" +
+                        "}" +
+                        "?tests a ns:Test . " +
+                        "FILTER(?tests!=?test)" +
+                    "}";
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
                 ResultSet results = qexec.execSelect();
-//                ResultSetFormatter.out(System.out, results, query);
-                for (; results.hasNext(); ) {
-                    QuerySolution soln = results.nextSolution();
-                    //System.out.println(soln.toString());
-                    Literal s = soln.getLiteral("conceptName");
-                    System.out.println(s);
-                }
+                ResultSetFormatter.out(System.out, results, query);
+//                for (; results.hasNext(); ) {
+//                    QuerySolution soln = results.nextSolution();
+//                    Literal s = soln.getLiteral("conceptName");
+//                    System.out.println(s);
+//                    s = soln.getLiteral("conceptId");
+//                    System.out.println(s);
+//                }
             }
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();

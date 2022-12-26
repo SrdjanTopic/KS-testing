@@ -1,6 +1,8 @@
 package com.example.sotisproject.jena.sparql;
 
 import com.example.sotisproject.jena.model.SotisOntologyModel;
+import com.example.sotisproject.model.Concept;
+import com.example.sotisproject.service.RelationService;
 import lombok.AllArgsConstructor;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -26,8 +28,11 @@ public class QueryController {
     private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
     private static final String NS = "http://www.example.org/ontology/sotis#";
 
+    private RelationService relationService;
+
     @GetMapping("/{conceptName}/directNextConcepts")
-    public List<String> findAllNextConceptsForConcept(@PathVariable("conceptName") String conceptName){
+    public List<String> findAllDirectNextConceptsForConcept(@PathVariable("conceptName") String conceptName){
+
         List<String> returnConcepts = new ArrayList<>();
         try {
             OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
@@ -36,10 +41,6 @@ public class QueryController {
             SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
-                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-                    "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
                     "SELECT ?conceptName\n" +
                     "WHERE {ns:"+ conceptName + " ns:isSourceFor ?uri . ?uri ns:conceptName ?conceptName}";
             Query query = QueryFactory.create(queryString);
@@ -51,6 +52,41 @@ public class QueryController {
                     //System.out.println(soln.toString());
                     Literal s = soln.getLiteral("conceptName");
                     returnConcepts.add(s.toString());
+                }
+            }
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnConcepts;
+    }
+
+    @GetMapping("/{conceptName}/allPreviousConcepts")
+    public List<String> findAllPreviousConceptsForConcept() {
+        List<String> returnConcepts = new ArrayList<>();
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
+            String queryString = "" +
+                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
+                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
+                    "SELECT ?conceptName ?conceptId\n" +
+                    "WHERE { " +
+                    "ns:React.js ns:isDestinationFor+ ?x . " +
+                    "?x ns:conceptName ?conceptName . " +
+                    "?x ns:id ?id " +
+                    "bind( xsd:integer(?id) as ?conceptId )" +
+                    " }";
+            Query query = QueryFactory.create(queryString);
+            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
+                ResultSet results = qexec.execSelect();
+                for (; results.hasNext(); ) {
+                    QuerySolution soln = results.nextSolution();
+                    Literal name = soln.getLiteral("conceptName");
+                    returnConcepts.add(name.getString());
                 }
             }
             stuTestModel.write(stuTestOut, "RDF/XML");

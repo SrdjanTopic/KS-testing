@@ -37,6 +37,7 @@ insert into relation (source_id, destination_id) values (3,8);
 -- TEST INSERT
 insert into test (name, teacher_id) values ('Web developer fundamentals',1); --test_id:1
 insert into test (name, teacher_id) values ('Some kind of test',1); --test_id:2
+insert into test (name, teacher_id) values ('Test test',1); --test_id:3
 -- QUESTION INSERT
 insert into question (test_id, concept_id, question) values (1, 1, 'Which tag do we use in HTML for inserting a line-break?'); --question_id:1
 insert into question (test_id, concept_id, points, question) values (1, 2, 15, 'How can we change the background color of an element in CSS?'); --question_id:2
@@ -46,9 +47,15 @@ insert into question (test_id, concept_id, points, question) values (1, 5, 15, '
 insert into question (test_id, concept_id, points, question) values (1, 6, 10, 'Which of the following components can be injected as a dependency in AngularJS?'); --question_id:6
 insert into question (test_id, concept_id, points, question) values (1, 7, 15, 'Which of the following directive is used to share rules and relationships between selectors in SASS?'); --question_id:7
 insert into question (test_id, concept_id, points, question) values (1, 8, 15, 'Which object-oriented terms are supported by TypeScript?'); --question_id:8
+
 insert into question (test_id, concept_id, points, question) values (2, 6, 10, 'Which of the following components can be injected as a dependency in AngularJS?'); --question_id:9
 insert into question (test_id, concept_id, points, question) values (2, 7, 15, 'Which of the following directive is used to share rules and relationships between selectors in SASS?'); --question_id:10
 insert into question (test_id, concept_id, points, question) values (2, 8, 15, 'Which object-oriented terms are supported by TypeScript?'); --question_id:11
+
+insert into question (test_id, concept_id, question) values (3, 1, 'Which tag do we use in HTML for inserting a line-break?'); --question_id:1
+insert into question (test_id, concept_id, points, question) values (3, 3, 20, ' Which of the following keywords is used to define a variable in Javascript?'); --question_id:3
+insert into question (test_id, concept_id, points, question) values (3, 8, 15, 'Which object-oriented terms are supported by TypeScript?'); --question_id:8
+
 -- ANSWER INSERT
 insert into answer (question_id, answer) values (1, '<a>'); --answer_id:1
 insert into answer (question_id, answer) values (1, '<p>'); --answer_id:2
