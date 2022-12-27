@@ -5,9 +5,8 @@
   justify-content: space-between;
   font-size: 1.5em;
   background-color: hsl(236, 100%, 78%);
-  height: 2em;
   line-height: 2em;
-  padding: 0;
+  padding: 10px 20px;
   z-index: 100;
 }
 
@@ -27,6 +26,7 @@
 
 .navbar ul li:hover {
   background-color: hsl(236, 100%, 70%);
+  border-radius: 10px;
 }
 
 .navbar ul li a {

@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   padding: 1em;
+  padding-top: 20px;
 }
 
 .wrapper .title {
@@ -13,6 +14,7 @@
 }
 
 .wrapper .testsTable {
+  margin-top:20px;
   width: 100%;
 }
 
@@ -22,7 +24,10 @@ td {
 }
 
 .wrapper .testsTable th {
-  border: 2px solid hsl(200, 50%, 50%);
+  border: 2px hsl(0, 0%, 79%) solid;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.5em lightgray;
+  
 }
 
 .wrapper .testsTable .numTh {
@@ -50,7 +55,10 @@ td {
 }
 
 .wrapper .testsTable td {
-  border: 2px solid hsl(200, 50%, 75%);
+  border: 1px hsl(0, 0%, 80%) solid;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.2em lightgray;
+  
 }
 
 .wrapper .testsTable td p {
@@ -202,3 +210,18 @@ td {
   height: 100%;
   opacity: 0;
 }
+
+.publishBtn {
+  font-size: 1em;
+  text-decoration: none;
+  background-color:hsl(184, 72%, 48%);
+  border:0px;
+  border-radius:5px;
+  padding: 0.5em;
+  color: white;
+}
+
+.publishBtn:hover{
+  background-color:hsl(184, 72%, 41%);
+}
+
