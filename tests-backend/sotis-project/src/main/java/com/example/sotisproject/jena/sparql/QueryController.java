@@ -10,16 +10,14 @@ import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @AllArgsConstructor
 @RestController
@@ -147,5 +145,49 @@ public class QueryController {
             e.printStackTrace();
         }
         return returnTests;
+    }
+
+    @PostMapping("/studentsForTeam")
+    public List<String> findStudentsCompetentForTeam(@RequestBody List<String> conceptNames) {
+        List<String> returnStudentFullNames = new ArrayList<>();
+        AtomicReference<String> filterString = new AtomicReference<>("");
+        conceptNames.forEach(conceptName-> filterString.set(filterString + "FILTER CONTAINS(?learnedConcepts , \""+ conceptName +"\") ."));
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            String queryString = "" +
+                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
+                    "SELECT (CONCAT(?firstName, \" \", ?lastName) as ?fullName)" +
+                    "WHERE" +
+                    "{" +
+                        "{" +
+                        "SELECT ?student (GROUP_CONCAT(?conceptName;SEPARATOR=\",\")AS ?learnedConcepts) \n" +
+                        "WHERE" +
+                            "{" +
+                            "?student ns:studentConcept ?learnedConcept . " +
+                            "?learnedConcept ns:conceptName ?conceptName ." +
+                            "}" +
+                        "GROUP BY ?student" +
+                        "}" +
+                        "?student ns:userFirstName ?firstName ." +
+                        "?student ns:userLastName ?lastName ." +
+                        filterString.get() +
+                    "}";
+            Query query = QueryFactory.create(queryString);
+            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
+                ResultSet results = qexec.execSelect();
+                while (results.hasNext()) {
+                    QuerySolution soln = results.nextSolution();
+                    Literal s = soln.getLiteral("fullName");
+                    returnStudentFullNames.add(s.getString());
+                }
+            }
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnStudentFullNames;
     }
 }
