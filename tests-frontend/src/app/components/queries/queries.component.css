@@ -21,17 +21,14 @@
     gap: 20px;
 }
 
-.query {
-    width: 100%;
+.query,.selectedQuery {
+    display: flex;
     align-items: center;
-    padding: 1em;
     background-color: hsl(240, 100%, 95%);
     border: hsl(240, 100%, 90%) 1px solid;
     transition: 0.3s;
-    user-select: none;
-    justify-content: space-between;
+    justify-content: center;
     border-radius: 0.5em;
-    position: relative;
 }
 
 .query:hover {
@@ -39,8 +36,13 @@
     cursor: pointer;
 }
 
-
-.query .title {
+.selectedQuery{
+    background-color:  hsl(236, 100%, 78%);
+}
+.mat-grid-list{
+    width: 100%;
+}
+.title {
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -64,6 +66,7 @@
     align-items: center;
     justify-content: center;
 }
+
 
 .filter{
     display: flex;

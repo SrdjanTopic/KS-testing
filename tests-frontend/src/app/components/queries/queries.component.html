@@ -1,45 +1,18 @@
 <div class="wrapper">
     <h1>All Queries</h1>
-    <div class="query-row">
-        <div class="query">
-            <div class="title">
-                Q1: Find all required concepts for learning specific concept
+    <mat-grid-list cols="2" rowHeight="12:1" [gutterSize]="'20px'">
+        <mat-grid-tile *ngFor="let query of queries" (click)="showQuery(query.id)"
+            [ngClass]="query.id == selectedQueryId ? 'selectedQuery' : 'query'">
+            <div class="title">{{query.name}}
             </div>
 
-        </div>
-        <div class="query">
-            <div class="title">
-                Q2: Find all concepts for learning after knowing a specific concept
-            </div>
-        </div>
-        <div class="query">
-            <div class="title">
-                Q3: Find all tests that can be successfully done after knowing a specific concept
-            </div>
-        </div>
-    </div>
-    <div class="query-row">
-        <div class="query">
-            <div class="title">
-                Q4: Find all required concepts for learning specific concept
-            </div>
-        </div>
-        <div class="query">
-            <div class="title">
-                Q5: Find all required concepts for learning specific concept
-            </div>
-        </div>
-        <div class="query">
-            <div class="title">
-                Q6: Find all required concepts for learning specific concept
-            </div>
-        </div>
-    </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
 
 
     <div class="body">
-      
-        <div class="answer">
+        <div class="answer" *ngIf="selectedQueryId==1">
             <div class="title">
                 Q1: Find all required concepts for learning specific concept
             </div>
@@ -70,8 +43,90 @@
                     Find all
                 </button>
             </div>
+            <div class="title" *ngIf="showResult">
+                Results:
+            </div>
+            <div>
+                <div class="result" *ngFor="let result of results">
+                    <h3>{{result}} </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer" *ngIf="selectedQueryId==2">
             <div class="title">
-              Results:
+                Q2: Find all concepts for learning after knowing a specific concept
+            </div>
+            <div class="filter">
+                <div class="part">
+                    <div>Select profession</div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Proffesion</mat-label>
+                        <mat-select (selectionChange)="getAllConceptsByProfession($event.value)">
+                            <mat-option *ngFor="let profession of allProfessions" [value]="profession.id">
+                                {{profession.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="part">
+                    <div>Select concept</div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Concept</mat-label>
+                        <mat-select (selectionChange)="selectConcept($event.value)">
+                            <mat-option *ngFor="let concept of allConceptsByProfession" [value]="concept.concept">
+                                {{concept.concept}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <button class="findBtn" (click)="runQ2()">
+                    Find all
+                </button>
+            </div>
+            <div class="title" *ngIf="showResult">
+                Results:
+            </div>
+            <div>
+                <div class="result" *ngFor="let result of results">
+                    <h3>{{result}} </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer" *ngIf="selectedQueryId==3">
+            <div class="title">
+                Q3: Find all tests to solve after learning a specific concept
+            </div>
+            <div class="filter">
+                <div class="part">
+                    <div>Select profession</div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Proffesion</mat-label>
+                        <mat-select (selectionChange)="getAllConceptsByProfession($event.value)">
+                            <mat-option *ngFor="let profession of allProfessions" [value]="profession.id">
+                                {{profession.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="part">
+                    <div>Select concept</div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Concept</mat-label>
+                        <mat-select (selectionChange)="selectConcept($event.value)">
+                            <mat-option *ngFor="let concept of allConceptsByProfession" [value]="concept.concept">
+                                {{concept.concept}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <button class="findBtn" (click)="runQ3()">
+                    Find all
+                </button>
+            </div>
+            <div class="title" *ngIf="showResult">
+                Results:
             </div>
             <div>
                 <div class="result" *ngFor="let result of results">

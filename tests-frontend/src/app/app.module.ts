@@ -30,6 +30,7 @@ import { AllSubmittedTestsComponent } from './pages/all-submitted-tests/all-subm
 import { QueriesComponent } from './components/queries/queries.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {MatIconModule} from '@angular/material/icon';
     HttpClientModule,
     MatRadioModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
