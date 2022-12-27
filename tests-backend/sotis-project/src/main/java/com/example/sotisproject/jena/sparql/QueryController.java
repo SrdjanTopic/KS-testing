@@ -1,17 +1,5 @@
 package com.example.sotisproject.jena.sparql;
 
-import com.example.sotisproject.jena.model.SotisOntologyModel;
-import com.example.sotisproject.model.Concept;
-import com.example.sotisproject.service.RelationService;
-import lombok.AllArgsConstructor;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.query.*;
-import org.apache.jena.rdf.model.Literal;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,11 +7,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.sotisproject.dto.ProfessionCriteriaDTO;
+import com.example.sotisproject.service.RelationService;
+
+import lombok.AllArgsConstructor;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/sparql", produces = MediaType.APPLICATION_JSON_VALUE)
 public class QueryController {
-    private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
+    private static final String stuTestPath = "C:\\Users\\Admin\\Desktop\\sotis\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
     private static final String NS = "http://www.example.org/ontology/sotis#";
 
     private RelationService relationService;
@@ -152,6 +163,7 @@ public class QueryController {
         List<String> returnStudentFullNames = new ArrayList<>();
         AtomicReference<String> filterString = new AtomicReference<>("");
         conceptNames.forEach(conceptName-> filterString.set(filterString + "FILTER CONTAINS(?learnedConcepts , \""+ conceptName +"\") ."));
+        System.out.println(filterString);
         try {
             OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
             stuTestModel.read(stuTestPath);
@@ -189,5 +201,41 @@ public class QueryController {
             e.printStackTrace();
         }
         return returnStudentFullNames;
+    }
+    
+    @PostMapping("/studentProfessionCriteria")
+    public List<String> studentProfessionCriteria(@RequestBody ProfessionCriteriaDTO criteriaDTO) {
+        List<String> requiredConcepts = new ArrayList<>();
+        AtomicReference<String> filterString = new AtomicReference<>("");
+        criteriaDTO.getConceptNames().forEach(conceptName-> filterString.set(filterString + 
+        		"FILTER (lcase(?conceptName)!=\"" + conceptName.replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_").toLowerCase() + "\") ."));
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            String queryString = "" +
+                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
+                    "SELECT ?conceptName \n" +
+                    "WHERE " +
+                    "{" +
+                        "?shouldLearnConcept ns:isRequiredForProfession ns:"+ criteriaDTO.getProfession() + " . " +
+                        "?shouldLearnConcept ns:conceptName ?conceptName . "  +
+                        filterString.get() +
+                    "}";
+            Query query = QueryFactory.create(queryString);
+            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
+                ResultSet results = qexec.execSelect();
+                while (results.hasNext()) {
+                    QuerySolution soln = results.nextSolution();
+                    Literal s = soln.getLiteral("conceptName");
+                    requiredConcepts.add(s.getString());
+                }
+            }
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return requiredConcepts;
     }
 }
