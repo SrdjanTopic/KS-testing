@@ -162,15 +162,15 @@ export class AddTestComponent implements OnInit {
         id: `Q${question.questionNumber}`,
         label: `Q${question.questionNumber}`,
         color: {
-          border: '#ff0000',
-          background: '#ff9999',
+          border: '#1daab4',
+          background: '#63d7df',
           hover: {
-            border: '#ff0000',
-            background: '#ffcccc',
+            border: '#1daab4',
+            background: '#98ecf1',
           },
           highlight: {
-            border: '#ff0000',
-            background: '#ffcccc',
+            border: '#1daab4',
+            background: '#98ecf1',
           },
         },
       })),

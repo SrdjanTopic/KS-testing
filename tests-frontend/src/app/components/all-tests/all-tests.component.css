@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding:20px;
 }
 
 .wrapper h1 {
@@ -13,17 +14,18 @@
 .wrapper .addTestBtn {
   font-size: 1.5em;
   text-decoration: none;
-  background-color: hsl(235, 100%, 80%);
-  border-radius: 0.5em;
+  background-color:hsl(184, 72%, 48%);
+  border-radius:5px;
   padding: 0.5em;
   color: white;
 }
 
 .wrapper .addTestBtn:hover {
-  background-color: hsl(235, 100%, 70%);
+  background-color:hsl(184, 72%, 41%);
 }
 
 .wrapper .tests-wrapper {
+  margin-top:20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 90%;
@@ -52,19 +54,19 @@
 .wrapper .tests-wrapper .test .testNotPublished {
   position: absolute;
   width: fit-content;
-  padding: 0.1em 0.2em 0.1em 0.2em;
-  padding-block-end: 0;
+  padding: 0.2em 0.5em;
   top: -0.5em;
   left: 0;
   right: 0;
   margin: auto;
-  background-color: darkred;
+  background-color: crimson;
   color: white;
   border-radius: 0.5em;
 }
 
 .wrapper .tests-wrapper .test .test-name {
   font-size: 1.7em;
+  margin:10px 0px;
 }
 
 .wrapper .tests-wrapper .test .underline {
@@ -139,15 +141,15 @@
   font-size: 1.3em;
   border: none;
   color: white;
-  background-color: hsl(260, 100%, 75%);
+  background-color:  hsl(236, 100%, 78%);
   cursor: pointer;
   width: fit-content;
-  border-radius: 0.2em;
+  border-radius: 5px;
   margin-top: 1em;
   padding: 0.5em;
   text-decoration: none;
 }
 
 .wrapper .tests-wrapper .test .info a:hover {
-  background-color: hsl(260, 100%, 65%);
+  background-color: hsl(236, 100%, 70%);
 }

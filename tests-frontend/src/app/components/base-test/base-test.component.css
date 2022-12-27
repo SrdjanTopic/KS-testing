@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom:20px;
 }
 
 .test {
@@ -50,6 +51,30 @@
 .questionQuestion {
   font-size: 1.2em;
 }
+
+.addAnswerBtn,.addQuestionBtn {
+  font-size: 1.3em;
+  text-decoration: none;
+  background-color:hsl(184, 72%, 48%);
+  border:0px;
+  border-radius:5px;
+  padding: 0.5em;
+  color: white;
+}
+
+.addAnswerBtn{
+  background-color:  hsl(236, 100%, 78%);
+}
+
+.addQuestionBtn:hover {
+  background-color:hsl(184, 72%, 41%);
+}
+
+.addAswerBtn:hover{
+  background-color: hsl(236, 100%, 70%);
+}
+
+
 
 .answers {
   margin-left: 4ch;
