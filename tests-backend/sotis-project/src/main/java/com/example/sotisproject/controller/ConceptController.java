@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -22,6 +23,11 @@ public class ConceptController {
     @GetMapping("/{testId}")
     public List<Concept> getConceptsForTest(@PathVariable("testId") Long testId){
         return conceptService.getConceptsForTest(testId);
+    }
+    
+    @GetMapping("/profession/{professionId}")
+    public Set<Concept> getConceptsByProfession(@PathVariable("professionId") Long professionId){
+        return conceptService.getConceptsByProfession(professionId);
     }
 
     @PostMapping("/add")
