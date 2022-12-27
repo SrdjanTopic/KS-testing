@@ -24,6 +24,8 @@ public class OntologyService {
     private StudentRepository studentRepository;
     private AnswerRepository answerRepository;
     private RelationRepository relationRepository;
+    private ProfessionRepository professionRepository;
+
     private static final String ontologyPath = new File("").getAbsolutePath() + "\\..\\sotisOntology.owl";
     private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
     private static final String NS = "http://www.example.org/ontology/sotis#";
@@ -34,7 +36,6 @@ public class OntologyService {
             OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
             stuTestModel.read(stuTestPath);
             OutputStream stuTestOut = new FileOutputStream(stuTestPath);
-            SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
 //                    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
@@ -45,54 +46,31 @@ public class OntologyService {
                     "SELECT * \n" +
                     "WHERE" +
                     "{" +
-                        "{" +
-                            "SELECT (GROUP_CONCAT(DISTINCT ?testName;SEPARATOR=\",\") AS ?badTestNames) \n" +
-                            "WHERE" +
-                            "{ " +
-                                "{ " +
-                                    "SELECT (CONCAT(?argConceptName,\",\",GROUP_CONCAT(?conceptName;SEPARATOR=\",\")) AS ?allConceptNames)\n" +
-                                    "WHERE { " +
-                                        "?y ns:isDestinationFor+ ?x . " +
-                                        "?y ns:conceptName ?argConceptName ." +
-                                        "?x ns:conceptName ?conceptName ." +
-                                        "FILTER(?argConceptName=\"Typescript\" )" +
-                                    "}" +
-                                    "GROUP BY ?argConceptName" +
-                                " }" +
-                                "?test a ns:Test . " +
-                                "?test ns:testName ?testName . " +
-                                "?test ns:testQuestions ?question . " +
-                                "?question ns:questionConcept ?concept . " +
-                                "?concept ns:conceptName ?testConceptName ." +
-                                "FILTER NOT EXISTS{FILTER CONTAINS(?allConceptNames , ?testConceptName)} ." +
-                            "}" +
-                            "GROUP BY ?allConceptNames" +
-                        "}" +
-                        "?tests ns:testName ?goodTestName . " +
-                        "FILTER NOT EXISTS{FILTER CONTAINS(?badTestNames , ?goodTestName)} ." +
+                        "ns:Javascript ns:isRequiredForProfession ?profession . " +
                     "}";
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
                 ResultSet results = qexec.execSelect();
-                //ResultSetFormatter.out(System.out, results, query);
-                for (; results.hasNext(); ) {
-                    QuerySolution soln = results.nextSolution();
-                    Literal s = soln.getLiteral("goodTestName");
-                    System.out.println(s);
-                }
+                ResultSetFormatter.out(System.out, results, query);
+//                for (; results.hasNext(); ) {
+//                    QuerySolution soln = results.nextSolution();
+//                    Literal s = soln.getLiteral("goodTestName");
+//                    System.out.println(s);
+//                }
             }
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        addConcepts(conceptRepository.findAll());
 //        addStudents(studentRepository.findAll());
 //        addTeachers(teacherRepository.findAll());
-//        addConcepts(conceptRepository.findAll());
 //        addTests(testRepository.findAll());
 //        addQuestions(questionRepository.findAll());
 //        addAnswers(answerRepository.findAll());
 //        addRelations(relationRepository.findAll());
+//        addProfessions(professionRepository.findAll());
     }
 
     public void addStudents(List<Student> students){
@@ -108,6 +86,10 @@ public class OntologyService {
                 createdStudent.addLiteral(sotisOntologyModel.getUsername(), stuTestModel.createTypedLiteral(student.getUsername()));
                 createdStudent.addLiteral(sotisOntologyModel.getUserFirstName(), stuTestModel.createTypedLiteral(student.getFirstName()));
                 createdStudent.addLiteral(sotisOntologyModel.getUserLastName(), stuTestModel.createTypedLiteral(student.getLastName()));
+                student.getLearnedConcepts().forEach(concept -> {
+                    Individual learnedConcept = stuTestModel.getIndividual(NS + concept.getConcept().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
+                    createdStudent.addProperty(sotisOntologyModel.getStudentConcept(), learnedConcept);
+                });
                 System.out.println("ADD STUDENT: " +  student.getFirstName()+student.getLastName());
             });
             stuTestModel.write(stuTestOut, "RDF/XML");
@@ -321,6 +303,30 @@ public class OntologyService {
                 });
             });
 
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addProfessions(List<Profession> professions){
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
+
+            professions.forEach(profession -> {
+                Individual createdProfession = stuTestModel.createIndividual(NS + profession.getName().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"), sotisOntologyModel.getProfessionClass());
+                createdProfession.addLiteral(sotisOntologyModel.getId(), stuTestModel.createTypedLiteral(profession.getId()));
+                createdProfession.addLiteral(sotisOntologyModel.getProfessionName(), stuTestModel.createTypedLiteral(profession.getName().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_")));
+                profession.getRequiredConcepts().forEach(concept -> {
+                    Individual requiredConcept = stuTestModel.getIndividual(NS+concept.getConcept().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
+                    createdProfession.addProperty(sotisOntologyModel.getRequiredConcept(), requiredConcept);
+                });
+                System.out.println("ADDED PROFESSION: " + profession.getName());
+            });
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {
