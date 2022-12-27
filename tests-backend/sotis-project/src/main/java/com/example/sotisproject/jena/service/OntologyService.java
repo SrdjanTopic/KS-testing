@@ -46,7 +46,7 @@ public class OntologyService {
                     "WHERE" +
                     "{" +
                         "{" +
-                            "SELECT ?test \n" +
+                            "SELECT (GROUP_CONCAT(DISTINCT ?testName;SEPARATOR=\",\") AS ?badTestNames) \n" +
                             "WHERE" +
                             "{ " +
                                 "{ " +
@@ -60,27 +60,26 @@ public class OntologyService {
                                     "GROUP BY ?argConceptName" +
                                 " }" +
                                 "?test a ns:Test . " +
+                                "?test ns:testName ?testName . " +
                                 "?test ns:testQuestions ?question . " +
                                 "?question ns:questionConcept ?concept . " +
                                 "?concept ns:conceptName ?testConceptName ." +
                                 "FILTER NOT EXISTS{FILTER CONTAINS(?allConceptNames , ?testConceptName)} ." +
                             "}" +
-                            "GROUP BY ?test" +
+                            "GROUP BY ?allConceptNames" +
                         "}" +
-                        "?tests a ns:Test . " +
-                        "FILTER(?tests!=?test)" +
+                        "?tests ns:testName ?goodTestName . " +
+                        "FILTER NOT EXISTS{FILTER CONTAINS(?badTestNames , ?goodTestName)} ." +
                     "}";
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
                 ResultSet results = qexec.execSelect();
-                ResultSetFormatter.out(System.out, results, query);
-//                for (; results.hasNext(); ) {
-//                    QuerySolution soln = results.nextSolution();
-//                    Literal s = soln.getLiteral("conceptName");
-//                    System.out.println(s);
-//                    s = soln.getLiteral("conceptId");
-//                    System.out.println(s);
-//                }
+                //ResultSetFormatter.out(System.out, results, query);
+                for (; results.hasNext(); ) {
+                    QuerySolution soln = results.nextSolution();
+                    Literal s = soln.getLiteral("goodTestName");
+                    System.out.println(s);
+                }
             }
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();

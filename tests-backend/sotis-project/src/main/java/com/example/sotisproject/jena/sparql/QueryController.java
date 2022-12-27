@@ -38,18 +38,15 @@ public class QueryController {
             OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
             stuTestModel.read(stuTestPath);
             OutputStream stuTestOut = new FileOutputStream(stuTestPath);
-            SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
-                    "SELECT ?conceptName\n" +
-                    "WHERE {ns:"+ conceptName + " ns:isSourceFor ?uri . ?uri ns:conceptName ?conceptName}";
+                    "SELECT DISTINCT ?conceptName\n" +
+                    "WHERE {ns:"+ conceptName.replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_") + " ns:isSourceFor ?uri . ?uri ns:conceptName ?conceptName}";
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
                 ResultSet results = qexec.execSelect();
-//                ResultSetFormatter.out(System.out, results, query);
-                for (; results.hasNext(); ) {
+                while (results.hasNext()) {
                     QuerySolution soln = results.nextSolution();
-                    //System.out.println(soln.toString());
                     Literal s = soln.getLiteral("conceptName");
                     returnConcepts.add(s.toString());
                 }
@@ -63,27 +60,26 @@ public class QueryController {
     }
 
     @GetMapping("/{conceptName}/allPreviousConcepts")
-    public List<String> findAllPreviousConceptsForConcept() {
+    public List<String> findAllPreviousConceptsForConcept(@PathVariable("conceptName") String conceptName) {
         List<String> returnConcepts = new ArrayList<>();
         try {
             OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
             stuTestModel.read(stuTestPath);
             OutputStream stuTestOut = new FileOutputStream(stuTestPath);
-            SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
                     "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
-                    "SELECT ?conceptName ?conceptId\n" +
+                    "SELECT DISTINCT ?conceptName \n" +
                     "WHERE { " +
-                    "ns:React.js ns:isDestinationFor+ ?x . " +
-                    "?x ns:conceptName ?conceptName . " +
-                    "?x ns:id ?id " +
-                    "bind( xsd:integer(?id) as ?conceptId )" +
+                        "ns:"+ conceptName.replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_")+" ns:isDestinationFor+ ?x . " +
+                        "?x ns:conceptName ?conceptName . " +
+//                        "?x ns:id ?id " +
+//                        "bind( xsd:integer(?id) as ?conceptId )" +
                     " }";
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
                 ResultSet results = qexec.execSelect();
-                for (; results.hasNext(); ) {
+                while (results.hasNext()) {
                     QuerySolution soln = results.nextSolution();
                     Literal name = soln.getLiteral("conceptName");
                     returnConcepts.add(name.getString());
@@ -95,5 +91,61 @@ public class QueryController {
             e.printStackTrace();
         }
         return returnConcepts;
+    }
+
+    @GetMapping("/{conceptName}/solvableTests")
+    public List<String> findSolvableTestForLearnedConcept(@PathVariable("conceptName") String conceptName){
+        List<String> returnTests = new ArrayList<>();
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            String queryString = "" +
+                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
+                    "SELECT * \n" +
+                    "WHERE" +
+                    "{" +
+                        "{" +
+                            "SELECT (GROUP_CONCAT(DISTINCT ?testName;SEPARATOR=\",\") AS ?badTestNames) \n" +
+                            "WHERE" +
+                            "{ " +
+                                "{ " +
+                                "SELECT (CONCAT(?argConceptName,\",\",GROUP_CONCAT(?conceptName;SEPARATOR=\",\")) AS ?allConceptNames)\n" +
+                                "WHERE " +
+                                "{ " +
+                                    "?y ns:isDestinationFor+ ?x . " +
+                                    "?y ns:conceptName ?argConceptName ." +
+                                    "?x ns:conceptName ?conceptName ." +
+                                    "FILTER(?argConceptName=\""+conceptName.replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_")+"\" )" +
+                                "}" +
+                                "GROUP BY ?argConceptName" +
+                                " }" +
+                            "?test a ns:Test . " +
+                            "?test ns:testName ?testName . " +
+                            "?test ns:testQuestions ?question . " +
+                            "?question ns:questionConcept ?concept . " +
+                            "?concept ns:conceptName ?testConceptName ." +
+                            "FILTER NOT EXISTS{FILTER CONTAINS(?allConceptNames , ?testConceptName)} ." +
+                            "}" +
+                            "GROUP BY ?allConceptNames" +
+                        "}" +
+                        "?tests ns:testName ?goodTestName . " +
+                        "FILTER NOT EXISTS{FILTER CONTAINS(?badTestNames , ?goodTestName)} ." +
+                    "}";
+            Query query = QueryFactory.create(queryString);
+            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
+                ResultSet results = qexec.execSelect();
+                while (results.hasNext()) {
+                    QuerySolution soln = results.nextSolution();
+                    Literal s = soln.getLiteral("goodTestName");
+                    returnTests.add(s.getString());
+                }
+            }
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnTests;
     }
 }
