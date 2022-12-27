@@ -71,10 +71,12 @@ insert into profession_required_concepts(required_for_professions_id, required_c
 insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (3, 14);
 
 -- STUDENT LEARNED CONCEPTS INSERT
+-- student 1
 insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (2, 1);
 insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (2, 2);
 insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (2, 3);
 insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (2, 8);
+-- student 2
 insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (3, 1);
 insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (3, 2);
 insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (3, 10);
