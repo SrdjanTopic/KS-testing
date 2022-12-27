@@ -19,413 +19,413 @@
   <owl:Class rdf:about="http://www.example.org/ontology/sotis#Profession"/>
   <owl:Class rdf:about="http://www.example.org/ontology/sotis#Question"/>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#conceptStudent">
-    <rdfs:domain>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#conceptStudent"/>
-      </owl:Restriction>
-    </rdfs:domain>
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Student"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#conceptStudent"/>
-      </owl:Restriction>
-    </rdfs:range>
     <owl:inverseOf>
       <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#studentConcept"/>
     </owl:inverseOf>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#conceptStudent"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Student"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:range>
+    <rdfs:domain>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#conceptStudent"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:domain>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#questionConcept">
-    <rdfs:domain>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionConcept"/>
-      </owl:Restriction>
-    </rdfs:domain>
+    <rdfs:comment>A Question belongs to a Concept.</rdfs:comment>
     <rdfs:range>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionConcept"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
         <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionConcept"/>
       </owl:Restriction>
     </rdfs:range>
-    <rdfs:comment>A Question belongs to a Concept.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionConcept"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:domain>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#questionTest">
-    <rdfs:domain>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionTest"/>
-      </owl:Restriction>
-    </rdfs:domain>
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Test"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionTest"/>
-      </owl:Restriction>
-    </rdfs:range>
+    <rdfs:comment>Every Question belongs to a Test.</rdfs:comment>
     <owl:inverseOf>
       <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#testQuestions"/>
     </owl:inverseOf>
-    <rdfs:comment>Every Question belongs to a Test.</rdfs:comment>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#isRequiredForProfession">
     <rdfs:range>
       <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isRequiredForProfession"/>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionTest"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Test"/>
+        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:qualifiedCardinality>
       </owl:Restriction>
     </rdfs:range>
     <rdfs:domain>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionTest"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isRequiredForProfession"/>
       </owl:Restriction>
     </rdfs:domain>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#isRequiredForProfession">
     <owl:inverseOf>
       <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#requiredConcept"/>
     </owl:inverseOf>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#studentAnswer">
     <rdfs:domain>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isRequiredForProfession"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Student"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#studentAnswer"/>
       </owl:Restriction>
     </rdfs:domain>
     <rdfs:range>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isRequiredForProfession"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >0</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#studentAnswer"/>
+        >1</owl:minQualifiedCardinality>
       </owl:Restriction>
     </rdfs:range>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#studentAnswer">
+    <rdfs:comment>A Student can have 0 or more Answers.</rdfs:comment>
     <owl:inverseOf>
       <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#answerStudent"/>
     </owl:inverseOf>
-    <rdfs:comment>A Student can have 0 or more Answers.</rdfs:comment>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#answerQuestion">
-    <rdfs:domain>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#answerQuestion"/>
-      </owl:Restriction>
-    </rdfs:domain>
     <rdfs:range>
       <owl:Restriction>
-        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#answerQuestion"/>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#studentAnswer"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >0</owl:minQualifiedCardinality>
       </owl:Restriction>
     </rdfs:range>
+    <rdfs:domain>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#studentAnswer"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Student"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:domain>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#answerQuestion">
+    <rdfs:comment>Every Answer belongs to a Question</rdfs:comment>
     <owl:inverseOf>
       <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#questionAnswers"/>
     </owl:inverseOf>
-    <rdfs:comment>Every Answer belongs to a Question</rdfs:comment>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#teacherTest">
-    <rdfs:domain>
-      <owl:Restriction>
-        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Teacher"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#teacherTest"/>
-      </owl:Restriction>
-    </rdfs:domain>
     <rdfs:range>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#answerQuestion"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:qualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:range>
+    <rdfs:domain>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#answerQuestion"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Test"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#teacherTest"/>
       </owl:Restriction>
-    </rdfs:range>
-    <rdfs:comment>A Teacher can create multiple Tests.</rdfs:comment>
+    </rdfs:domain>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#isDestinationFor">
+  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#teacherTest">
+    <rdfs:comment>A Teacher can create multiple Tests.</rdfs:comment>
     <rdfs:range>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#teacherTest"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Test"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >0</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isDestinationFor"/>
+        >1</owl:minQualifiedCardinality>
       </owl:Restriction>
     </rdfs:range>
     <rdfs:domain>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#teacherTest"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Teacher"/>
         <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isDestinationFor"/>
       </owl:Restriction>
     </rdfs:domain>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#isDestinationFor">
     <owl:inverseOf>
       <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#isSourceFor"/>
     </owl:inverseOf>
+    <rdfs:domain>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isDestinationFor"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:qualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:domain>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isDestinationFor"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >0</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:range>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#requiredConcept">
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#requiredConcept"/>
-      </owl:Restriction>
-    </rdfs:range>
     <rdfs:domain>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#requiredConcept"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#requiredConcept"/>
       </owl:Restriction>
     </rdfs:domain>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#requiredConcept"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:range>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#testQuestions">
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#testQuestions"/>
-      </owl:Restriction>
-    </rdfs:range>
+    <rdfs:comment>Every test must have at least 1 Question</rdfs:comment>
     <rdfs:domain>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#testQuestions"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Test"/>
         <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Test"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#testQuestions"/>
       </owl:Restriction>
     </rdfs:domain>
-    <rdfs:comment>Every test must have at least 1 Question</rdfs:comment>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#testQuestions"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:range>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#isSourceFor">
-    <rdfs:domain>
-      <owl:Restriction>
-        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isSourceFor"/>
-      </owl:Restriction>
-    </rdfs:domain>
     <rdfs:range>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isSourceFor"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >0</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isSourceFor"/>
       </owl:Restriction>
     </rdfs:range>
+    <rdfs:domain>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#isSourceFor"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:qualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:domain>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#answerStudent">
-    <rdfs:domain>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >0</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#answerStudent"/>
-      </owl:Restriction>
-    </rdfs:domain>
+    <rdfs:comment>An Answer can be answered by multiple Students</rdfs:comment>
     <rdfs:range>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#answerStudent"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Student"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Student"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#answerStudent"/>
       </owl:Restriction>
     </rdfs:range>
-    <rdfs:comment>An Answer can be answered by multiple Students</rdfs:comment>
+    <rdfs:domain>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#answerStudent"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >0</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:domain>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#testTeacher">
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Teacher"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#testTeacher"/>
-      </owl:Restriction>
-    </rdfs:range>
+    <rdfs:comment>Every test is created by a Teacher</rdfs:comment>
+    <owl:inverseOf rdf:resource="http://www.example.org/ontology/sotis#teacherTest"/>
     <rdfs:domain>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#testTeacher"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Test"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Test"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#testTeacher"/>
       </owl:Restriction>
     </rdfs:domain>
-    <owl:inverseOf rdf:resource="http://www.example.org/ontology/sotis#teacherTest"/>
-    <rdfs:comment>Every test is created by a Teacher</rdfs:comment>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#testTeacher"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Teacher"/>
+        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:qualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:range>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#conceptQuestion">
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >0</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#conceptQuestion"/>
-      </owl:Restriction>
-    </rdfs:range>
+    <rdfs:comment>Every Concept can have multiple corresponding Questions.</rdfs:comment>
+    <owl:inverseOf rdf:resource="http://www.example.org/ontology/sotis#questionConcept"/>
     <rdfs:domain>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#conceptQuestion"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
         <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#conceptQuestion"/>
       </owl:Restriction>
     </rdfs:domain>
-    <owl:inverseOf rdf:resource="http://www.example.org/ontology/sotis#questionConcept"/>
-    <rdfs:comment>Every Concept can have multiple corresponding Questions.</rdfs:comment>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#conceptQuestion"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >0</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:range>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#questionAnswers">
-    <rdfs:range>
-      <owl:Restriction>
-        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >2</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionAnswers"/>
-      </owl:Restriction>
-    </rdfs:range>
+    <rdfs:comment>Every Question must have at least 2 Answer</rdfs:comment>
     <rdfs:domain>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionAnswers"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
         <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:qualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Question"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionAnswers"/>
       </owl:Restriction>
     </rdfs:domain>
-    <rdfs:comment>Every Question must have at least 2 Answer</rdfs:comment>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#studentConcept">
     <rdfs:range>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#questionAnswers"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >0</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#studentConcept"/>
+        >2</owl:minQualifiedCardinality>
       </owl:Restriction>
     </rdfs:range>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.example.org/ontology/sotis#studentConcept">
     <rdfs:domain>
       <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#studentConcept"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Student"/>
         <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
         >1</owl:minQualifiedCardinality>
-        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Student"/>
-        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#studentConcept"/>
       </owl:Restriction>
     </rdfs:domain>
+    <rdfs:range>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.example.org/ontology/sotis#studentConcept"/>
+        <owl:onClass rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >0</owl:minQualifiedCardinality>
+      </owl:Restriction>
+    </rdfs:range>
   </owl:ObjectProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#userFirstName">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#User"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#questionQuestion">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#professionName">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#userLastName">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#User"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#answerAnswer">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#conceptName">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#answerIsCorrect">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#testName">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#Test"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#id">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#username">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#User"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.example.org/ontology/sotis#questionPoints">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     <rdfs:domain rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
   </owl:DatatypeProperty>
-  <Profession rdf:about="http://www.example.org/ontology/sotis#Full_stack_developer">
-    <professionName>Full_stack_developer</professionName>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Full_stack_developer">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Profession>
+    <professionName>Full_stack_developer</professionName>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
+  </owl:NamedIndividual>
   <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Front_end_developer">
     <requiredConcept>
-      <Concept rdf:about="http://www.example.org/ontology/sotis#Typescript">
-        <conceptQuestion>
-          <Question rdf:about="http://www.example.org/ontology/sotis#Which_object-oriented_terms_are_supported_by_TypeScript?">
-            <questionQuestion>Which_object-oriented_terms_are_supported_by_TypeScript?</questionQuestion>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Typescript">
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >8</id>
+        <conceptName>Typescript</conceptName>
+        <isSourceFor>
+          <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Angular.js">
             <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >8</id>
+            >6</id>
+            <conceptName>Angular.js</conceptName>
+            <conceptQuestion>
+              <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Which_of_the_following_components_can_be_injected_as_a_dependency_in_AngularJS?">
+                <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+                >10</questionPoints>
+                <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+                >6</id>
+                <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+                >9</id>
+                <questionQuestion>Which_of_the_following_components_can_be_injected_as_a_dependency_in_AngularJS?</questionQuestion>
+                <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+              </owl:NamedIndividual>
+            </conceptQuestion>
+            <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+          </owl:NamedIndividual>
+        </isSourceFor>
+        <conceptQuestion>
+          <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Which_object-oriented_terms_are_supported_by_TypeScript?">
+            <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+            >11</id>
+            <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+            >14</id>
             <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
             >15</questionPoints>
             <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >14</id>
-            <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >11</id>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </Question>
+            >8</id>
+            <questionQuestion>Which_object-oriented_terms_are_supported_by_TypeScript?</questionQuestion>
+            <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+          </owl:NamedIndividual>
         </conceptQuestion>
-        <isSourceFor>
-          <Concept rdf:about="http://www.example.org/ontology/sotis#Angular.js">
-            <conceptQuestion>
-              <Question rdf:about="http://www.example.org/ontology/sotis#Which_of_the_following_components_can_be_injected_as_a_dependency_in_AngularJS?">
-                <questionQuestion>Which_of_the_following_components_can_be_injected_as_a_dependency_in_AngularJS?</questionQuestion>
-                <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-                >9</id>
-                <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-                >6</id>
-                <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
-                >10</questionPoints>
-                <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-              </Question>
-            </conceptQuestion>
-            <conceptName>Angular.js</conceptName>
-            <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >6</id>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </Concept>
-        </isSourceFor>
-        <conceptName>Typescript</conceptName>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >8</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Concept>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+      </owl:NamedIndividual>
     </requiredConcept>
     <requiredConcept>
       <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Javascript">
@@ -433,166 +433,166 @@
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >3</id>
         <isSourceFor>
-          <Concept rdf:about="http://www.example.org/ontology/sotis#React.js">
-            <conceptQuestion>
-              <Question rdf:about="http://www.example.org/ontology/sotis#React.js_is_written_in_which_of_the_following_languages?">
-                <questionQuestion>React.js_is_written_in_which_of_the_following_languages?</questionQuestion>
-                <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-                >5</id>
-                <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
-                >15</questionPoints>
-                <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-              </Question>
-            </conceptQuestion>
-            <conceptName>React.js</conceptName>
+          <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#React.js">
             <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
             >5</id>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </Concept>
+            <conceptName>React.js</conceptName>
+            <conceptQuestion>
+              <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#React.js_is_written_in_which_of_the_following_languages?">
+                <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+                >15</questionPoints>
+                <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+                >5</id>
+                <questionQuestion>React.js_is_written_in_which_of_the_following_languages?</questionQuestion>
+                <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+              </owl:NamedIndividual>
+            </conceptQuestion>
+            <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+          </owl:NamedIndividual>
         </isSourceFor>
         <conceptName>Javascript</conceptName>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
         <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
         >true</answerIsCorrect>
-        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
         <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >15</id>
         <conceptQuestion>
-          <Question rdf:about="http://www.example.org/ontology/sotis#_Which_of_the_following_keywords_is_used_to_define_a_variable_in_Javascript?">
-            <questionQuestion>_Which_of_the_following_keywords_is_used_to_define_a_variable_in_Javascript?</questionQuestion>
+          <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#_Which_of_the_following_keywords_is_used_to_define_a_variable_in_Javascript?">
             <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >3</id>
+            >13</id>
             <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
             >20</questionPoints>
             <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >13</id>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </Question>
+            >3</id>
+            <questionQuestion>_Which_of_the_following_keywords_is_used_to_define_a_variable_in_Javascript?</questionQuestion>
+            <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+          </owl:NamedIndividual>
         </conceptQuestion>
       </owl:NamedIndividual>
     </requiredConcept>
     <requiredConcept rdf:resource="http://www.example.org/ontology/sotis#Angular.js"/>
     <requiredConcept>
-      <Concept rdf:about="http://www.example.org/ontology/sotis#CSS">
-        <isSourceFor>
-          <Concept rdf:about="http://www.example.org/ontology/sotis#Tailwind">
-            <conceptQuestion>
-              <Question rdf:about="http://www.example.org/ontology/sotis#How_can_you_make_text_bold_in_Tailwind_CSS?">
-                <questionQuestion>How_can_you_make_text_bold_in_Tailwind_CSS?</questionQuestion>
-                <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
-                >5</questionPoints>
-                <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-                >4</id>
-                <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-              </Question>
-            </conceptQuestion>
-            <conceptName>Tailwind</conceptName>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#CSS">
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >2</id>
+        <conceptName>CSS</conceptName>
+        <conceptQuestion>
+          <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#How_can_we_change_the_background_color_of_an_element_in_CSS?">
+            <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >15</questionPoints>
             <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >4</id>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </Concept>
-        </isSourceFor>
+            >2</id>
+            <questionQuestion>How_can_we_change_the_background_color_of_an_element_in_CSS?</questionQuestion>
+            <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+          </owl:NamedIndividual>
+        </conceptQuestion>
         <isSourceFor>
-          <Concept rdf:about="http://www.example.org/ontology/sotis#SASS/SCSS">
+          <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#SASS/SCSS">
+            <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+            >7</id>
+            <conceptName>SASS/SCSS</conceptName>
             <conceptQuestion>
-              <Question rdf:about="http://www.example.org/ontology/sotis#Which_of_the_following_directive_is_used_to_share_rules_and_relationships_between_selectors_in_SASS?">
-                <questionQuestion>Which_of_the_following_directive_is_used_to_share_rules_and_relationships_between_selectors_in_SASS?</questionQuestion>
+              <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Which_of_the_following_directive_is_used_to_share_rules_and_relationships_between_selectors_in_SASS?">
                 <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-                >7</id>
+                >10</id>
                 <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
                 >15</questionPoints>
                 <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-                >10</id>
-                <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-              </Question>
+                >7</id>
+                <questionQuestion>Which_of_the_following_directive_is_used_to_share_rules_and_relationships_between_selectors_in_SASS?</questionQuestion>
+                <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+              </owl:NamedIndividual>
             </conceptQuestion>
-            <conceptName>SASS/SCSS</conceptName>
-            <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >7</id>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </Concept>
+            <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+          </owl:NamedIndividual>
         </isSourceFor>
-        <conceptQuestion>
-          <Question rdf:about="http://www.example.org/ontology/sotis#How_can_we_change_the_background_color_of_an_element_in_CSS?">
-            <questionQuestion>How_can_we_change_the_background_color_of_an_element_in_CSS?</questionQuestion>
+        <isSourceFor>
+          <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Tailwind">
             <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >2</id>
-            <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
-            >15</questionPoints>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </Question>
-        </conceptQuestion>
-        <conceptName>CSS</conceptName>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >2</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Concept>
+            >4</id>
+            <conceptName>Tailwind</conceptName>
+            <conceptQuestion>
+              <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#How_can_you_make_text_bold_in_Tailwind_CSS?">
+                <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+                >4</id>
+                <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+                >5</questionPoints>
+                <questionQuestion>How_can_you_make_text_bold_in_Tailwind_CSS?</questionQuestion>
+                <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+              </owl:NamedIndividual>
+            </conceptQuestion>
+            <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+          </owl:NamedIndividual>
+        </isSourceFor>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+      </owl:NamedIndividual>
     </requiredConcept>
     <requiredConcept rdf:resource="http://www.example.org/ontology/sotis#Tailwind"/>
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">2</id>
     <requiredConcept rdf:resource="http://www.example.org/ontology/sotis#SASS/SCSS"/>
     <requiredConcept>
-      <Concept rdf:about="http://www.example.org/ontology/sotis#HTML">
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#HTML">
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >1</id>
+        <conceptName>HTML</conceptName>
+        <isSourceFor rdf:resource="http://www.example.org/ontology/sotis#CSS"/>
+        <isSourceFor rdf:resource="http://www.example.org/ontology/sotis#Javascript"/>
         <conceptQuestion>
-          <Question rdf:about="http://www.example.org/ontology/sotis#Which_tag_do_we_use_in_HTML_for_inserting_a_line-break?">
-            <questionQuestion>Which_tag_do_we_use_in_HTML_for_inserting_a_line-break?</questionQuestion>
+          <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Which_tag_do_we_use_in_HTML_for_inserting_a_line-break?">
             <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >12</id>
+            >1</id>
             <questionPoints rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
             >10</questionPoints>
             <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-            >1</id>
-            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-          </Question>
+            >12</id>
+            <questionQuestion>Which_tag_do_we_use_in_HTML_for_inserting_a_line-break?</questionQuestion>
+            <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Question"/>
+          </owl:NamedIndividual>
         </conceptQuestion>
-        <isSourceFor rdf:resource="http://www.example.org/ontology/sotis#Javascript"/>
-        <isSourceFor rdf:resource="http://www.example.org/ontology/sotis#CSS"/>
-        <conceptName>HTML</conceptName>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >1</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Concept>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+      </owl:NamedIndividual>
     </requiredConcept>
     <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
     <requiredConcept rdf:resource="http://www.example.org/ontology/sotis#React.js"/>
     <professionName>Front_end_developer</professionName>
   </owl:NamedIndividual>
-  <Test rdf:about="http://www.example.org/ontology/sotis#Test_test">
-    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#_Which_of_the_following_keywords_is_used_to_define_a_variable_in_Javascript?"/>
-    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_tag_do_we_use_in_HTML_for_inserting_a_line-break?"/>
-    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_object-oriented_terms_are_supported_by_TypeScript?"/>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Test_test">
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">3</id>
+    <testName>Test_test</testName>
     <testTeacher>
-      <Teacher rdf:about="http://www.example.org/ontology/sotis#DarkoVrbaski">
-        <userLastName>Vrbaski</userLastName>
-        <userFirstName>Darko</userFirstName>
-        <username>teacher</username>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#DarkoVrbaski">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >1</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Teacher>
+        <username>teacher</username>
+        <userFirstName>Darko</userFirstName>
+        <userLastName>Vrbaski</userLastName>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Teacher"/>
+      </owl:NamedIndividual>
     </testTeacher>
-    <testName>Test_test</testName>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">3</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Test>
-  <Answer rdf:about="http://www.example.org/ontology/sotis#color">
-    <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-    >false</answerIsCorrect>
+    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_object-oriented_terms_are_supported_by_TypeScript?"/>
+    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_tag_do_we_use_in_HTML_for_inserting_a_line-break?"/>
+    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#_Which_of_the_following_keywords_is_used_to_define_a_variable_in_Javascript?"/>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Test"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#color">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">6</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Answer>
-  <Answer rdf:about="http://www.example.org/ontology/sotis#Interfaces">
     <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >false</answerIsCorrect>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">38</id>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Interfaces">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">27</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Answer>
-  <Profession rdf:about="http://www.example.org/ontology/sotis#Data_scientist">
-    <professionName>Data_scientist</professionName>
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">38</id>
+    <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >false</answerIsCorrect>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Data_scientist">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">6</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Profession>
+    <professionName>Data_scientist</professionName>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
+  </owl:NamedIndividual>
   <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Web_developer_fundamentals">
     <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_of_the_following_components_can_be_injected_as_a_dependency_in_AngularJS?"/>
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1</id>
@@ -609,309 +609,309 @@
   </owl:NamedIndividual>
   <Profession rdf:about="http://www.example.org/ontology/sotis#Back_end_developer">
     <requiredConcept>
-      <Concept rdf:about="http://www.example.org/ontology/sotis#Python">
-        <conceptName>Python</conceptName>
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >false</answerIsCorrect>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >9</id>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Python">
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >18</id>
-        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Concept>
-    </requiredConcept>
-    <requiredConcept>
-      <Concept rdf:about="http://www.example.org/ontology/sotis#Java">
-        <conceptName>Java</conceptName>
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >9</id>
         <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
         >false</answerIsCorrect>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >17</id>
+        <conceptName>Python</conceptName>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+      </owl:NamedIndividual>
+    </requiredConcept>
+    <requiredConcept>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Java">
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >10</id>
-        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Concept>
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >17</id>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >false</answerIsCorrect>
+        <conceptName>Java</conceptName>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+      </owl:NamedIndividual>
     </requiredConcept>
     <requiredConcept rdf:resource="http://www.example.org/ontology/sotis#Javascript"/>
     <requiredConcept rdf:resource="http://www.example.org/ontology/sotis#Typescript"/>
     <requiredConcept>
-      <Concept rdf:about="http://www.example.org/ontology/sotis#Databases">
-        <conceptName>Databases</conceptName>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Databases">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >12</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Concept>
+        <conceptName>Databases</conceptName>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+      </owl:NamedIndividual>
     </requiredConcept>
     <requiredConcept>
-      <Concept rdf:about="http://www.example.org/ontology/sotis#API">
-        <conceptName>API</conceptName>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#API">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >13</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Concept>
+        <conceptName>API</conceptName>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+      </owl:NamedIndividual>
     </requiredConcept>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <requiredConcept>
-      <Concept rdf:about="http://www.example.org/ontology/sotis#OOP">
-        <conceptName>OOP</conceptName>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#OOP">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >11</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Concept>
+        <conceptName>OOP</conceptName>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+      </owl:NamedIndividual>
     </requiredConcept>
     <professionName>Back_end_developer</professionName>
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">3</id>
     <requiredConcept>
-      <Concept rdf:about="http://www.example.org/ontology/sotis#Functional_programming">
-        <conceptName>Functional_programming</conceptName>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Functional_programming">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >14</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Concept>
+        <conceptName>Functional_programming</conceptName>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Concept"/>
+      </owl:NamedIndividual>
     </requiredConcept>
   </Profession>
-  <Profession rdf:about="http://www.example.org/ontology/sotis#Data_engineer">
-    <professionName>Data_engineer</professionName>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Data_engineer">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">5</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Profession>
-  <Profession rdf:about="http://www.example.org/ontology/sotis#Embedded_systems_engineer">
-    <professionName>Embedded_systems_engineer</professionName>
+    <professionName>Data_engineer</professionName>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Embedded_systems_engineer">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">7</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Profession>
+    <professionName>Embedded_systems_engineer</professionName>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
+  </owl:NamedIndividual>
   <Student rdf:about="http://www.example.org/ontology/sotis#KekoKekic">
     <userFirstName>Keko</userFirstName>
     <studentConcept rdf:resource="http://www.example.org/ontology/sotis#HTML"/>
     <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#_b_">
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >false</answerIsCorrect>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#_b_">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >3</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
-    </studentAnswer>
-    <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#C_">
         <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
         >false</answerIsCorrect>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >16</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
     </studentAnswer>
     <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#All_answers">
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#C_">
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >16</id>
         <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >true</answerIsCorrect>
+        >false</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
+    </studentAnswer>
+    <studentAnswer>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#All_answers">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >37</id>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >30</id>
+        >19</id>
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >26</id>
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >19</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
+        >30</id>
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >37</id>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >true</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
     </studentAnswer>
     <userLastName>Kekic</userLastName>
     <studentConcept rdf:resource="http://www.example.org/ontology/sotis#Typescript"/>
-    <studentConcept rdf:resource="http://www.example.org/ontology/sotis#Javascript"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#add_to_class__bold_">
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >false</answerIsCorrect>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >14</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
-    </studentAnswer>
-    <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#@extend">
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >true</answerIsCorrect>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >34</id>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#@extend">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >23</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >34</id>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >true</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
     </studentAnswer>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">2</id>
     <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#var">
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#add_to_class__bold_">
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >14</id>
         <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
         >false</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
+    </studentAnswer>
+    <studentConcept rdf:resource="http://www.example.org/ontology/sotis#Javascript"/>
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">2</id>
+    <studentAnswer>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#var">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >10</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >false</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
     </studentAnswer>
     <studentConcept rdf:resource="http://www.example.org/ontology/sotis#CSS"/>
     <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#background-color">
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >true</answerIsCorrect>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#background-color">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >5</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >true</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
     </studentAnswer>
     <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#Data_Types">
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >false</answerIsCorrect>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >39</id>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Data_Types">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >28</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >39</id>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >false</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
     </studentAnswer>
     <username>student</username>
   </Student>
-  <Answer rdf:about="http://www.example.org/ontology/sotis#Member_functions">
-    <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-    >false</answerIsCorrect>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">40</id>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Member_functions">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">29</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Answer>
-  <Answer rdf:about="http://www.example.org/ontology/sotis#@media">
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">40</id>
     <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >false</answerIsCorrect>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">35</id>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#@media">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">24</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Answer>
-  <Test rdf:about="http://www.example.org/ontology/sotis#Some_kind_of_test">
-    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_of_the_following_directive_is_used_to_share_rules_and_relationships_between_selectors_in_SASS?"/>
-    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_of_the_following_components_can_be_injected_as_a_dependency_in_AngularJS?"/>
-    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_object-oriented_terms_are_supported_by_TypeScript?"/>
-    <testTeacher rdf:resource="http://www.example.org/ontology/sotis#DarkoVrbaski"/>
-    <testName>Some_kind_of_test</testName>
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">35</id>
+    <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >false</answerIsCorrect>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Some_kind_of_test">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">2</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Test>
-  <Profession rdf:about="http://www.example.org/ontology/sotis#Devops_engineer">
-    <professionName>Devops_engineer</professionName>
+    <testName>Some_kind_of_test</testName>
+    <testTeacher rdf:resource="http://www.example.org/ontology/sotis#DarkoVrbaski"/>
+    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_object-oriented_terms_are_supported_by_TypeScript?"/>
+    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_of_the_following_components_can_be_injected_as_a_dependency_in_AngularJS?"/>
+    <testQuestions rdf:resource="http://www.example.org/ontology/sotis#Which_of_the_following_directive_is_used_to_share_rules_and_relationships_between_selectors_in_SASS?"/>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Test"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#Devops_engineer">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">4</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Profession>
-  <Answer rdf:about="http://www.example.org/ontology/sotis#service">
-    <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-    >false</answerIsCorrect>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">32</id>
+    <professionName>Devops_engineer</professionName>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Profession"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#service">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">21</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Answer>
-  <Answer rdf:about="http://www.example.org/ontology/sotis#factory">
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">32</id>
     <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >false</answerIsCorrect>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">31</id>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#factory">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">20</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Answer>
-  <Answer rdf:about="http://www.example.org/ontology/sotis#None">
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">31</id>
     <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >false</answerIsCorrect>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">36</id>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#None">
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">25</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Answer>
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">36</id>
+    <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >false</answerIsCorrect>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+  </owl:NamedIndividual>
   <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#adafasafsafsasf">
     <username>student2</username>
     <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#add_to_class__font-bold_">
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >true</answerIsCorrect>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#add_to_class__font-bold_">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >13</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
-    </studentAnswer>
-    <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#_br_">
         <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
         >true</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
+    </studentAnswer>
+    <studentAnswer>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#_br_">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >4</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >true</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
     </studentAnswer>
     <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">3</id>
     <studentConcept rdf:resource="http://www.example.org/ontology/sotis#OOP"/>
     <studentConcept rdf:resource="http://www.example.org/ontology/sotis#HTML"/>
     <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#none">
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >false</answerIsCorrect>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >8</id>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#none">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >12</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
-    </studentAnswer>
-    <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#_a_">
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >8</id>
         <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
         >false</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
+    </studentAnswer>
+    <studentAnswer>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#_a_">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >1</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >false</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
     </studentAnswer>
     <userLastName>afsafsasf</userLastName>
     <studentAnswer rdf:resource="http://www.example.org/ontology/sotis#Javascript"/>
     <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Student"/>
     <userFirstName>adafas</userFirstName>
     <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#_p_">
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >false</answerIsCorrect>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#_p_">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >2</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
-    </studentAnswer>
-    <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#both">
-        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >true</answerIsCorrect>
         <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
         >false</answerIsCorrect>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >9</id>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
+    </studentAnswer>
+    <studentConcept rdf:resource="http://www.example.org/ontology/sotis#Databases"/>
+    <studentConcept rdf:resource="http://www.example.org/ontology/sotis#Java"/>
+    <studentConcept rdf:resource="http://www.example.org/ontology/sotis#CSS"/>
+    <studentAnswer>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#both">
         <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >7</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
-    </studentAnswer>
-    <studentConcept rdf:resource="http://www.example.org/ontology/sotis#CSS"/>
-    <studentConcept rdf:resource="http://www.example.org/ontology/sotis#Java"/>
-    <studentConcept rdf:resource="http://www.example.org/ontology/sotis#Databases"/>
-    <studentAnswer>
-      <Answer rdf:about="http://www.example.org/ontology/sotis#let">
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >9</id>
         <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
         >false</answerIsCorrect>
-        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >11</id>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-      </Answer>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >true</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
     </studentAnswer>
     <studentAnswer rdf:resource="http://www.example.org/ontology/sotis#Java"/>
+    <studentAnswer>
+      <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#let">
+        <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >11</id>
+        <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >false</answerIsCorrect>
+        <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+      </owl:NamedIndividual>
+    </studentAnswer>
   </owl:NamedIndividual>
-  <Answer rdf:about="http://www.example.org/ontology/sotis#value">
+  <owl:NamedIndividual rdf:about="http://www.example.org/ontology/sotis#value">
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">22</id>
+    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">33</id>
     <answerIsCorrect rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >false</answerIsCorrect>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">33</id>
-    <id rdf:datatype="http://www.w3.org/2001/XMLSchema#long">22</id>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </Answer>
+    <rdf:type rdf:resource="http://www.example.org/ontology/sotis#Answer"/>
+  </owl:NamedIndividual>
 </rdf:RDF>
