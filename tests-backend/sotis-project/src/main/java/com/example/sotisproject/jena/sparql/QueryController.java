@@ -71,8 +71,6 @@ public class QueryController {
                     "WHERE { " +
                         "ns:"+ conceptName.replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_")+" ns:isDestinationFor+ ?x . " +
                         "?x ns:conceptName ?conceptName . " +
-//                        "?x ns:id ?id " +
-//                        "bind( xsd:integer(?id) as ?conceptId )" +
                     " }";
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {

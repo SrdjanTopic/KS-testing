@@ -25,6 +25,7 @@ insert into concept (concept) values ('React.js'); --concept_id:5
 insert into concept (concept) values ('Angular.js'); --concept_id:6
 insert into concept (concept) values ('SASS/SCSS'); --concept_id:7
 insert into concept (concept) values ('Typescript'); --concept_id:8
+
 insert into concept (concept) values ('Python'); --concept_id:9
 insert into concept (concept) values ('Java'); --concept_id:10
 insert into concept (concept) values ('OOP'); --concept_id:11
@@ -84,11 +85,12 @@ insert into student_learned_concepts(learned_by_students_id, learned_concepts_id
 insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (3, 12);
 
 -- TEST INSERT
-insert into test (name, teacher_id) values ('Web developer fundamentals',1); --test_id:1
-insert into test (name, teacher_id) values ('Some kind of test',1); --test_id:2
-insert into test (name, teacher_id) values ('Test test',1); --test_id:3
+insert into test (name, teacher_id) values ('Front end developer fundamentals',1); --test_id:1
+insert into test (name, teacher_id) values ('Back end developer fundamentals',1); --test_id:2
+insert into test (name, teacher_id) values ('Full stack developer questions',1); --test_id:3
 
 -- QUESTION INSERT
+--test 1
 insert into question (test_id, concept_id, question) values (1, 1, 'Which tag do we use in HTML for inserting a line-break?'); --question_id:1
 insert into question (test_id, concept_id, points, question) values (1, 2, 15, 'How can we change the background color of an element in CSS?'); --question_id:2
 insert into question (test_id, concept_id, points, question) values (1, 3, 20, ' Which of the following keywords is used to define a variable in Javascript?'); --question_id:3
@@ -97,16 +99,20 @@ insert into question (test_id, concept_id, points, question) values (1, 5, 15, '
 insert into question (test_id, concept_id, points, question) values (1, 6, 10, 'Which of the following components can be injected as a dependency in AngularJS?'); --question_id:6
 insert into question (test_id, concept_id, points, question) values (1, 7, 15, 'Which of the following directive is used to share rules and relationships between selectors in SASS?'); --question_id:7
 insert into question (test_id, concept_id, points, question) values (1, 8, 15, 'Which object-oriented terms are supported by TypeScript?'); --question_id:8
-
-insert into question (test_id, concept_id, points, question) values (2, 6, 10, 'Which of the following components can be injected as a dependency in AngularJS?'); --question_id:9
-insert into question (test_id, concept_id, points, question) values (2, 7, 15, 'Which of the following directive is used to share rules and relationships between selectors in SASS?'); --question_id:10
-insert into question (test_id, concept_id, points, question) values (2, 8, 15, 'Which object-oriented terms are supported by TypeScript?'); --question_id:11
-
-insert into question (test_id, concept_id, question) values (3, 1, 'Which tag do we use in HTML for inserting a line-break?'); --question_id:1
-insert into question (test_id, concept_id, points, question) values (3, 3, 20, ' Which of the following keywords is used to define a variable in Javascript?'); --question_id:3
-insert into question (test_id, concept_id, points, question) values (3, 8, 15, 'Which object-oriented terms are supported by TypeScript?'); --question_id:8
+--test 2
+insert into question (test_id, concept_id, points, question) values (2, 9, 10, 'Is Python case sensitive when dealing with identifiers?'); --question_id:9
+insert into question (test_id, concept_id, points, question) values (2, 9, 15, 'Is Python code compiled or interpreted?'); --question_id:10
+insert into question (test_id, concept_id, points, question) values (2, 11, 15, 'Which of the following is not an OOP concept?'); --question_id:11
+insert into question (test_id, concept_id, points, question) values (2, 12, 10, 'Which type of data can be stored in the database?'); --question_id:12
+insert into question (test_id, concept_id, points, question) values (2, 10, 15, 'Which one of the following is not a Java feature?'); --question_id:13
+insert into question (test_id, concept_id, points, question) values (2, 13, 15, 'What is the HTTP status code 201 indicate?'); --question_id:14
+--test 3
+insert into question (test_id, concept_id, question) values (3, 1, 'Which tag do we use in HTML for inserting a line-break?'); --question_id:18
+insert into question (test_id, concept_id, points, question) values (3, 3, 20, ' Which of the following keywords is used to define a variable in Javascript?'); --question_id:19
+insert into question (test_id, concept_id, points, question) values (3, 8, 15, 'Which object-oriented terms are supported by TypeScript?'); --question_id:20
 
 -- ANSWER INSERT
+--test 1
 insert into answer (question_id, answer) values (1, '<a>'); --answer_id:1
 insert into answer (question_id, answer) values (1, '<p>'); --answer_id:2
 insert into answer (question_id, answer) values (1, '<b>'); --answer_id:3
@@ -136,17 +142,31 @@ insert into answer (question_id, answer, is_correct) values (8, 'All answers', t
 insert into answer (question_id, answer) values (8, 'Interfaces'); --answer_id:27
 insert into answer (question_id, answer) values (8, 'Data Types'); --answer_id:28
 insert into answer (question_id, answer) values (8, 'Member functions'); --answer_id:29
-insert into answer (question_id, answer, is_correct) values (9, 'All answers', true); --answer_id:30
-insert into answer (question_id, answer) values (9, 'factory'); --answer_id:31
-insert into answer (question_id, answer) values (9, 'service'); --answer_id:32
-insert into answer (question_id, answer) values (9, 'value'); --answer_id:33
-insert into answer (question_id, answer, is_correct) values (10, '@extend', true); --answer_id:34
-insert into answer (question_id, answer) values (10, '@media'); --answer_id:35
-insert into answer (question_id, answer) values (10, 'None'); --answer_id:36
-insert into answer (question_id, answer, is_correct) values (11, 'All answers', true); --answer_id:37
-insert into answer (question_id, answer) values (11, 'Interfaces'); --answer_id:38
-insert into answer (question_id, answer) values (11, 'Data Types'); --answer_id:39
-insert into answer (question_id, answer) values (11, 'Member functions'); --answer_id:40
+--test2
+insert into answer (question_id, answer, is_correct) values (9, 'yes', true); --answer_id:30
+insert into answer (question_id, answer) values (9, 'no'); --answer_id:31
+insert into answer (question_id, answer) values (9, 'machine dependent'); --answer_id:32
+insert into answer (question_id, answer) values (9, 'none of the mentioned'); --answer_id:33
+insert into answer (question_id, answer, is_correct) values (10, 'Python code is both compiled and interpreted', true); --answer_id:34
+insert into answer (question_id, answer) values (10, 'Python code is neither compiled nor interpreted'); --answer_id:35
+insert into answer (question_id, answer) values (10, 'Python code is only compiled'); --answer_id:36
+insert into answer (question_id, answer) values (10, 'Python code is only interpreted'); --answer_id:37
+insert into answer (question_id, answer, is_correct) values (11, 'Exception', true); --answer_id:38
+insert into answer (question_id, answer) values (11, 'Encapsulation'); --answer_id:38
+insert into answer (question_id, answer) values (11, 'Polymorphism'); --answer_id:39
+insert into answer (question_id, answer) values (11, 'Abstraction'); --answer_id:40
+insert into answer (question_id, answer, is_correct) values (12, 'All mentioned answers', true); --answer_id:41
+insert into answer (question_id, answer) values (12, 'Image oriented data'); --answer_id:42
+insert into answer (question_id, answer) values (12, 'Text, files containing data'); --answer_id:43
+insert into answer (question_id, answer) values (12, 'Data in the form of audio or video'); --answer_id:44
+insert into answer (question_id, answer, is_correct) values (13, 'Use of pointers', true); --answer_id:41
+insert into answer (question_id, answer) values (13, 'Object-oriented'); --answer_id:42
+insert into answer (question_id, answer) values (13, 'Portable'); --answer_id:43
+insert into answer (question_id, answer) values (13, 'Dynamic and Extensible'); --answer_id:44
+insert into answer (question_id, answer, is_correct) values (14, 'Created', true); --answer_id:41
+insert into answer (question_id, answer) values (14, 'OK'); --answer_id:42
+insert into answer (question_id, answer) values (14, 'Accepted'); --answer_id:43
+insert into answer (question_id, answer) values (14, 'No Content'); --answer_id:44
 
 -- STUDENT ANSWERS
 insert into student_answers (students_id, answers_id) values (2, 3);

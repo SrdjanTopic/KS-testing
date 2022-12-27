@@ -47,11 +47,8 @@ public class OntologyService {
             OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
-                    "SELECT *" +
-                    "WHERE" +
-                    "{" +
-                        "?profession ns:requiredConcept ?requiredConcept" +
-                    "}";
+                    "SELECT DISTINCT ?conceptName\n" +
+                    "WHERE {ns:Javascript ns:isSourceFor ?uri . ?uri ns:conceptName ?conceptName}";
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
                 ResultSet results = qexec.execSelect();
