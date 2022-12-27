@@ -27,6 +27,10 @@ import { RealKnowledgeGraphComponent } from './components/real-knowledge-graph/r
 import { TestPublishingComponent } from './components/test-publishing/test-publishing.component';
 import { StudentAnswerGraphComponent } from './pages/student-answer-graph/student-answer-graph.component';
 import { AllSubmittedTestsComponent } from './pages/all-submitted-tests/all-submitted-tests.component';
+import { QueriesComponent } from './components/queries/queries.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,7 @@ import { AllSubmittedTestsComponent } from './pages/all-submitted-tests/all-subm
     TestPublishingComponent,
     StudentAnswerGraphComponent,
     AllSubmittedTestsComponent,
+    QueriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +64,9 @@ import { AllSubmittedTestsComponent } from './pages/all-submitted-tests/all-subm
     MatInputModule,
     HttpClientModule,
     MatRadioModule,
+    MatSelectModule,
+    MatIconModule,
+    MatGridListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
