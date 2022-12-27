@@ -35,7 +35,6 @@ public class RelationService {
         relationRepository.deleteAll();
         relations.forEach(relation -> {
             relationList.add(relationRepository.save(relation));
-            System.out.println(relation.getSource().getConcept());
         });
 
         //ontologyService.addRelations(relations);
