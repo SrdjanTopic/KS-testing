@@ -12,7 +12,7 @@
     </li>
     <li>
       <a
-        [routerLink]="['/test/add']"
+        [routerLink]="['/addTest']"
         routerLinkActive="router-link-active"
         *appHasRole="['ROLE_TEACHER']"
         >Add test</a
@@ -27,9 +27,7 @@
       >
     </li>
     <li>
-      <a
-        [routerLink]="['/tests/queries']"
-        routerLinkActive="router-link-active"
+      <a [routerLink]="['/tests/queries']" routerLinkActive="router-link-active"
         >Queries</a
       >
     </li>

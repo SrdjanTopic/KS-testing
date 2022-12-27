@@ -21,10 +21,6 @@ const routes: Routes = [
     path: 'tests',
     component: AllTestsComponent,
   },
-  // {
-  //   path: 'tests/:id',
-  //   component: AllTestsComponent,
-  // },
   {
     path: 'graph',
     component: KnowledgeGraphComponent,
@@ -38,7 +34,7 @@ const routes: Routes = [
     component: TestComponent,
   },
   {
-    path: 'test/add',
+    path: 'addTest',
     component: AddTestComponent,
   },
   {
