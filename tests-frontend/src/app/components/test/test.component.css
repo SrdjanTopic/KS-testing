@@ -1,16 +1,135 @@
-.example-container {
-  width: 500px;
-  height: 300px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.example-sidenav-content {
+.test {
+  margin-top: 2em;
+  padding: 1em;
+  border: 1px hsl(0, 0%, 80%) solid;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.5em lightgray;
+  width: 90%;
+}
+
+.testName {
   display: flex;
-  height: 100%;
-  align-items: center;
   justify-content: center;
 }
 
-.example-sidenav {
-  padding: 20px;
+.testName h1 {
+  font-weight: bold;
+}
+
+.testContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.questions {
+  background-color: hsl(0, 0%, 97%);
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.question {
+  display: flex;
+  gap: 0.5em;
+  width: 100%;
+}
+
+.questionText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.questionQuestion {
+  font-size: 1.2em;
+}
+
+.addAnswerBtn,
+.addQuestionBtn {
+  font-size: 1.3em;
+  text-decoration: none;
+  background-color: hsl(184, 72%, 48%);
+  border: 0px;
+  border-radius: 5px;
+  padding: 0.5em;
+  color: white;
+}
+
+.addAnswerBtn {
+  background-color: hsl(236, 100%, 78%);
+}
+
+.addQuestionBtn:hover {
+  background-color: hsl(184, 72%, 41%);
+}
+
+.addAswerBtn:hover {
+  background-color: hsl(236, 100%, 70%);
+}
+
+.answers {
+  margin-left: 4ch;
+  margin-top: 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  width: 90%;
+}
+
+.answerText {
+  white-space: normal;
+  margin-right: 1em;
+}
+
+.submitBtn {
+  margin-top: 1em;
+}
+
+/* Add test */
+.addQuestion {
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.addQuestion .addQuestionText {
+  margin-bottom: -1.34375em;
+}
+
+.addQuestion .addQuestionPoints {
+  margin-bottom: -1.34375em;
+}
+
+.addAnswer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1em;
+  justify-content: flex-end;
+  margin-top: 1em;
+}
+
+.addAnswer .addAnswerText {
+  margin-bottom: -1.34375em;
+}
+
+.answers-radios {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  user-select: none;
+}
+
+.answer {
+  pointer-events: none;
+  user-select: none;
 }

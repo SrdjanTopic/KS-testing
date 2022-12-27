@@ -1,5 +1,4 @@
-import { IUser, initUser, IRole } from './../../model/user';
-import { Role } from './../../model/role.enum';
+import { IUser, initUser } from './../../model/user';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { IAnswer, initAnswer } from 'src/app/model/answer';
