@@ -33,7 +33,7 @@ const routes: Routes = [
     component: RealKnowledgeGraphComponent,
   },
   {
-    path: 'test',
+    path: 'test/:id',
     component: TestComponent,
   },
   {

@@ -1,12 +1,42 @@
-<div>
-  <h1>TESTS</h1>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-      <p>Auto-resizing sidenav</p>
-      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-      <button (click)="showFiller = !showFiller" mat-raised-button>
-        Toggle extra text
-      </button>
-    </mat-drawer>
-  
-  <app-add-test></app-add-test>
+<div class="wrapper">
+  <div class="test">
+    <div class="testName">
+      <h1>{{ test.name }}</h1>
+    </div>
+    <div class="testContent">
+      <form>
+        <div class="questions" *ngFor="let q of test.questions">
+          <div class="question">
+            <div class="qtiButton">
+              <a
+                mat-stroked-button
+                class="btn btn-primary btn-lg"
+                href="{{ url }}/questions/qti/{{ q.id }}"
+              >
+                Generate QTI
+              </a>
+            </div>
+            <div class="questionText">
+              <b class="questionQuestion"
+                >Q{{ q.questionNumber }}. {{ q.question }}</b
+              >
+              <span class="questionPoints">({{ q.points }} points)</span>
+            </div>
+          </div>
+          <mat-radio-group
+            aria-labelledby="radio-group-label"
+            class="answers"
+            [ngModelOptions]="{ standalone: true }"
+            [ngModel]="q.answers"
+          >
+            <div class="answers-radios" *ngFor="let a of q.answers">
+              <mat-radio-button [value]="a.answer" class="answer">
+                <span class="answerText">{{ a.answer }}</span>
+              </mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

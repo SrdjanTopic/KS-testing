@@ -27,7 +27,11 @@
         </div>
       </div>
       <div class="buttons">
-        <button mat-stroked-button class="btn btn-primary btn-lg" (click)="resetGraph()">
+        <button
+          mat-stroked-button
+          class="btn btn-primary btn-lg"
+          (click)="resetGraph()"
+        >
           Reset graph
         </button>
       </div>
@@ -81,15 +85,6 @@
                     <span class="answerText">{{ a.answer }}</span>
                   </mat-radio-button>
                 </mat-radio-group>
-                <div class="qtiButton">
-                  <a
-                    mat-stroked-button
-                    class="btn btn-primary btn-lg"
-                    href="{{url}}/questions/qti/{{q.question.id}}"
-                  >
-                    Generate QTI
-                </a>
-                </div>
               </div>
             </form>
           </div>
