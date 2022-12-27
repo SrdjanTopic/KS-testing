@@ -7,28 +7,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Answer {
+public class Profession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Question question;
-
-    private String answer;
-
-    @Column(columnDefinition = "boolean default false")
-    private Boolean isCorrect;
+    private String name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "answers", fetch = FetchType.EAGER)
-    private Set<Student> students;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Concept> requiredConcepts;
+
+
 }

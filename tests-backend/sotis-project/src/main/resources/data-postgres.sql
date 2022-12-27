@@ -7,7 +7,6 @@ insert into role (name) values ('ROLE_STUDENT');
 insert into app_user (username, password, first_name, last_name) values ('teacher', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Darko', 'Vrbaski');
 insert into app_user_roles (user_id, role_id) values (1, 1);
 insert into teacher (id) values (1);
-
 -- username:student password:123
 insert into app_user (username, password, first_name, last_name) values ('student', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Keko', 'Kekic');
 insert into app_user_roles (user_id, role_id) values (2, 2);
@@ -26,6 +25,13 @@ insert into concept (concept) values ('React.js'); --concept_id:5
 insert into concept (concept) values ('Angular.js'); --concept_id:6
 insert into concept (concept) values ('SASS/SCSS'); --concept_id:7
 insert into concept (concept) values ('Typescript'); --concept_id:8
+insert into concept (concept) values ('Python'); --concept_id:9
+insert into concept (concept) values ('Java'); --concept_id:10
+insert into concept (concept) values ('OOP'); --concept_id:11
+insert into concept (concept) values ('Databases'); --concept_id:12
+insert into concept (concept) values ('API'); --concept_id:13
+insert into concept (concept) values ('Functional programming'); --concept_id:14
+
 -- RELATIONS INSERT
 insert into relation (source_id, destination_id) values (1,2);
 insert into relation (source_id, destination_id) values (1,3);
@@ -34,10 +40,52 @@ insert into relation (source_id, destination_id) values (2,7);
 insert into relation (source_id, destination_id) values (3,5);
 insert into relation (source_id, destination_id) values (8,6);
 insert into relation (source_id, destination_id) values (3,8);
+
+-- PROFESSION INSERT
+insert into profession(name) values ('Full stack developer'); --profession_id:1
+insert into profession(name) values ('Front end developer'); --profession_id:2
+insert into profession(name) values ('Back end developer'); --profession_id:3
+insert into profession(name) values ('Devops engineer'); --profession_id:4
+insert into profession(name) values ('Data engineer'); --profession_id:5
+insert into profession(name) values ('Data scientist'); --profession_id:6
+insert into profession(name) values ('Embedded systems engineer'); --profession_id:7
+
+-- PROFESSION CONCEPTS INSERT
+-- Front end developer
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (2, 1);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (2, 2);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (2, 3);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (2, 4);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (2, 5);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (2, 6);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (2, 7);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (2, 8);
+-- Back end developer
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (3, 3);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (3, 8);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (3, 9);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (3, 10);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (3, 11);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (3, 12);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (3, 13);
+insert into profession_required_concepts(required_for_professions_id, required_concepts_id) values (3, 14);
+
+-- STUDENT LEARNED CONCEPTS INSERT
+insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (2, 1);
+insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (2, 2);
+insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (2, 3);
+insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (2, 8);
+insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (3, 1);
+insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (3, 2);
+insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (3, 10);
+insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (3, 11);
+insert into student_learned_concepts(learned_by_students_id, learned_concepts_id) values (3, 12);
+
 -- TEST INSERT
 insert into test (name, teacher_id) values ('Web developer fundamentals',1); --test_id:1
 insert into test (name, teacher_id) values ('Some kind of test',1); --test_id:2
 insert into test (name, teacher_id) values ('Test test',1); --test_id:3
+
 -- QUESTION INSERT
 insert into question (test_id, concept_id, question) values (1, 1, 'Which tag do we use in HTML for inserting a line-break?'); --question_id:1
 insert into question (test_id, concept_id, points, question) values (1, 2, 15, 'How can we change the background color of an element in CSS?'); --question_id:2

@@ -16,6 +16,7 @@ public class SotisOntologyModel {
     private OntClass userClass;
     private OntClass teacherClass;
     private OntClass studentClass;
+    private OntClass professionClass;
 
     // data properties
     private OntProperty id;
@@ -28,6 +29,7 @@ public class SotisOntologyModel {
     private OntProperty questionPoints;
     private OntProperty answerAnswer;
     private OntProperty answerIsCorrect;
+    private OntProperty professionName;
 
     // object properties
     private OntProperty answerQuestion;
@@ -35,6 +37,9 @@ public class SotisOntologyModel {
 
     private OntProperty answerStudent;
     private OntProperty studentAnswer;
+
+    private OntProperty conceptStudent;
+    private OntProperty studentConcept;
 
     private OntProperty conceptQuestion;
     private OntProperty questionConcept;
@@ -48,6 +53,10 @@ public class SotisOntologyModel {
     private OntProperty isSourceFor;
     private OntProperty isDestinationFor;
 
+    private OntProperty requiredConcept;
+    private OntProperty isRequiredForProfession;
+
+
     public SotisOntologyModel(OntModel ontModel){
         // classes
         testClass = ontModel.getOntClass(NS+"Test");
@@ -57,6 +66,7 @@ public class SotisOntologyModel {
         userClass = ontModel.getOntClass(NS+"User");
         teacherClass = ontModel.getOntClass(NS+"Teacher");
         studentClass = ontModel.getOntClass(NS+"Student");
+        professionClass = ontModel.getOntClass(NS+"Profession");
 
         // data properties
         id = ontModel.getOntProperty(NS+"id");
@@ -69,6 +79,7 @@ public class SotisOntologyModel {
         questionPoints = ontModel.getOntProperty(NS+"questionPoints");
         answerAnswer = ontModel.getOntProperty(NS+"answerAnswer");
         answerIsCorrect = ontModel.getOntProperty(NS+"answerIsCorrect");
+        professionName = ontModel.getOntProperty(NS+"professionName");
 
         // object properties
         answerQuestion = ontModel.getOntProperty(NS+"answerQuestion");
@@ -76,6 +87,9 @@ public class SotisOntologyModel {
 
         answerStudent = ontModel.getOntProperty(NS+"answerStudent");
         studentAnswer = ontModel.getOntProperty(NS+"studentAnswer");
+
+        studentConcept = ontModel.getOntProperty(NS+"studentConcept");
+        conceptStudent = ontModel.getOntProperty(NS+"conceptStudent");
 
         conceptQuestion = ontModel.getOntProperty(NS+"conceptQuestion");
         questionConcept = ontModel.getOntProperty(NS+"questionConcept");
@@ -88,5 +102,8 @@ public class SotisOntologyModel {
 
         isSourceFor = ontModel.getOntProperty(NS+"isSourceFor");
         isDestinationFor = ontModel.getOntProperty(NS+"isDestinationFor");
+
+        requiredConcept = ontModel.getOntProperty(NS+"requiredConcept");
+        isRequiredForProfession = ontModel.getOntProperty(NS+"isRequiredForProfession");
     }
 }

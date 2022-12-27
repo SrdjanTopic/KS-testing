@@ -43,4 +43,12 @@ public class Concept {
     @JsonIgnore
     @OneToMany(mappedBy = "realDestination", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<RealRelation> realDestinations;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "learnedConcepts", fetch = FetchType.EAGER)
+    private Set<Student> learnedByStudents;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "requiredConcepts", fetch = FetchType.EAGER)
+    private Set<Profession> requiredForProfessions;
 }

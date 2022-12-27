@@ -24,4 +24,8 @@ public class Student extends User {
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Answer> answers;
+
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Concept> learnedConcepts;
 }
