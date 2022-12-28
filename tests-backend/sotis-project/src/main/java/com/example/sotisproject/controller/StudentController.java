@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.sotisproject.dto.ProfessionCriteriaDTO;
 import com.example.sotisproject.dto.StudentAnswerDTO;
 import com.example.sotisproject.dto.StudentTestDTO;
 import com.example.sotisproject.model.Student;
@@ -36,6 +37,12 @@ public class StudentController {
     public ResponseEntity<List<StudentAnswerDTO>> findAnswersForStudent(@PathVariable("id") Long id){
         return new ResponseEntity<List<StudentAnswerDTO>>(studentService.findAnswersForStudent(id), HttpStatus.OK);
     }
+    
+    @GetMapping("/{id}/learnedConcepts")
+    public ResponseEntity<List<String>> findLearnedConceptsForStudent(@PathVariable("id") Long id){
+        return new ResponseEntity<List<String>>(studentService.findLearnedConceptsForStudent(id), HttpStatus.OK);
+    }
+
 
     @GetMapping("/tests")
     public List<StudentTestDTO> findTestsForStudent(Principal user){

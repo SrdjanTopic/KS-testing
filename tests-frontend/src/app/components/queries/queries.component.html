@@ -134,5 +134,65 @@
                 </div>
             </div>
         </div>
+
+        <div class="answer" *ngIf="selectedQueryId==4">
+            <div class="title">
+                Q4: Find all students that are competent for team based on concepts
+            </div>
+            <div class="filter">
+                <div class="part">
+                    <div>Select multiple concepts</div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Concept</mat-label>
+                        <mat-select  [(ngModel)]="selectedConcepts" multiple>
+                            <mat-option *ngFor="let concept of allConcepts" [value]="concept.concept">
+                                {{concept.concept}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <button class="findBtn" (click)="runQ4()">
+                    Find all
+                </button>
+            </div>
+            <div class="title" *ngIf="showResult">
+                Results:
+            </div>
+            <div>
+                <div class="result" *ngFor="let result of results">
+                    <h3>{{result}} </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer" *ngIf="selectedQueryId==5">
+            <div class="title">
+                Q5: Find all concepts that need to be known to meet requirements for a specific profession
+            </div>
+            <div class="filter">
+                <div class="part">
+                    <div>Select profession</div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Proffesion</mat-label>
+                        <mat-select [(ngModel)]="selectedProfession">
+                            <mat-option *ngFor="let profession of allProfessions" [value]="profession.name">
+                                {{profession.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <button class="findBtn" (click)="runQ5()">
+                    Find all
+                </button>
+            </div>
+            <div class="title" *ngIf="showResult">
+                Results:
+            </div>
+            <div>
+                <div class="result" *ngFor="let result of results">
+                    <h3>{{result}} </h3>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,8 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+
+
+interface ProfessionCriteria{
+  conceptNames:string[];
+  profession:string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +33,22 @@ export class SparqlService {
   getSolvableTests(conceptName:String): Observable<String> {
     return this.http.get<String>(environment.apiUrl + `/sparql/${conceptName}`+'/solvableTests').pipe(
       tap((data) => console.log('All: ', JSON.stringify(data)))
+    );
+  }
+
+  getStudentByConcepts(concepts: String[]) {
+    return this.http
+      .post<any>(`${environment.apiUrl}/sparql/studentsForTeam`, concepts)
+      .pipe(
+        tap((data) => console.log('All relations: ', JSON.stringify(data)))
+      );
+  }
+
+  getConceptsByProfessionAndSkills(professionCriteria:ProfessionCriteria) {
+    return this.http
+    .post<any>(`${environment.apiUrl}/sparql/studentProfessionCriteria`, professionCriteria)
+    .pipe(
+      tap((data) => console.log('All relations: ', JSON.stringify(data)))
     );
   }
   

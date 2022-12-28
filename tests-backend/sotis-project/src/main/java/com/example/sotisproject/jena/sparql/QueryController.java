@@ -216,7 +216,7 @@ public class QueryController {
                     "SELECT ?conceptName \n" +
                     "WHERE " +
                     "{" +
-                        "?shouldLearnConcept ns:isRequiredForProfession ns:"+ criteriaDTO.getProfession() + " . " +
+                        "?shouldLearnConcept ns:isRequiredForProfession ns:"+ criteriaDTO.getProfession().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_") + " . " +
                         "?shouldLearnConcept ns:conceptName ?conceptName . "  +
                         filterString.get() +
                     "}";

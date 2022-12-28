@@ -30,7 +30,7 @@ public class OntologyService {
 
     private static final String ontologyPath = new File("").getAbsolutePath() + "\\..\\sotisOntology.owl";
     
-    private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
+    private static final String stuTestPath = "C:\\Users\\Natalija\\OneDrive\\Documents\\Master\\Semanticki web\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
     private static final String NS = "http://www.example.org/ontology/sotis#";
 
     @EventListener(ApplicationReadyEvent.class)

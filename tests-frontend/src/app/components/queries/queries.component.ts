@@ -1,12 +1,20 @@
 import { ConditionalExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { initUser, IUser } from 'src/app/model/user';
 import { ConceptService } from 'src/app/services/concept.service';
 import { SparqlService } from 'src/app/services/sparql.service';
+import { StudentService } from 'src/app/services/student.service';
+import { UserService } from 'src/app/services/user.service';
+
 interface Query {
   name: string;
   id: number;
 }
 
+interface ProfessionCriteria{
+  conceptNames:any;
+  profession:string
+}
 
 @Component({
   selector: 'app-queries',
@@ -22,26 +30,44 @@ queries:Query[]=[
   {name:'Q4: Find all students that are competent for team based on concepts',id:4},
   {name:'Q5: Find all concepts that need to be known to meet  requirements for a specific profession',id:5},
 ]
-
+  user:any;
   selectedQueryId:number=0;
+  allConcepts:any=[];
   allConceptsByProfession:any=[];
   allProfessions:any=[];
   selectedConcept:any='';
+  selectedConcepts:any[]=[];
+  selectedProfession:any;
   results:any=[];
   showResult:boolean=false;
+  professionCriteria:ProfessionCriteria={
+    conceptNames:[],
+    profession:''
+
+  }
 
   constructor(
     private sparqlService:SparqlService,
-    private conceptService:ConceptService
+    private conceptService:ConceptService,
+    private userService:UserService,
+    private studentService:StudentService
     ) { }
 
   ngOnInit(): void {
     this.getAllProfessions();
+    this.getAllConcepts();
   }
 
   getAllProfessions(){
     this.conceptService.getProfessions().subscribe(data=>{
       this.allProfessions=data;
+      console.log(this.allProfessions)
+    })
+  }
+
+  getAllConcepts(){
+    this.conceptService.getConcepts().subscribe(data=>{
+      this.allConcepts=data;
       console.log(this.allProfessions)
     })
   }
@@ -95,4 +121,35 @@ queries:Query[]=[
     })
   }
 
+  runQ4(){
+    this.sparqlService.getStudentByConcepts(this.selectedConcepts).subscribe(data=>{
+      this.results=data;
+      console.log(this.results);
+      this.showResult=true;
+    },error=>{
+      alert('Error')
+    })
+  }
+
+  runQ5(){
+    this.userService.getCurrentUser().subscribe(data=>{
+      this.user=data;
+      this.professionCriteria.profession=this.selectedProfession;
+      this.studentService.getLearnedConceptsForStudent(this.user.id).subscribe(data=>{
+        this.professionCriteria.conceptNames=data;
+        this.sparqlService.getConceptsByProfessionAndSkills(this.professionCriteria).subscribe(data=>{
+          this.results=data;
+          console.log(this.results);
+          this.showResult=true;
+        },error=>{
+          alert('Error')
+        })
+      })
+      console.log(this.professionCriteria);
+     
+    
+    }
+    );
+   
+  }
 }

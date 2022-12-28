@@ -3,9 +3,11 @@ package com.example.sotisproject.service;
 import com.example.sotisproject.dto.StudentAnswerDTO;
 import com.example.sotisproject.dto.StudentTestDTO;
 import com.example.sotisproject.model.Answer;
+import com.example.sotisproject.model.Concept;
 import com.example.sotisproject.model.Student;
 import com.example.sotisproject.model.Test;
 import com.example.sotisproject.repository.AnswerRepository;
+import com.example.sotisproject.repository.ConceptRepository;
 import com.example.sotisproject.repository.StudentRepository;
 import com.example.sotisproject.repository.TestRepository;
 import lombok.AllArgsConstructor;
@@ -30,6 +32,17 @@ public class StudentService {
         List<StudentAnswerDTO> studentAnswerDTOList = new ArrayList<>();
         answers.forEach(answer -> studentAnswerDTOList.add(new StudentAnswerDTO(answer)));
         return studentAnswerDTOList;
+    }
+    
+    public List<String> findLearnedConceptsForStudent(Long id){
+    	List<String> conceptsName = new ArrayList<>();
+    	Student student=studentRepository.findById(id).get();
+    	List<Concept> concepts=student.getLearnedConcepts();
+    	concepts.forEach(concept->{
+    		conceptsName.add(concept.getConcept());
+    	});
+    	return conceptsName;
+        
     }
 
     public List<StudentTestDTO> findTestsForStudent(Long id) {
