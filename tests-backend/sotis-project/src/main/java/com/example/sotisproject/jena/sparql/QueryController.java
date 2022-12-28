@@ -9,12 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.springframework.http.MediaType;
@@ -235,5 +230,49 @@ public class QueryController {
             e.printStackTrace();
         }
         return requiredConcepts;
+    }
+
+    @PostMapping("/studentsThatSubmittedTest")
+    public List<String> studentsThatSubmittedTest(@RequestBody String testName) {
+        List<String> returnStudentFullNames = new ArrayList<>();
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            String queryString = "" +
+                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
+                    "SELECT (CONCAT(?firstName, \" \", ?lastName) as ?fullName)" +
+                    "WHERE" +
+                    "{" +
+                        "{" +
+                        "SELECT ?student\n" +
+                        "WHERE " +
+                            "{" +
+                                "?test ns:testName \""+testName.replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_")+"\" ." +
+                                "?test ns:testQuestions ?question ." +
+                                "?question ns:questionAnswers ?answer ." +
+                                "?answer ns:answerStudent ?student ." +
+                            "}" +
+                            "GROUP BY ?student"+
+                        "}" +
+                        "?student ns:userFirstName ?firstName ." +
+                        "?student ns:userLastName ?lastName ." +
+                    "}";
+
+            Query query = QueryFactory.create(queryString);
+            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
+                ResultSet results = qexec.execSelect();
+                while (results.hasNext()) {
+                    QuerySolution soln = results.nextSolution();
+                    Literal s = soln.getLiteral("fullName");
+                    returnStudentFullNames.add(s.getString());
+                }
+            }
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnStudentFullNames;
     }
 }

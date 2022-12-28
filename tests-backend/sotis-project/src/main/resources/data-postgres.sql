@@ -58,13 +58,22 @@ insert into concept (concept) values ('API'); --concept_id:13
 insert into concept (concept) values ('Functional programming'); --concept_id:14
 
 -- RELATIONS INSERT
-insert into relation (source_id, destination_id) values (1,2);
-insert into relation (source_id, destination_id) values (1,3);
-insert into relation (source_id, destination_id) values (2,4);
-insert into relation (source_id, destination_id) values (2,7);
-insert into relation (source_id, destination_id) values (3,5);
-insert into relation (source_id, destination_id) values (8,6);
-insert into relation (source_id, destination_id) values (3,8);
+INSERT INTO relation (destination_id, source_id) VALUES (2, 1);
+INSERT INTO relation (destination_id, source_id) VALUES (3, 1);
+INSERT INTO relation (destination_id, source_id) VALUES (4, 2);
+INSERT INTO relation (destination_id, source_id) VALUES (7, 2);
+INSERT INTO relation (destination_id, source_id) VALUES (5, 3);
+INSERT INTO relation (destination_id, source_id) VALUES (6, 8);
+INSERT INTO relation (destination_id, source_id) VALUES (8, 3);
+INSERT INTO relation (destination_id, source_id) VALUES (9, 11);
+INSERT INTO relation (destination_id, source_id) VALUES (10, 11);
+INSERT INTO relation (destination_id, source_id) VALUES (10, 13);
+INSERT INTO relation (destination_id, source_id) VALUES (3, 11);
+INSERT INTO relation (destination_id, source_id) VALUES (10, 12);
+INSERT INTO relation (destination_id, source_id) VALUES (9, 14);
+INSERT INTO relation (destination_id, source_id) VALUES (10, 14);
+INSERT INTO relation (destination_id, source_id) VALUES (9, 13);
+INSERT INTO relation (destination_id, source_id) VALUES (3, 13);
 
 -- PROFESSION INSERT
 insert into profession(name) values ('Full stack developer'); --profession_id:1
