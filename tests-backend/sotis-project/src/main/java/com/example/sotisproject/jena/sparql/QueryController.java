@@ -340,26 +340,26 @@ public class QueryController {
                     "SELECT ?returnTestName \n" +
                     "WHERE " +
                     "{" +
-                    "{" +
-                    "SELECT (GROUP_CONCAT(?testName;SEPARATOR=\",\") AS ?testNames) \n" +
-                    "WHERE" +
-                    "{" +
-                    "{" +
-                    "SELECT DISTINCT ?studentFullName ?testName \n" +
-                    "WHERE" +
-                    "{" +
-                    "ns:"+studentFullName+" ns:studentAnswer ?answer ." +
-                    "?answer ns:answerQuestion ?question ." +
-                    "?question ns:questionTest ?test ." +
-                    "?test ns:testName ?testName ." +
-                    "BIND (ns:"+studentFullName + " AS ?studentFullName) ." +
-                    "} " +
-                    "}" +
-                    "}" +
-                    "GROUP BY ?studentFullName" +
-                    "}" +
-                    "?returnTest ns:testName ?returnTestName ." +
-                    "FILTER NOT EXISTS{FILTER CONTAINS(?testNames , ?returnTestName)} ." +
+                        "{" +
+                            "SELECT (GROUP_CONCAT(?testName;SEPARATOR=\",\") AS ?testNames) \n" +
+                            "WHERE" +
+                            "{" +
+                                "{" +
+                                    "SELECT DISTINCT ?studentFullName ?testName \n" +
+                                    "WHERE" +
+                                    "{" +
+                                        "ns:"+studentFullName+" ns:studentAnswer ?answer ." +
+                                        "?answer ns:answerQuestion ?question ." +
+                                        "?question ns:questionTest ?test ." +
+                                        "?test ns:testName ?testName ." +
+                                        "BIND (ns:"+studentFullName + " AS ?studentFullName) ." +
+                                    "} " +
+                                "}" +
+                            "}" +
+                            "GROUP BY ?studentFullName" +
+                        "}" +
+                        "?returnTest ns:testName ?returnTestName ." +
+                        "FILTER NOT EXISTS{FILTER CONTAINS(?testNames , ?returnTestName)} ." +
                     "}";
 
             Query query = QueryFactory.create(queryString);
