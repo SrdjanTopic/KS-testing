@@ -245,8 +245,8 @@ public class QueryController {
                     "WHERE" +
                     "{" +
                         "{" +
-                        "SELECT ?student\n" +
-                        "WHERE " +
+                            "SELECT ?student\n" +
+                            "WHERE " +
                             "{" +
                                 "?test ns:testName \""+testName.replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_")+"\" ." +
                                 "?test ns:testQuestions ?question ." +
@@ -274,5 +274,57 @@ public class QueryController {
             e.printStackTrace();
         }
         return returnStudentFullNames;
+    }
+
+    @PostMapping("/unusedConceptsByTeacher")
+    public List<String> unusedConceptsByTeacher(@RequestBody String teacherFullName) {
+        List<String> returnConceptNames = new ArrayList<>();
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            String queryString = "" +
+                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
+                    "SELECT ?returnConceptName \n" +
+                    "WHERE " +
+                    "{" +
+                        "{" +
+                            "SELECT (GROUP_CONCAT(?conceptName;SEPARATOR=\",\") AS ?conceptNames) \n" +
+                            "WHERE" +
+                            "{" +
+                                "{" +
+                                    "SELECT DISTINCT ?conceptName \n" +
+                                    "WHERE" +
+                                    "{" +
+                                        "ns:"+teacherFullName+" ns:teacherTest ?test ." +
+                                        "?test ns:testQuestions ?question ." +
+                                        "?question ns:questionConcept ?concept ." +
+                                        "?concept ns:conceptName ?conceptName ." +
+                                    "} " +
+                                "}" +
+                                "?groupConcept ns:conceptName \"HTML\" ." +
+                            "}" +
+                            "GROUP BY ?groupConcept" +
+                        "}" +
+                        "?returnConcept ns:conceptName ?returnConceptName ." +
+                        "FILTER NOT EXISTS{FILTER CONTAINS(?conceptNames , ?returnConceptName)} ." +
+                    "}";
+
+            Query query = QueryFactory.create(queryString);
+            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
+                ResultSet results = qexec.execSelect();
+//                ResultSetFormatter.out(System.out, results, query);
+                while (results.hasNext()) {
+                    QuerySolution soln = results.nextSolution();
+                    Literal s = soln.getLiteral("returnConceptName");
+                    returnConceptNames.add(s.getString());
+                }
+            }
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnConceptNames;
     }
 }
