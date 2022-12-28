@@ -55,6 +55,7 @@
 
 .navbar .user-menu a:hover {
   background-color: hsl(236, 100%, 70%);
+  border-radius: 10px;
 }
 
 .navbar .user-menu ul {
@@ -75,6 +76,7 @@
 .navbar .user-menu ul:hover {
   display: flex;
   flex-direction: column;
+  
 }
 
 .navbar .user-menu ul li {
@@ -84,16 +86,17 @@
 
 .navbar .user-menu ul li:hover {
   background-color: hsl(236, 100%, 70%);
+  border-radius: 10px;
 }
 
 .navbar .user-menu ul li .logoutBtn {
   border: none;
   background: none;
+  font-family: 600;
   font-size: 1em;
-  color: red;
+  color: black;
   width: 100%;
   cursor: pointer;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .svg {
