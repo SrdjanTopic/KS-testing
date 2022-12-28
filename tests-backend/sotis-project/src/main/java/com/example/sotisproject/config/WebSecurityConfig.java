@@ -149,7 +149,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(HttpMethod.GET, "/sparql/{conceptName}/solvableTests");
 		web.ignoring().antMatchers(HttpMethod.POST, "/sparql/studentsForTeam");
 		web.ignoring().antMatchers(HttpMethod.POST, "/sparql/studentProfessionCriteria");
-		
+		web.ignoring().antMatchers(HttpMethod.POST, "/sparql/testsStudentHasNotDone");
 		web.ignoring().antMatchers(HttpMethod.POST, "/sparql/unusedConceptsByTeacher");
 		web.ignoring().antMatchers(HttpMethod.POST, "/sparql/studentsThatSubmittedTest");
 
