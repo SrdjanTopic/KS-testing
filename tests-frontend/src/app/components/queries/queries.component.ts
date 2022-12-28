@@ -180,12 +180,20 @@ export class QueriesComponent implements OnInit {
   }
 
   runQ6() {
+    let student=this.user.firstName+this.user.lastName;
+    alert(student)
+    this.sparqlService.getUnfinishedStudentTests(student).subscribe(data => {
+      this.results = data;
+      console.log(this.results);
+      this.showResult = true;
+    },error=>{
+      alert('Error')
+    })
   }
 
   runQ7() {
     let teacher=this.user.firstName+this.user.lastName;
-    alert(teacher);
-    this.sparqlService.getUnTestedConceptsByTeacher(teacher).subscribe(data => {
+    this.sparqlService.getUnusedConceptsByTeacher(teacher).subscribe(data => {
       this.results = data;
       console.log(this.results);
       this.showResult = true;
