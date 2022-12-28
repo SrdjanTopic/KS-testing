@@ -327,4 +327,55 @@ public class QueryController {
         }
         return returnConceptNames;
     }
+
+    @PostMapping("/testsStudentHasNotDone")
+    public List<String> testsStudentHasNotDone(@RequestBody String studentFullName) {
+        List<String> returnTestNames = new ArrayList<>();
+        try {
+            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+            stuTestModel.read(stuTestPath);
+            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
+            String queryString = "" +
+                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
+                    "SELECT ?returnTestName \n" +
+                    "WHERE " +
+                    "{" +
+                        "{" +
+                            "SELECT (GROUP_CONCAT(?testName;SEPARATOR=\",\") AS ?testNames) \n" +
+                            "WHERE" +
+                            "{" +
+                                "{" +
+                                    "SELECT DISTINCT ?studentFullName ?testName \n" +
+                                    "WHERE" +
+                                    "{" +
+                                        "ns:"+studentFullName+" ns:studentAnswer ?answer ." +
+                                        "?answer ns:answerQuestion ?question ." +
+                                        "?question ns:questionTest ?test ." +
+                                        "?test ns:testName ?testName ." +
+                                        "BIND (ns:"+studentFullName + " AS ?studentFullName) ." +
+                                    "} " +
+                                "}" +
+                            "}" +
+                            "GROUP BY ?studentFullName" +
+                        "}" +
+                        "?returnTest ns:testName ?returnTestName ." +
+                        "FILTER NOT EXISTS{FILTER CONTAINS(?testNames , ?returnTestName)} ." +
+                    "}";
+
+            Query query = QueryFactory.create(queryString);
+            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
+                ResultSet results = qexec.execSelect();
+                while (results.hasNext()) {
+                    QuerySolution soln = results.nextSolution();
+                    Literal s = soln.getLiteral("returnTestName");
+                    returnTestNames.add(s.getString());
+                }
+            }
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnTestNames;
+    }
 }

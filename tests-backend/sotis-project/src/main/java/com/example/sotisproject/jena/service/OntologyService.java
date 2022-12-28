@@ -28,74 +28,19 @@ public class OntologyService {
     private RelationRepository relationRepository;
     private ProfessionRepository professionRepository;
 
-    private static final String ontologyPath = new File("").getAbsolutePath() + "\\..\\sotisOntology.owl";
-    
-    private static final String stuTestPath = "C:\\Users\\Natalija\\OneDrive\\Documents\\Master\\Semanticki web\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
+    private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
     private static final String NS = "http://www.example.org/ontology/sotis#";
 
-    @EventListener(ApplicationReadyEvent.class)
+    //@EventListener(ApplicationReadyEvent.class)
     public void initializeStart() {
-        List<String> conceptNames = new ArrayList<>();
-        conceptNames.add("HTML");
-        conceptNames.add("CSS");
-        AtomicReference<String> filterString = new AtomicReference<>("");
-        String teacherFullName = "DarkoVrbaski";
-        conceptNames.forEach(conceptName-> filterString.set(filterString + "FILTER CONTAINS(?learnedConcepts , \""+ conceptName +"\") ."));
-//        System.out.println(filterString.get());
-        try {
-            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-            stuTestModel.read(stuTestPath);
-            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
-            String queryString = "" +
-                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
-                    "SELECT ?returnConceptName \n" +
-                    "WHERE " +
-                    "{" +
-                        "{" +
-                            "SELECT (GROUP_CONCAT(?conceptName;SEPARATOR=\",\") AS ?conceptNames) \n" +
-                            "WHERE" +
-                            "{" +
-                                "{" +
-                                    "SELECT DISTINCT ?conceptName \n" +
-                                    "WHERE" +
-                                    "{" +
-                                        "ns:"+teacherFullName+" ns:teacherTest ?test ." +
-                                        "?test ns:testQuestions ?question ." +
-                                        "?question ns:questionConcept ?concept ." +
-                                        "?concept ns:conceptName ?conceptName ." +
-                                    "} " +
-                                "}" +
-                                "?groupConcept ns:conceptName \"HTML\" ." +
-                            "}" +
-                            "GROUP BY ?groupConcept" +
-                        "}" +
-                        "?returnConcept ns:conceptName ?returnConceptName ." +
-                        "FILTER NOT EXISTS{FILTER CONTAINS(?conceptNames , ?returnConceptName)} ." +
-                    "}";
-
-            Query query = QueryFactory.create(queryString);
-            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
-                ResultSet results = qexec.execSelect();
-                ResultSetFormatter.out(System.out, results, query);
-//                while (results.hasNext()) {
-//                    QuerySolution soln = results.nextSolution();
-//                    Literal s = soln.getLiteral("fullName");
-//                    System.out.println(s);
-//                }
-            }
-            stuTestModel.write(stuTestOut, "RDF/XML");
-            stuTestOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        addConcepts(conceptRepository.findAll());
-//        addTeachers(teacherRepository.findAll());
-//        addStudents(studentRepository.findAll());
-//        addTests(testRepository.findAll());
-//        addQuestions(questionRepository.findAll());
-//        addAnswers(answerRepository.findAll());
-//        addRelations(relationRepository.findAll());
-//        addProfessions(professionRepository.findAll());
+        addConcepts(conceptRepository.findAll());
+        addTeachers(teacherRepository.findAll());
+        addStudents(studentRepository.findAll());
+        addTests(testRepository.findAll());
+        addQuestions(questionRepository.findAll());
+        addAnswers(answerRepository.findAll());
+        addRelations(relationRepository.findAll());
+        addProfessions(professionRepository.findAll());
     }
 
     public void addStudents(List<Student> students){
