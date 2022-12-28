@@ -3,10 +3,13 @@ package com.example.sotisproject.service;
 import com.example.sotisproject.dto.SubmitAnswersDTO;
 import com.example.sotisproject.jena.service.OntologyService;
 import com.example.sotisproject.model.Answer;
+import com.example.sotisproject.model.Concept;
 import com.example.sotisproject.model.Question;
 import com.example.sotisproject.model.Student;
+import com.example.sotisproject.model.Teacher;
 import com.example.sotisproject.model.Test;
 import com.example.sotisproject.repository.StudentRepository;
+import com.example.sotisproject.repository.TeacherRepository;
 import com.example.sotisproject.repository.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ public class TestService {
     private StudentRepository studentRepository;
     private RelationService relationService;
     private RealRelationService realRelationService;
+    private TeacherRepository teacherReposiotory;
     private OntologyService ontologyService;
 
     public Test addTest(Test test){
@@ -44,6 +48,18 @@ public class TestService {
 
     public List<Test> getTests() {
         return testRepository.findAll();
+    }
+    
+    public List<String> getTestsByTeacher(Long teacherId) {
+    	List<String> testNames = new ArrayList<>();
+    	Teacher teacher=teacherReposiotory.findById(teacherId).get();
+    	List<Test> tests=testRepository.findAllByTeacherId(teacherId);
+    	System.out.println(teacher.getFirstName());
+    	tests.forEach(test->{
+    		testNames.add(test.getName());
+    	});
+    	System.out.println(tests.size());
+    	return testNames;
     }
     
     public Test getTest(Long id) {

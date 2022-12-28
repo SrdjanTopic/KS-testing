@@ -34,6 +34,12 @@ export class TestService {
     });
   }
 
+  getTestsByTeacher(teacherId:Number) {
+    return this.http.get(`${environment.apiUrl}/tests/${teacherId}`+`/teacher`, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    });
+  }
+
   saveTest(test: ITest): Observable<ITest> {
     return this.http.post<ITest>(environment.apiUrl + '/tests/add', test).pipe(
       tap((data) => console.log('All: ', JSON.stringify(data))),

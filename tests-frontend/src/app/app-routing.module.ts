@@ -13,6 +13,7 @@ import { AllSubmittedTestsComponent } from './pages/all-submitted-tests/all-subm
 import { QueriesComponent } from './components/queries/queries.component';
 
 const routes: Routes = [
+  
   {
     path: 'login',
     component: LoginComponent,

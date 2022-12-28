@@ -7,12 +7,10 @@
     gap: 20px;
 }
 
-
 .wrapper h1 {
     font-size: 2em;
     font-weight: bold;
 }
-
 
 .query-row {
     width: 100%;
@@ -21,7 +19,8 @@
     gap: 20px;
 }
 
-.query,.selectedQuery {
+.query,
+.selectedQuery {
     display: flex;
     align-items: center;
     background-color: hsl(240, 100%, 95%);
@@ -36,12 +35,14 @@
     cursor: pointer;
 }
 
-.selectedQuery{
-    background-color:  hsl(236, 100%, 78%);
+.selectedQuery {
+    background-color: hsl(236, 100%, 78%);
 }
-.mat-grid-list{
+
+.mat-grid-list {
     width: 100%;
 }
+
 .title {
     font-size: 1.2em;
     font-weight: bold;
@@ -62,46 +63,46 @@
 .answer {
     display: flex;
     flex-direction: column;
-    gap:30px;
+    gap: 30px;
     align-items: center;
     justify-content: center;
 }
 
 
-.filter{
+.filter {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap:20px;
+    gap: 20px;
 }
 
-.result{
+.result {
     display: flex;
-    margin-top:-20px;
+    margin-top: -20px;
 }
 
-.body .title{
+.body .title {
     font-size: 1em;
-    font-weight: bolder; 
+    font-weight: bolder;
 }
 
-.body .part{
+.body .part {
     display: flex;
     flex-direction: row;
-    gap:20px;
+    gap: 20px;
     align-items: center;
 }
+
 .findBtn {
     font-size: 1.5em;
     text-decoration: none;
-    background-color:hsl(184, 72%, 48%);
-    border-radius:5px;
+    background-color: hsl(184, 72%, 48%);
+    border-radius: 5px;
     padding: 0.5em;
     color: white;
     border: 0px;
-  }
-  
-  .findBtn:hover {
-    background-color:hsl(184, 72%, 41%);
-  }
-  
+}
+
+.findBtn:hover {
+    background-color: hsl(184, 72%, 41%);
+}

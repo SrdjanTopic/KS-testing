@@ -35,6 +35,15 @@ export class StudentService {
     });
   }
 
+  getLearnedConceptsForStudent(userId: number) {
+    return this.http.get(
+      `${environment.apiUrl}/students/${userId}/learnedConcepts`,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      }
+    );
+  }
+
   getTestForStudent(userId: number, testId: number) {
     return this.http.get(
       `${environment.apiUrl}/students/${userId}/tests/${testId}`,
@@ -43,4 +52,7 @@ export class StudentService {
       }
     );
   }
+
+
+
 }
