@@ -5,16 +5,13 @@ import com.example.sotisproject.model.*;
 import com.example.sotisproject.repository.*;
 import lombok.AllArgsConstructor;
 import org.apache.jena.ontology.*;
-import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @AllArgsConstructor
 @Service

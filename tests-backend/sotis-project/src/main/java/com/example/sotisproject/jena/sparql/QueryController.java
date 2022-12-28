@@ -29,7 +29,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping(value = "/sparql", produces = MediaType.APPLICATION_JSON_VALUE)
 public class QueryController {
-    private static final String stuTestPath = "C:\\Users\\Natalija\\OneDrive\\Documents\\Master\\Semanticki web\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
+    private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
     private static final String NS = "http://www.example.org/ontology/sotis#";
 
     private RelationService relationService;
