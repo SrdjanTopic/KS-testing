@@ -39,6 +39,7 @@ public class OntologyService {
         conceptNames.add("HTML");
         conceptNames.add("CSS");
         AtomicReference<String> filterString = new AtomicReference<>("");
+        String teacherFullName = "DarkoVrbaski";
         conceptNames.forEach(conceptName-> filterString.set(filterString + "FILTER CONTAINS(?learnedConcepts , \""+ conceptName +"\") ."));
 //        System.out.println(filterString.get());
         try {
@@ -47,8 +48,24 @@ public class OntologyService {
             OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
-                    "SELECT DISTINCT ?conceptName\n" +
-                    "WHERE {ns:Javascript ns:isSourceFor ?uri . ?uri ns:conceptName ?conceptName}";
+                    "SELECT (CONCAT(?firstName, \" \", ?lastName) as ?fullName)" +
+                    "WHERE" +
+                    "{" +
+                        "{" +
+                            "SELECT ?student\n" +
+                            "WHERE " +
+                            "{" +
+                            "?test ns:testName \""+teacherFullName+"\" ." +
+                            "?test ns:testQuestions ?question ." +
+                            "?question ns:questionAnswers ?answer ." +
+                            "?answer ns:answerStudent ?student ." +
+                            "}" +
+                            "GROUP BY ?student"+
+                        "}" +
+                        "?student ns:userFirstName ?firstName ." +
+                        "?student ns:userLastName ?lastName ." +
+                    "}";
+
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
                 ResultSet results = qexec.execSelect();
@@ -65,8 +82,8 @@ public class OntologyService {
             e.printStackTrace();
         }
 //        addConcepts(conceptRepository.findAll());
-//        addStudents(studentRepository.findAll());
 //        addTeachers(teacherRepository.findAll());
+//        addStudents(studentRepository.findAll());
 //        addTests(testRepository.findAll());
 //        addQuestions(questionRepository.findAll());
 //        addAnswers(answerRepository.findAll());
@@ -91,6 +108,10 @@ public class OntologyService {
                     Individual learnedConcept = stuTestModel.getIndividual(NS + concept.getConcept().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
                     createdStudent.addProperty(sotisOntologyModel.getStudentConcept(), learnedConcept);
                 });
+//                student.getAnswers().forEach(answer -> {
+//                    Individual answerOnt = stuTestModel.getIndividual(NS + answer.getAnswer().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
+//                    createdStudent.addProperty(sotisOntologyModel.getStudentAnswer(), answerOnt);
+//                });
                 System.out.println("ADD STUDENT: " +  student.getFirstName()+student.getLastName());
             });
             stuTestModel.write(stuTestOut, "RDF/XML");
@@ -248,12 +269,13 @@ public class OntologyService {
                 Individual createdAnswer = stuTestModel.createIndividual(NS + answer.getAnswer().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"), sotisOntologyModel.getAnswerClass());
                 createdAnswer.addLiteral(sotisOntologyModel.getId(), stuTestModel.createTypedLiteral(answer.getId()));
                 createdAnswer.addLiteral(sotisOntologyModel.getAnswerIsCorrect(), stuTestModel.createTypedLiteral(answer.getIsCorrect()));
+                Individual existingQuestion = stuTestModel.getIndividual(NS+answer.getQuestion().getQuestion().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
+                existingQuestion.addProperty(sotisOntologyModel.getQuestionAnswers(), createdAnswer);
                 System.out.println("ADD ANSWER: " + answer.getAnswer());
                 answer.getStudents().forEach(student -> {
                     Individual existingStudent = stuTestModel.getIndividual(NS+student.getFirstName()+student.getLastName());
                     existingStudent.addProperty(sotisOntologyModel.getStudentAnswer(), createdAnswer);
                     System.out.println("Connected ANSWER " + answer.getAnswer() + " to STUDENT " + student.getFirstName()+student.getLastName());
-
                 });
             });
             stuTestModel.write(stuTestOut, "RDF/XML");
