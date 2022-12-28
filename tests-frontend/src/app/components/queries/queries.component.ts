@@ -181,7 +181,6 @@ export class QueriesComponent implements OnInit {
 
   runQ6() {
     let student=this.user.firstName+this.user.lastName;
-    alert(student)
     this.sparqlService.getUnfinishedStudentTests(student).subscribe(data => {
       this.results = data;
       console.log(this.results);

@@ -60,7 +60,7 @@ export class SparqlService {
 
   getUnfinishedStudentTests(studentFullName: String) {
     return this.http
-      .post<any>(`${environment.apiUrl}/sparql/unfinishedStudentTests`, studentFullName)
+      .post<any>(`${environment.apiUrl}/sparql/testsStudentHasNotDone`, studentFullName)
       .pipe(
         tap((data) => console.log('All relations: ', JSON.stringify(data)))
       );
