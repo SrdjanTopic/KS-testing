@@ -27,19 +27,17 @@ export class QueriesComponent implements OnInit {
   teacherQueries: Query[] = [
     { name: 'Q1: Find all required concepts for learning specific concept', id: 1 },
     { name: 'Q2: Find all concepts for learning after knowing a specific concept', id: 2 },
-    { name: 'Q3: Find all tests to solve after learning a specific concept', id: 3 },
-    { name: 'Q4: Find all students that are competent for team based on concepts', id: 4 },
-    { name: 'Q5: Find all concepts that need to be known to meet  requirements for a specific profession', id: 5 },
+    { name: 'Q3: Find all students that are competent for team based on concepts', id: 4 },
+    { name: "Q5: Find all concepts that doesn't exist in any of my tests", id: 7 },
     { name: 'Q6: Find all students that have finished specific test', id: 8 },
   ]
 
   studentQueries: Query[] = [
     { name: 'Q1: Find all required concepts for learning specific concept', id: 1 },
     { name: 'Q2: Find all concepts for learning after knowing a specific concept', id: 2 },
-    { name: 'Q3: Find all tests to solve after learning a specific concept', id: 3 },
     { name: 'Q4: Find all concepts that need to be known to meet  requirements for a specific profession', id: 5 },
-    { name: 'Q5: Find all my unfinished tests', id: 6 },
-    { name: "Q6: Find all concepts that doesn't exist in any of my tests", id: 7 },
+    { name: 'Q5: Find all tests to solve after learning a specific concept', id: 3 },
+    { name: 'Q6: Find all my unfinished tests', id: 6 },
   ]
 
 
@@ -185,7 +183,15 @@ export class QueriesComponent implements OnInit {
   }
 
   runQ7() {
-
+    let teacher=this.user.firstName+this.user.lastName;
+    alert(teacher);
+    this.sparqlService.getUnTestedConceptsByTeacher(teacher).subscribe(data => {
+      this.results = data;
+      console.log(this.results);
+      this.showResult = true;
+    },error=>{
+      alert('Error')
+    })
   }
 
   runQ8() {

@@ -58,9 +58,17 @@ export class SparqlService {
     );
   }
 
+  getUnTestedConceptsByTeacher(teacher: String) {
+    return this.http
+      .post<any>(`${environment.apiUrl}/sparql/studentsThatSubmittedTest`, teacher)
+      .pipe(
+        tap((data) => console.log('All relations: ', JSON.stringify(data)))
+      );
+  }
+
   getStudentsByTeacherTest(testName: String) {
     return this.http
-      .post<any>(`${environment.apiUrl}/sparql/studentsForTest`, testName)
+      .post<any>(`${environment.apiUrl}/sparql/studentsThatSubmittedTest`, testName)
       .pipe(
         tap((data) => console.log('All relations: ', JSON.stringify(data)))
       );
