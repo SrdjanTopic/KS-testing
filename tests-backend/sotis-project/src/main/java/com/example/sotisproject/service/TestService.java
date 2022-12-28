@@ -54,11 +54,9 @@ public class TestService {
     	List<String> testNames = new ArrayList<>();
     	Teacher teacher=teacherReposiotory.findById(teacherId).get();
     	List<Test> tests=testRepository.findAllByTeacherId(teacherId);
-    	System.out.println(teacher.getFirstName());
     	tests.forEach(test->{
     		testNames.add(test.getName());
     	});
-    	System.out.println(tests.size());
     	return testNames;
     }
     
