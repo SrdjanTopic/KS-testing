@@ -156,7 +156,6 @@ public class QueryController {
         List<String> returnStudentFullNames = new ArrayList<>();
         AtomicReference<String> filterString = new AtomicReference<>("");
         conceptNames.forEach(conceptName-> filterString.set(filterString + "FILTER CONTAINS(?learnedConcepts , \""+ conceptName +"\") ."));
-        System.out.println(filterString);
         try {
             OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
             stuTestModel.read(stuTestPath);
@@ -313,7 +312,6 @@ public class QueryController {
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
                 ResultSet results = qexec.execSelect();
-//                ResultSetFormatter.out(System.out, results, query);
                 while (results.hasNext()) {
                     QuerySolution soln = results.nextSolution();
                     Literal s = soln.getLiteral("returnConceptName");
