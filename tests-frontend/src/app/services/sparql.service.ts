@@ -5,9 +5,9 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 
-interface ProfessionCriteria{
-  conceptNames:string[];
-  profession:string
+interface ProfessionCriteria {
+  conceptNames: string[];
+  profession: string
 }
 
 @Injectable({
@@ -17,21 +17,21 @@ interface ProfessionCriteria{
 export class SparqlService {
 
   constructor(private http: HttpClient) { }
-  
+
   getPreviousConcepts(conceptName: String): Observable<String> {
-    return this.http.get<String>(environment.apiUrl + `/sparql/${conceptName}`+'/allPreviousConcepts').pipe(
+    return this.http.get<String>(environment.apiUrl + `/sparql/${conceptName}` + '/allPreviousConcepts').pipe(
       tap((data) => console.log('All: ', JSON.stringify(data)))
     );
   }
 
   getDirectNextConcepts(conceptName: String): Observable<String> {
-    return this.http.get<String>(environment.apiUrl + `/sparql/${conceptName}`+'/directNextConcepts').pipe(
+    return this.http.get<String>(environment.apiUrl + `/sparql/${conceptName}` + '/directNextConcepts').pipe(
       tap((data) => console.log('All: ', JSON.stringify(data)))
     );
-  } 
+  }
 
-  getSolvableTests(conceptName:String): Observable<String> {
-    return this.http.get<String>(environment.apiUrl + `/sparql/${conceptName}`+'/solvableTests').pipe(
+  getSolvableTests(conceptName: String): Observable<String> {
+    return this.http.get<String>(environment.apiUrl + `/sparql/${conceptName}` + '/solvableTests').pipe(
       tap((data) => console.log('All: ', JSON.stringify(data)))
     );
   }
@@ -44,13 +44,29 @@ export class SparqlService {
       );
   }
 
-  getConceptsByProfessionAndSkills(professionCriteria:ProfessionCriteria) {
+  getConceptsByProfessionAndSkills(professionCriteria: ProfessionCriteria) {
     return this.http
-    .post<any>(`${environment.apiUrl}/sparql/studentProfessionCriteria`, professionCriteria)
-    .pipe(
-      tap((data) => console.log('All relations: ', JSON.stringify(data)))
+      .post<any>(`${environment.apiUrl}/sparql/studentProfessionCriteria`, professionCriteria)
+      .pipe(
+        tap((data) => console.log('All relations: ', JSON.stringify(data)))
+      );
+  }
+
+  getUnfinishedTests(studenyId: String): Observable<String> {
+    return this.http.get<String>(environment.apiUrl + `/sparql/${studenyId}` + '/unfinishedTests').pipe(
+      tap((data) => console.log('All: ', JSON.stringify(data)))
     );
   }
-  
+
+  getStudentsByTeacherTest(testName: String) {
+    return this.http
+      .post<any>(`${environment.apiUrl}/sparql/studentsForTest`, testName)
+      .pipe(
+        tap((data) => console.log('All relations: ', JSON.stringify(data)))
+      );
+  }
+
+
+
 
 }

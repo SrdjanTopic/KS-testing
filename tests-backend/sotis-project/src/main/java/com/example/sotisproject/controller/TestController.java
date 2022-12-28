@@ -40,6 +40,11 @@ public class TestController {
         return testService.getAllUnpublishedTests();
     }
     
+    @GetMapping("/{id}/teacher")
+    public List<String> getAllTestsByTeacher(@PathVariable("id") Long id){
+        return testService.getTestsByTeacher(id);
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<Test> getTest(@PathVariable("id") Long id){
         return new ResponseEntity<Test>(testService.getTest(id), HttpStatus.OK);
