@@ -48,22 +48,29 @@ public class OntologyService {
             OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
-                    "SELECT (CONCAT(?firstName, \" \", ?lastName) as ?fullName)" +
-                    "WHERE" +
+                    "SELECT ?returnConceptName \n" +
+                    "WHERE " +
                     "{" +
                         "{" +
-                            "SELECT ?student\n" +
-                            "WHERE " +
+                            "SELECT (GROUP_CONCAT(?conceptName;SEPARATOR=\",\") AS ?conceptNames) \n" +
+                            "WHERE" +
                             "{" +
-                            "?test ns:testName \""+teacherFullName+"\" ." +
-                            "?test ns:testQuestions ?question ." +
-                            "?question ns:questionAnswers ?answer ." +
-                            "?answer ns:answerStudent ?student ." +
+                                "{" +
+                                    "SELECT DISTINCT ?conceptName \n" +
+                                    "WHERE" +
+                                    "{" +
+                                        "ns:"+teacherFullName+" ns:teacherTest ?test ." +
+                                        "?test ns:testQuestions ?question ." +
+                                        "?question ns:questionConcept ?concept ." +
+                                        "?concept ns:conceptName ?conceptName ." +
+                                    "} " +
+                                "}" +
+                                "?groupConcept ns:conceptName \"HTML\" ." +
                             "}" +
-                            "GROUP BY ?student"+
+                            "GROUP BY ?groupConcept" +
                         "}" +
-                        "?student ns:userFirstName ?firstName ." +
-                        "?student ns:userLastName ?lastName ." +
+                        "?returnConcept ns:conceptName ?returnConceptName ." +
+                        "FILTER NOT EXISTS{FILTER CONTAINS(?conceptNames , ?returnConceptName)} ." +
                     "}";
 
             Query query = QueryFactory.create(queryString);
