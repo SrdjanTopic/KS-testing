@@ -2,21 +2,21 @@
 <qti-assessment-item xmlns="http://www.imsglobal.org/xsd/qti/imsqtiasi_v3p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" identifier="TEST-1-5" time-dependent="false" xml:lang="en-US" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0_v1p0.xsd">
     <qti-response-declaration base-type="identifier" cardinality="single" identifier="RESPONSE">
         <qti-correct-response>
-            <qti-value>19</qti-value>
+            <qti-value>15</qti-value>
         </qti-correct-response>
     </qti-response-declaration>
     <qti-outcome-declaration base-type="integer" cardinality="single" identifier="SCORE">
         <qti-default-value>
-            <qti-value>10</qti-value>
+            <qti-value>15</qti-value>
         </qti-default-value>
     </qti-outcome-declaration>
     <qti-item-body>
-        <p>Which of the following components can be injected as a dependency in AngularJS?</p>
+        <p>React.js is written in which of the following languages?</p>
         <qti-choice-interaction max-choices="1" min-choices="1" response-identifier="RESPONSE">
-            <qti-simple-choice identifier="19">All answers</qti-simple-choice>
-            <qti-simple-choice identifier="21">service</qti-simple-choice>
-            <qti-simple-choice identifier="20">factory</qti-simple-choice>
-            <qti-simple-choice identifier="22">value</qti-simple-choice>
+            <qti-simple-choice identifier="16">C#</qti-simple-choice>
+            <qti-simple-choice identifier="18">Python</qti-simple-choice>
+            <qti-simple-choice identifier="15">Javascript</qti-simple-choice>
+            <qti-simple-choice identifier="17">Java</qti-simple-choice>
         </qti-choice-interaction>
         <qti-response-processing template="https://purl.imsglobal.org/spec/qti/v3p0/rptemplates/match_correct"/>
     </qti-item-body>

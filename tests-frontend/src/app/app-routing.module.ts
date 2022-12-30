@@ -11,6 +11,7 @@ import { TestPublishingComponent } from './components/test-publishing/test-publi
 import { StudentAnswerGraphComponent } from './pages/student-answer-graph/student-answer-graph.component';
 import { AllSubmittedTestsComponent } from './pages/all-submitted-tests/all-submitted-tests.component';
 import { QueriesComponent } from './components/queries/queries.component';
+import { EditTestComponent } from './pages/edit-test/edit-test.component';
 
 const routes: Routes = [
   
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'test/:id',
     component: TestComponent,
+  },
+  {
+    path: 'test/edit/:id',
+    component: EditTestComponent,
   },
   {
     path: 'addTest',

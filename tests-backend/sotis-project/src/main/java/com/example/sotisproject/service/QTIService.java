@@ -1,10 +1,8 @@
 package com.example.sotisproject.service;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -352,53 +350,11 @@ public class QTIService {
 		return new FileSystemResource(filePath);
 	}
 
-	private Boolean generateQuestionXML(Test test, Question question, int questionNumber) {
-
-		String questionXML = "<?xml version='1.0' encoding='UTF-8'?>\r\n";
-		Answer correctAnswer = new Answer();
-		for (Answer a : question.getAnswers()) {
-			if (a.getIsCorrect()) {
-				correctAnswer = a;
-				break;
-			}
-		}
-		questionXML += "<qti-assessment-item adaptive=\"false\" identifier=\"" + "TEST-" + test.getId() + "-"
-				+ questionNumber + "\" time-dependent=\"false\" title=\"" + "Question " + questionNumber
-				+ "\" xmlns=\"http://www.imsglobal.org/xsd/imsqtiasi_v3p0\" xmlns:xi=\"http://www.w3.org/2001/XInclude\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0_v1p0.xsd\">\r\n"
-				+ "    <qti-response-declaration base-type=\"identifier\" cardinality=\"single\" identifier=\"RESPONSE\">\r\n"
-				+ "  <qti-correct-response>\r\n" + "	   <qti-value>" + correctAnswer.getId() + "</qti-value>\r\n"
-				+ "  </qti-correct-response>\r\n" + "    </qti-response-declaration>\r\n"
-				+ "    <qti-outcome-declaration base-type=\"integer\" cardinality=\"single\" identifier=\"SCORE\"/>\r\n"
-				+ "      <qti-default-value>\r\n" + "	       <qti-value>" + question.getPoints() + "</qti-value>\r\n"
-				+ "      </qti-default-value>\r\n" + "    </qti-outcome-declaration>\r\n" + "    <qti-item-body>\r\n"
-				+ "	     <qti-choice-interaction max-choices=\"1\" response-identifier=\"RESPONSE\" shuffle=\"true\">"
-				+ "        <qti-prompt>" + question.getQuestion() + "        </qti-prompt>\r\n";
-
-		for (Answer answer : question.getAnswers()) {
-			questionXML += "         <qti-simple-choice fixed=\"false\" identifier=\"" + answer.getId() + "\">"
-					+ answer.getAnswer() + "</qti-simple-choice>\r\n";
-		}
-
-		questionXML += "      </qti-choice-interaction>\r\n" + "</qti-item-body>\r\n"
-				+ "<qti-response-processing template=\"\"/>\r\n" + "</qti-assessment-item>";
-
-		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter("QTI/test-" + test.getId().toString()
-					+ "-QTI/questions/" + "test" + test.getId().toString() + "-" + questionNumber + ".xml"));
-			writer.write(questionXML);
-
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	public Boolean makeFolders(Long id) {
 
 		if (!new File("QTI").exists()) {
 			File folderQTI = new File("QTI");
-			Boolean b = folderQTI.mkdir();
+			folderQTI.mkdir();
 		}
 
 		// Creating a File object

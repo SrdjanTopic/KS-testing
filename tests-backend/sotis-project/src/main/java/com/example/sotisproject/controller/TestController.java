@@ -2,6 +2,7 @@ package com.example.sotisproject.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +70,11 @@ public class TestController {
     
     @GetMapping("/generateQTI/{id}")
 	public ResponseEntity<byte[]> generateQTI(@PathVariable Long id) {
-		return new ResponseEntity<>(qtiService.generateQTI(id), HttpStatus.OK);
+		 byte [] blob = qtiService.generateQTI(id);
+		 return ResponseEntity.ok()
+			        .contentLength(blob.length)
+					.contentType(MediaType.APPLICATION_OCTET_STREAM)
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=testQTI.zip")
+					.body(blob);
 	}
 }

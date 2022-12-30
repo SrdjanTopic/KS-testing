@@ -7,15 +7,6 @@
       <form>
         <div class="questions" *ngFor="let q of test.questions">
           <div class="question">
-            <div class="qtiButton">
-              <a
-                mat-stroked-button
-                class="btn btn-primary btn-lg"
-                href="{{ url }}/questions/qti/{{ q.id }}"
-              >
-                Generate QTI
-              </a>
-            </div>
             <div class="questionText">
               <b class="questionQuestion"
                 >Q{{ q.questionNumber }}. {{ q.question }}</b
@@ -37,6 +28,15 @@
           </mat-radio-group>
         </div>
       </form>
+    </div>
+    <div class="qtiButton">
+      <a
+        mat-stroked-button
+        class="btn btn-primary btn-lg"
+        href="{{ url }}/tests/generateQTI/{{ test.id }}"
+      >
+        Generate QTI
+      </a>
     </div>
   </div>
 </div>
