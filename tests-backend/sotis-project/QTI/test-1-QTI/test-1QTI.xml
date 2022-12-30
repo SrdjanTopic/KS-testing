@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qti-assessment-test xmlns="http://www.imsglobal.org/xsd/qti/imsqtiasi_v3p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" identifier="TEST-1" title="Front end developer fundamentals" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0_v1p0.xsd">
+    <qti-test-part identifier="Part 1" navigation-mode="linear" submission-mode="individual">
+        <qti-assessment-section identifier="set" title="Section 1" visible="true">
+            <qti-assessment-item-ref href="1" identifier="test1-1.xml"/>
+            <qti-assessment-item-ref href="2" identifier="test1-2.xml"/>
+            <qti-assessment-item-ref href="3" identifier="test1-3.xml"/>
+            <qti-assessment-item-ref href="4" identifier="test1-4.xml"/>
+            <qti-assessment-item-ref href="5" identifier="test1-5.xml"/>
+            <qti-assessment-item-ref href="6" identifier="test1-6.xml"/>
+            <qti-assessment-item-ref href="7" identifier="test1-7.xml"/>
+            <qti-assessment-item-ref href="8" identifier="test1-8.xml"/>
+        </qti-assessment-section>
+    </qti-test-part>
+</qti-assessment-test>

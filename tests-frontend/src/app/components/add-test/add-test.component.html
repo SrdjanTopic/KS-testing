@@ -2,6 +2,7 @@
   <h1>Add test</h1>
   <div class="col">
     <app-base-test
+      [test] = "test"
       (numberChanged)="change($event)"
       (addQuestion)="addQuestion()"
       [questionNumber]="questionNumber"

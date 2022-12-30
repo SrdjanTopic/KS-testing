@@ -2,6 +2,7 @@ package com.example.sotisproject.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.sotisproject.dto.SubmitAnswersDTO;
 import com.example.sotisproject.model.Student;
 import com.example.sotisproject.model.Test;
+import com.example.sotisproject.service.QTIService;
 import com.example.sotisproject.service.TestService;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +26,8 @@ import lombok.AllArgsConstructor;
 @RequestMapping(value = "/tests", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TestController {
     private TestService testService;
-
+    private QTIService qtiService;
+    
     @GetMapping("/")
     public List<Test> getTests(){
         return testService.getTests();
@@ -64,4 +67,14 @@ public class TestController {
     public ResponseEntity<Student> submitTest(@RequestBody SubmitAnswersDTO submitAnswersDTO){
         return new ResponseEntity<Student>(testService.submitTest(submitAnswersDTO), HttpStatus.OK);
     }
+    
+    @GetMapping("/generateQTI/{id}")
+	public ResponseEntity<byte[]> generateQTI(@PathVariable Long id) {
+		 byte [] blob = qtiService.generateQTI(id);
+		 return ResponseEntity.ok()
+			        .contentLength(blob.length)
+					.contentType(MediaType.APPLICATION_OCTET_STREAM)
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=testQTI.zip")
+					.body(blob);
+	}
 }

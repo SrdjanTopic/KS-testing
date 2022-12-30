@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/qti/imsqtiasi_v3p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" identifier="TEST-1-1" time-dependent="false" xml:lang="en-US" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0_v1p0.xsd">
+    <qti-response-declaration base-type="identifier" cardinality="single" identifier="RESPONSE">
+        <qti-correct-response>
+            <qti-value>9</qti-value>
+        </qti-correct-response>
+    </qti-response-declaration>
+    <qti-outcome-declaration base-type="integer" cardinality="single" identifier="SCORE">
+        <qti-default-value>
+            <qti-value>20</qti-value>
+        </qti-default-value>
+    </qti-outcome-declaration>
+    <qti-item-body>
+        <p> Which of the following keywords is used to define a variable in Javascript?</p>
+        <qti-choice-interaction max-choices="1" min-choices="1" response-identifier="RESPONSE">
+            <qti-simple-choice identifier="12">none</qti-simple-choice>
+            <qti-simple-choice identifier="10">var</qti-simple-choice>
+            <qti-simple-choice identifier="9">both</qti-simple-choice>
+            <qti-simple-choice identifier="11">let</qti-simple-choice>
+        </qti-choice-interaction>
+        <qti-response-processing template="https://purl.imsglobal.org/spec/qti/v3p0/rptemplates/match_correct"/>
+    </qti-item-body>
+</qti-assessment-item>
