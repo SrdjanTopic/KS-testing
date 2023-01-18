@@ -28,7 +28,7 @@ public class OntologyService {
     private RelationRepository relationRepository;
     private ProfessionRepository professionRepository;
 
-    private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
+    private static final String stuTestPath = "C:\\Users\\Admin\\Desktop\\sotis\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
     private static final String NS = "http://www.example.org/ontology/sotis#";
 
 //    @EventListener(ApplicationReadyEvent.class)

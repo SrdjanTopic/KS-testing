@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { DataSet } from 'vis-data';
 import { Network } from 'vis-network';
 import { ConceptService } from '../../services/concept.service';
@@ -16,7 +16,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./add-test.component.css'],
 })
 export class AddTestComponent implements OnInit {
-  test: ITest = initTest;
+  @Input() test: ITest = initTest;
   question: IQuestion = initQuestion;
   answer: IAnswer = initAnswer;
   questionText: string = '';

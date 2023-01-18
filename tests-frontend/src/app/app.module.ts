@@ -31,6 +31,7 @@ import { QueriesComponent } from './components/queries/queries.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { EditTestComponent } from './pages/edit-test/edit-test.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     StudentAnswerGraphComponent,
     AllSubmittedTestsComponent,
     QueriesComponent,
+    EditTestComponent,
   ],
   imports: [
     BrowserModule,
