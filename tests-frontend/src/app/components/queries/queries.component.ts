@@ -1,6 +1,4 @@
-import { ConditionalExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { initUser, IUser } from 'src/app/model/user';
 import { ConceptService } from 'src/app/services/concept.service';
 import { SparqlService } from 'src/app/services/sparql.service';
 import { StudentService } from 'src/app/services/student.service';
@@ -188,7 +186,10 @@ export class QueriesComponent implements OnInit {
   runQ4() {
     this.sparqlService.getStudentByConcepts(this.selectedConcepts).subscribe(
       (data) => {
-        this.results = data;
+        this.results = data.map((row: any) => ({
+          concept: row.split(':')[0],
+          students: row.split(':')[1],
+        }));
         console.log(this.results);
         this.showResult = true;
       },

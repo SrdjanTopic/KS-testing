@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.sotisproject.dto.ProfessionCriteriaDTO;
-import com.example.sotisproject.service.RelationService;
 
 import lombok.AllArgsConstructor;
 
@@ -30,18 +29,14 @@ import lombok.AllArgsConstructor;
 @RequestMapping(value = "/sparql", produces = MediaType.APPLICATION_JSON_VALUE)
 public class QueryController {
     private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
-    private static final String NS = "http://www.example.org/ontology/sotis#";
-
-    private RelationService relationService;
 
     @GetMapping("/{conceptName}/directNextConcepts")
-    public List<String> findAllDirectNextConceptsForConcept(@PathVariable("conceptName") String conceptName){
-
+    public List<String> findAllDirectNextConceptsForConcept(@PathVariable("conceptName") String conceptName) throws IOException {
+        OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+        stuTestModel.read(stuTestPath);
+        OutputStream stuTestOut = new FileOutputStream(stuTestPath);
         List<String> returnConcepts = new ArrayList<>();
         try {
-            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-            stuTestModel.read(stuTestPath);
-            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
                     "SELECT DISTINCT ?conceptName\n" +
@@ -58,18 +53,19 @@ public class QueryController {
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
             e.printStackTrace();
         }
         return returnConcepts;
     }
 
     @GetMapping("/{conceptName}/allPreviousConcepts")
-    public List<String> findAllPreviousConceptsForConcept(@PathVariable("conceptName") String conceptName) {
-        List<String> returnConcepts = new ArrayList<>();
+    public List<String> findAllPreviousConceptsForConcept(@PathVariable("conceptName") String conceptName) throws IOException {
+        OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+        stuTestModel.read(stuTestPath);
+        OutputStream stuTestOut = new FileOutputStream(stuTestPath);List<String> returnConcepts = new ArrayList<>();
         try {
-            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-            stuTestModel.read(stuTestPath);
-            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
                     "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
@@ -90,18 +86,20 @@ public class QueryController {
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
             e.printStackTrace();
         }
         return returnConcepts;
     }
 
     @GetMapping("/{conceptName}/solvableTests")
-    public List<String> findSolvableTestForLearnedConcept(@PathVariable("conceptName") String conceptName){
+    public List<String> findSolvableTestForLearnedConcept(@PathVariable("conceptName") String conceptName) throws IOException {
+        OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+        stuTestModel.read(stuTestPath);
+        OutputStream stuTestOut = new FileOutputStream(stuTestPath);
         List<String> returnTests = new ArrayList<>();
         try {
-            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-            stuTestModel.read(stuTestPath);
-            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
                     "SELECT * \n" +
@@ -146,65 +144,64 @@ public class QueryController {
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
             e.printStackTrace();
         }
         return returnTests;
     }
 
     @PostMapping("/studentsForTeam")
-    public List<String> findStudentsCompetentForTeam(@RequestBody List<String> conceptNames) {
+    public List<String> findStudentsCompetentForTeam(@RequestBody List<String> conceptNames) throws IOException {
+        OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+        stuTestModel.read(stuTestPath);
+        OutputStream stuTestOut = new FileOutputStream(stuTestPath);
         List<String> returnStudentFullNames = new ArrayList<>();
         AtomicReference<String> filterString = new AtomicReference<>("");
-        conceptNames.forEach(conceptName-> filterString.set(filterString + "FILTER CONTAINS(?learnedConcepts , \""+ conceptName +"\") ."));
+        conceptNames.forEach(conceptName-> filterString.set(filterString + "\""+ conceptName +"\","));
+        filterString.set(filterString.get().substring(0, filterString.get().length()-1));
         try {
-            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-            stuTestModel.read(stuTestPath);
-            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
-                    "SELECT (CONCAT(?firstName, \" \", ?lastName) as ?fullName)" +
+                    "SELECT (CONCAT(?conceptName, \": \", GROUP_CONCAT(CONCAT(?firstName, \" \", ?lastName);SEPARATOR=\", \")) AS ?result)" +
                     "WHERE" +
                     "{" +
-                        "{" +
-                        "SELECT ?student (GROUP_CONCAT(?conceptName;SEPARATOR=\",\")AS ?learnedConcepts) \n" +
-                        "WHERE" +
-                            "{" +
-                            "?student ns:studentConcept ?learnedConcept . " +
-                            "?learnedConcept ns:conceptName ?conceptName ." +
-                            "}" +
-                        "GROUP BY ?student" +
-                        "}" +
-                        "?student ns:userFirstName ?firstName ." +
-                        "?student ns:userLastName ?lastName ." +
-                        filterString.get() +
-                    "}";
+                    "?student ns:studentConcept ?learnedConcept . " +
+                    "?student ns:userFirstName ?firstName . " +
+                    "?student ns:userLastName ?lastName . " +
+                    "?learnedConcept ns:conceptName ?conceptName ." +
+                    "FILTER (?conceptName IN (" + filterString + "))" +
+                    "}" +
+                    "GROUP BY ?conceptName" ;
             Query query = QueryFactory.create(queryString);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
                 ResultSet results = qexec.execSelect();
                 while (results.hasNext()) {
                     QuerySolution soln = results.nextSolution();
-                    Literal s = soln.getLiteral("fullName");
+                    Literal s = soln.getLiteral("result");
                     returnStudentFullNames.add(s.getString());
                 }
             }
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
             e.printStackTrace();
         }
         return returnStudentFullNames;
     }
     
     @PostMapping("/studentProfessionCriteria")
-    public List<String> studentProfessionCriteria(@RequestBody ProfessionCriteriaDTO criteriaDTO) {
+    public List<String> studentProfessionCriteria(@RequestBody ProfessionCriteriaDTO criteriaDTO) throws IOException {
+        OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+        stuTestModel.read(stuTestPath);
+        OutputStream stuTestOut = new FileOutputStream(stuTestPath);
         List<String> requiredConcepts = new ArrayList<>();
         AtomicReference<String> filterString = new AtomicReference<>("");
         criteriaDTO.getConceptNames().forEach(conceptName-> filterString.set(filterString + 
         		"FILTER (lcase(?conceptName)!=\"" + conceptName.replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_").toLowerCase() + "\") ."));
         try {
-            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-            stuTestModel.read(stuTestPath);
-            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
                     "SELECT ?conceptName \n" +
@@ -227,17 +224,19 @@ public class QueryController {
             stuTestOut.close();
         } catch (IOException e) {
             e.printStackTrace();
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
         }
         return requiredConcepts;
     }
 
     @PostMapping("/studentsThatSubmittedTest")
-    public List<String> studentsThatSubmittedTest(@RequestBody String testName) {
+    public List<String> studentsThatSubmittedTest(@RequestBody String testName) throws IOException {
+        OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+        stuTestModel.read(stuTestPath);
+        OutputStream stuTestOut = new FileOutputStream(stuTestPath);
         List<String> returnStudentFullNames = new ArrayList<>();
         try {
-            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-            stuTestModel.read(stuTestPath);
-            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
                     "SELECT (CONCAT(?firstName, \" \", ?lastName) as ?fullName)" +
@@ -270,18 +269,20 @@ public class QueryController {
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
             e.printStackTrace();
         }
         return returnStudentFullNames;
     }
 
     @PostMapping("/unusedConceptsByTeacher")
-    public List<String> unusedConceptsByTeacher(@RequestBody String teacherFullName) {
+    public List<String> unusedConceptsByTeacher(@RequestBody String teacherFullName) throws IOException {
         List<String> returnConceptNames = new ArrayList<>();
+        OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+        stuTestModel.read(stuTestPath);
+        OutputStream stuTestOut = new FileOutputStream(stuTestPath);
         try {
-            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-            stuTestModel.read(stuTestPath);
-            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
                     "SELECT ?returnConceptName \n" +
@@ -321,18 +322,20 @@ public class QueryController {
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
             e.printStackTrace();
         }
         return returnConceptNames;
     }
 
     @PostMapping("/testsStudentHasNotDone")
-    public List<String> testsStudentHasNotDone(@RequestBody String studentFullName) {
+    public List<String> testsStudentHasNotDone(@RequestBody String studentFullName) throws IOException {
         List<String> returnTestNames = new ArrayList<>();
+        OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
+        stuTestModel.read(stuTestPath);
+        OutputStream stuTestOut = new FileOutputStream(stuTestPath);
         try {
-            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-            stuTestModel.read(stuTestPath);
-            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
             String queryString = "" +
                     "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
                     "SELECT ?returnTestName \n" +
@@ -372,6 +375,8 @@ public class QueryController {
             stuTestModel.write(stuTestOut, "RDF/XML");
             stuTestOut.close();
         } catch (IOException e) {
+            stuTestModel.write(stuTestOut, "RDF/XML");
+            stuTestOut.close();
             e.printStackTrace();
         }
         return returnTestNames;

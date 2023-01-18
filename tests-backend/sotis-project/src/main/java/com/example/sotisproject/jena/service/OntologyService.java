@@ -5,13 +5,16 @@ import com.example.sotisproject.model.*;
 import com.example.sotisproject.repository.*;
 import lombok.AllArgsConstructor;
 import org.apache.jena.ontology.*;
+import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @AllArgsConstructor
 @Service
@@ -28,16 +31,16 @@ public class OntologyService {
     private static final String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
     private static final String NS = "http://www.example.org/ontology/sotis#";
 
-    //@EventListener(ApplicationReadyEvent.class)
-    public void initializeStart() {
-        addConcepts(conceptRepository.findAll());
-        addTeachers(teacherRepository.findAll());
-        addStudents(studentRepository.findAll());
-        addTests(testRepository.findAll());
-        addQuestions(questionRepository.findAll());
-        addAnswers(answerRepository.findAll());
-        addRelations(relationRepository.findAll());
-        addProfessions(professionRepository.findAll());
+//    @EventListener(ApplicationReadyEvent.class)
+    public void initializeStart() throws IOException {
+//        addConcepts(conceptRepository.findAll());
+//        addTeachers(teacherRepository.findAll());
+//        addStudents(studentRepository.findAll());
+//        addTests(testRepository.findAll());
+//        addQuestions(questionRepository.findAll());
+//        addAnswers(answerRepository.findAll());
+//        addRelations(relationRepository.findAll());
+//        addProfessions(professionRepository.findAll());
     }
 
     public void addStudents(List<Student> students){
@@ -57,10 +60,6 @@ public class OntologyService {
                     Individual learnedConcept = stuTestModel.getIndividual(NS + concept.getConcept().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
                     createdStudent.addProperty(sotisOntologyModel.getStudentConcept(), learnedConcept);
                 });
-//                student.getAnswers().forEach(answer -> {
-//                    Individual answerOnt = stuTestModel.getIndividual(NS + answer.getAnswer().replaceAll("[\"<>#%{}|^~\\\\\\]\\[ `]", "_"));
-//                    createdStudent.addProperty(sotisOntologyModel.getStudentAnswer(), answerOnt);
-//                });
                 System.out.println("ADD STUDENT: " +  student.getFirstName()+student.getLastName());
             });
             stuTestModel.write(stuTestOut, "RDF/XML");

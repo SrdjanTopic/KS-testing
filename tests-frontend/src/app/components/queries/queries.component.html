@@ -1,273 +1,285 @@
 <div class="wrapper">
-    <h1>All Queries</h1>
-    <mat-grid-list cols="2" rowHeight="12:1" [gutterSize]="'20px'" *ngIf="user?.roles[0].authority=='ROLE_STUDENT'">
-        <mat-grid-tile *ngFor="let query of studentQueries" (click)="showQuery(query.id)"
-            [ngClass]="query.id == selectedQueryId ? 'selectedQuery' : 'query'">
-            <div class="title">{{query.name}}
-            </div>
-        </mat-grid-tile>
-    </mat-grid-list>
+  <h1>All Queries</h1>
+  <mat-grid-list
+    cols="2"
+    rowHeight="12:1"
+    [gutterSize]="'20px'"
+    *ngIf="user?.roles[0].authority == 'ROLE_STUDENT'"
+  >
+    <mat-grid-tile
+      *ngFor="let query of studentQueries"
+      (click)="showQuery(query.id)"
+      [ngClass]="query.id == selectedQueryId ? 'selectedQuery' : 'query'"
+    >
+      <div class="title">{{ query.name }}</div>
+    </mat-grid-tile>
+  </mat-grid-list>
 
-    <mat-grid-list cols="2" rowHeight="12:1" [gutterSize]="'20px'" *ngIf="user?.roles[0].authority=='ROLE_TEACHER'">
-        <mat-grid-tile *ngFor="let query of teacherQueries" (click)="showQuery(query.id)"
-            [ngClass]="query.id == selectedQueryId ? 'selectedQuery' : 'query'">
-            <div class="title">{{query.name}}
-            </div>
-        </mat-grid-tile>
-    </mat-grid-list>
+  <mat-grid-list
+    cols="2"
+    rowHeight="12:1"
+    [gutterSize]="'20px'"
+    *ngIf="user?.roles[0].authority == 'ROLE_TEACHER'"
+  >
+    <mat-grid-tile
+      *ngFor="let query of teacherQueries"
+      (click)="showQuery(query.id)"
+      [ngClass]="query.id == selectedQueryId ? 'selectedQuery' : 'query'"
+    >
+      <div class="title">{{ query.name }}</div>
+    </mat-grid-tile>
+  </mat-grid-list>
 
-    <div class="body">
-        <div class="answer" *ngIf="selectedQueryId==1">
-            <div class="title">
-                {{teacherQueries[0].name}}
-            </div>
-            <div class="filter">
-                <div class="part">
-                    <div>Select profession</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Proffesion</mat-label>
-                        <mat-select (selectionChange)="getAllConceptsByProfession($event.value)">
-                            <mat-option *ngFor="let profession of allProfessions" [value]="profession.id">
-                                {{profession.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="part">
-                    <div>Select concept</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Concept</mat-label>
-                        <mat-select (selectionChange)="selectConcept($event.value)">
-                            <mat-option *ngFor="let concept of allConceptsByProfession" [value]="concept.concept">
-                                {{concept.concept}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <button class="findBtn" (click)="runQ1()">
-                    Find all
-                </button>
-            </div>
-            <div class="title" *ngIf="showResult">
-                Results:
-            </div>
-            <div>
-                <div class="result" *ngFor="let result of results">
-                    <h3>{{result}} </h3>
-                </div>
-            </div>
+  <div class="body">
+    <div class="answer" *ngIf="selectedQueryId == 1">
+      <div class="title">
+        {{ teacherQueries[0].name }}
+      </div>
+      <div class="filter">
+        <div class="part">
+          <div>Select profession</div>
+          <mat-form-field appearance="fill">
+            <mat-label>Proffesion</mat-label>
+            <mat-select
+              (selectionChange)="getAllConceptsByProfession($event.value)"
+            >
+              <mat-option
+                *ngFor="let profession of allProfessions"
+                [value]="profession.id"
+              >
+                {{ profession.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-
-        <div class="answer" *ngIf="selectedQueryId==2">
-            <div class="title">
-                {{teacherQueries[1].name}}
-            </div>
-            <div class="filter">
-                <div class="part">
-                    <div>Select profession</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Proffesion</mat-label>
-                        <mat-select (selectionChange)="getAllConceptsByProfession($event.value)">
-                            <mat-option *ngFor="let profession of allProfessions" [value]="profession.id">
-                                {{profession.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="part">
-                    <div>Select concept</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Concept</mat-label>
-                        <mat-select (selectionChange)="selectConcept($event.value)">
-                            <mat-option *ngFor="let concept of allConceptsByProfession" [value]="concept.concept">
-                                {{concept.concept}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <button class="findBtn" (click)="runQ2()">
-                    Find all
-                </button>
-            </div>
-            <div class="title" *ngIf="showResult">
-                Results:
-            </div>
-            <div>
-                <div class="result" *ngFor="let result of results">
-                    <h3>{{result}} </h3>
-                </div>
-            </div>
+        <div class="part">
+          <div>Select concept</div>
+          <mat-form-field appearance="fill">
+            <mat-label>Concept</mat-label>
+            <mat-select (selectionChange)="selectConcept($event.value)">
+              <mat-option
+                *ngFor="let concept of allConceptsByProfession"
+                [value]="concept.concept"
+              >
+                {{ concept.concept }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-
-        <div class="answer" *ngIf="selectedQueryId==3">
-            <div class="title">
-                {{studentQueries[3].name}}
-            </div>
-            <div class="filter">
-                <div class="part">
-                    <div>Select profession</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Proffesion</mat-label>
-                        <mat-select (selectionChange)="getAllConceptsByProfession($event.value)">
-                            <mat-option *ngFor="let profession of allProfessions" [value]="profession.id">
-                                {{profession.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="part">
-                    <div>Select concept</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Concept</mat-label>
-                        <mat-select (selectionChange)="selectConcept($event.value)">
-                            <mat-option *ngFor="let concept of allConceptsByProfession" [value]="concept.concept">
-                                {{concept.concept}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <button class="findBtn" (click)="runQ3()">
-                    Find all
-                </button>
-            </div>
-            <div class="title" *ngIf="showResult">
-                Results:
-            </div>
-            <div>
-                <div class="result" *ngFor="let result of results">
-                    <h3>{{result}} </h3>
-                </div>
-            </div>
+        <button class="findBtn" (click)="runQ1()">Find all</button>
+      </div>
+      <div class="title" *ngIf="showResult">Results:</div>
+      <div>
+        <div class="result" *ngFor="let result of results">
+          <h3>{{ result }}</h3>
         </div>
-
-        <div class="answer" *ngIf="selectedQueryId==4">
-            <div class="title">
-                {{teacherQueries[2].name}}
-            </div>
-            <div class="filter">
-                <div class="part">
-                    <div>Select multiple concepts</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Concept</mat-label>
-                        <mat-select [(ngModel)]="selectedConcepts" multiple>
-                            <mat-option *ngFor="let concept of allConcepts" [value]="concept.concept">
-                                {{concept.concept}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <button class="findBtn" (click)="runQ4()">
-                    Find all
-                </button>
-            </div>
-            <div class="title" *ngIf="showResult">
-                Results:
-            </div>
-            <div>
-                <div class="result" *ngFor="let result of results">
-                    <h3>{{result}} </h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="answer" *ngIf="selectedQueryId==5">
-            <div class="title">
-                {{studentQueries[2].name}}
-            </div>
-            <div class="filter">
-                <div class="part">
-                    <div>Select profession</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Proffesion</mat-label>
-                        <mat-select [(ngModel)]="selectedProfession">
-                            <mat-option *ngFor="let profession of allProfessions" [value]="profession.name">
-                                {{profession.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <button class="findBtn" (click)="runQ5()">
-                    Find all
-                </button>
-            </div>
-            <div class="title" *ngIf="showResult">
-                Results:
-            </div>
-            <div>
-                <div class="result" *ngFor="let result of results">
-                    <h3>{{result}} </h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="answer" *ngIf="selectedQueryId==6">
-            <div class="title">
-                {{studentQueries[4].name}}
-            </div>
-            <div class="filter">
-
-                <button class="findBtn" (click)="runQ6()">
-                    Find all
-                </button>
-            </div>
-            <div class="title" *ngIf="showResult">
-                Results:
-            </div>
-            <div>
-                <div class="result" *ngFor="let result of results">
-                    <h3>{{result}} </h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="answer" *ngIf="selectedQueryId==7">
-            <div class="title">
-                {{teacherQueries[3].name}}
-            </div>
-            <div class="filter">
-
-                <button class="findBtn" (click)="runQ7()">
-                    Find all
-                </button>
-            </div>
-            <div class="title" *ngIf="showResult">
-                Results:
-            </div>
-            <div>
-                <div class="result" *ngFor="let result of results">
-                    <h3>{{result}} </h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="answer" *ngIf="selectedQueryId==8">
-            <div class="title">
-                {{teacherQueries[4].name}}
-            </div>
-            <div class="filter">
-                <div class="part">
-                    <div>Select test</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Test</mat-label>
-                        <mat-select [(ngModel)]="selectedTest">
-                            <mat-option *ngFor="let test of allTestsByTeacher" [value]="test">
-                                {{test}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <button class="findBtn" (click)="runQ8()">
-                    Find all
-                </button>
-            </div>
-            <div class="title" *ngIf="showResult">
-                Results:
-            </div>
-            <div>
-                <div class="result" *ngFor="let result of results">
-                    <h3>{{result}} </h3>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <div class="answer" *ngIf="selectedQueryId == 2">
+      <div class="title">
+        {{ teacherQueries[1].name }}
+      </div>
+      <div class="filter">
+        <div class="part">
+          <div>Select profession</div>
+          <mat-form-field appearance="fill">
+            <mat-label>Proffesion</mat-label>
+            <mat-select
+              (selectionChange)="getAllConceptsByProfession($event.value)"
+            >
+              <mat-option
+                *ngFor="let profession of allProfessions"
+                [value]="profession.id"
+              >
+                {{ profession.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="part">
+          <div>Select concept</div>
+          <mat-form-field appearance="fill">
+            <mat-label>Concept</mat-label>
+            <mat-select (selectionChange)="selectConcept($event.value)">
+              <mat-option
+                *ngFor="let concept of allConceptsByProfession"
+                [value]="concept.concept"
+              >
+                {{ concept.concept }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button class="findBtn" (click)="runQ2()">Find all</button>
+      </div>
+      <div class="title" *ngIf="showResult">Results:</div>
+      <div>
+        <div class="result" *ngFor="let result of results">
+          <h3>{{ result }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer" *ngIf="selectedQueryId == 3">
+      <div class="title">
+        {{ studentQueries[3].name }}
+      </div>
+      <div class="filter">
+        <div class="part">
+          <div>Select profession</div>
+          <mat-form-field appearance="fill">
+            <mat-label>Proffesion</mat-label>
+            <mat-select
+              (selectionChange)="getAllConceptsByProfession($event.value)"
+            >
+              <mat-option
+                *ngFor="let profession of allProfessions"
+                [value]="profession.id"
+              >
+                {{ profession.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="part">
+          <div>Select concept</div>
+          <mat-form-field appearance="fill">
+            <mat-label>Concept</mat-label>
+            <mat-select (selectionChange)="selectConcept($event.value)">
+              <mat-option
+                *ngFor="let concept of allConceptsByProfession"
+                [value]="concept.concept"
+              >
+                {{ concept.concept }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button class="findBtn" (click)="runQ3()">Find all</button>
+      </div>
+      <div class="title" *ngIf="showResult">Results:</div>
+      <div>
+        <div class="result" *ngFor="let result of results">
+          <h3>{{ result }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer" *ngIf="selectedQueryId == 4">
+      <div class="title">
+        {{ teacherQueries[2].name }}
+      </div>
+      <div class="filter">
+        <div class="part">
+          <div>Select multiple concepts</div>
+          <mat-form-field appearance="fill">
+            <mat-label>Concept</mat-label>
+            <mat-select [(ngModel)]="selectedConcepts" multiple>
+              <mat-option
+                *ngFor="let concept of allConcepts"
+                [value]="concept.concept"
+              >
+                {{ concept.concept }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button class="findBtn" (click)="runQ4()">Find all</button>
+      </div>
+      <div class="title" *ngIf="showResult">Results:</div>
+      <div>
+        <div class="result" *ngFor="let result of results">
+          <h3>
+            <b>{{ result.concept }}:</b>{{ result.students }}
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer" *ngIf="selectedQueryId == 5">
+      <div class="title">
+        {{ studentQueries[2].name }}
+      </div>
+      <div class="filter">
+        <div class="part">
+          <div>Select profession</div>
+          <mat-form-field appearance="fill">
+            <mat-label>Proffesion</mat-label>
+            <mat-select [(ngModel)]="selectedProfession">
+              <mat-option
+                *ngFor="let profession of allProfessions"
+                [value]="profession.name"
+              >
+                {{ profession.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button class="findBtn" (click)="runQ5()">Find all</button>
+      </div>
+      <div class="title" *ngIf="showResult">Results:</div>
+      <div>
+        <div class="result" *ngFor="let result of results">
+          <h3>{{ result }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer" *ngIf="selectedQueryId == 6">
+      <div class="title">
+        {{ studentQueries[4].name }}
+      </div>
+      <div class="filter">
+        <button class="findBtn" (click)="runQ6()">Find all</button>
+      </div>
+      <div class="title" *ngIf="showResult">Results:</div>
+      <div>
+        <div class="result" *ngFor="let result of results">
+          <h3>{{ result }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer" *ngIf="selectedQueryId == 7">
+      <div class="title">
+        {{ teacherQueries[3].name }}
+      </div>
+      <div class="filter">
+        <button class="findBtn" (click)="runQ7()">Find all</button>
+      </div>
+      <div class="title" *ngIf="showResult">Results:</div>
+      <div>
+        <div class="result" *ngFor="let result of results">
+          <h3>{{ result }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer" *ngIf="selectedQueryId == 8">
+      <div class="title">
+        {{ teacherQueries[4].name }}
+      </div>
+      <div class="filter">
+        <div class="part">
+          <div>Select test</div>
+          <mat-form-field appearance="fill">
+            <mat-label>Test</mat-label>
+            <mat-select [(ngModel)]="selectedTest">
+              <mat-option *ngFor="let test of allTestsByTeacher" [value]="test">
+                {{ test }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button class="findBtn" (click)="runQ8()">Find all</button>
+      </div>
+      <div class="title" *ngIf="showResult">Results:</div>
+      <div>
+        <div class="result" *ngFor="let result of results">
+          <h3>{{ result }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
