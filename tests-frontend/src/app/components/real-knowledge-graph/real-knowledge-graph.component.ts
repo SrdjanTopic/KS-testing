@@ -127,16 +127,23 @@ export class RealKnowledgeGraphComponent implements OnInit {
       .getTestResultsForIITA(this.selectedTestId)
       .pipe()
       .subscribe((results: any) => {
-        if (results[this.concepts[0].id].length < 25) {
+        let minLen = results[this.concepts[0].id].length;
+        for (const property in results) {
+          if (results[property].length < minLen)
+            minLen = results[property].length;
+        }
+        if (minLen < 25) {
           alert(
-            `This test must have at least 25 submissions to generate a knowledge space for it! \n\nNumber of submissions: ${
-              results[this.concepts[0].id].length
-            }`
+            `This test must have at least 25 submissions to generate a knowledge space for it! \n\nNumber of submissions: ${minLen}`
           );
           return;
         }
+        let ress: any = {};
+        for (const property in results) {
+          ress[property] = results[property].slice(0, minLen);
+        }
         this.studentAnswerService
-          .generateRealKS(results)
+          .generateRealKS(ress)
           .subscribe(async (res) => {
             const concepts = res.concepts.map((c: any) => parseInt(c));
             const implications = res.implications.map((implication: any) =>
