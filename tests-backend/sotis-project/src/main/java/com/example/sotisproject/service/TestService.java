@@ -3,7 +3,6 @@ package com.example.sotisproject.service;
 import com.example.sotisproject.dto.SubmitAnswersDTO;
 import com.example.sotisproject.jena.service.OntologyService;
 import com.example.sotisproject.model.Answer;
-import com.example.sotisproject.model.Concept;
 import com.example.sotisproject.model.Question;
 import com.example.sotisproject.model.Student;
 import com.example.sotisproject.model.Teacher;
@@ -15,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @AllArgsConstructor
 @Service
@@ -25,7 +25,8 @@ public class TestService {
     private RelationService relationService;
     private RealRelationService realRelationService;
     private TeacherRepository teacherReposiotory;
-    private OntologyService ontologyService;
+    private ConceptService conceptService;
+//    private OntologyService ontologyService;
 
     public Test addTest(Test test){
         Test newTest = testRepository.save(test);
@@ -33,8 +34,8 @@ public class TestService {
             question.setTest(newTest);
             questionService.addQuestion(question);
         });
-        ontologyService.addQuestions((List<Question>) test.getQuestions());
-        ontologyService.addTest(newTest);
+//        ontologyService.addQuestions((List<Question>) test.getQuestions());
+//        ontologyService.addTest(newTest);
         return newTest;
     }
     
@@ -63,6 +64,12 @@ public class TestService {
     public Test getTest(Long id) {
         Test test = testRepository.findById(id).get();
         Set<Question> questions = new LinkedHashSet<>();
+        AtomicReference<Long> ksId = new AtomicReference<>(0L);
+        test.getTestPublications().forEach(testPublication -> {
+            if(testPublication.getIsPublished() && testPublication.getRealKnowledgeSpace()!=null)
+                ksId.set(testPublication.getRealKnowledgeSpace().getId());
+
+        });
         List<Long> conceptOrder = relationService.getConceptOrder();
         conceptOrder.forEach(concept->{
             test.getQuestions().forEach(question -> {

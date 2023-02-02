@@ -142,40 +142,6 @@ export class StudentAnswerGraphComponent implements OnInit {
     this.relations = await this.relationService.getRelations().toPromise();
   }
 
-  // async loadNodes() {
-  //   this.studentAnswerService
-  //     .getAnswersForTest(this.selectedStudentId, this.id)
-  //     .subscribe((answers) => {
-  //       this.concepts.forEach((concept: { concept: any; points: number }) => {
-  //         concept.points = 0;
-  //         answers.forEach((element: { answer: any; question: any }) => {
-  //           if (concept.concept == element.question.concept.concept)
-  //             element.answer.isCorrect
-  //               ? (concept.points = +element.question.points)
-  //               : (concept.points = -element.question.points);
-  //         });
-  //       });
-  //       this.concepts.forEach((element: { concept: any; points: any }) => {
-  //         console.log(element.points, element.concept);
-  //       });
-  //       this.nodes = new DataSet<any>(
-  //         this.concepts.map((concept: any) => ({
-  //           id: concept.id,
-  //           label: concept.concept,
-  //           color: concept.points > 0 ? '#97c2fc' : '#ed6b94',
-  //         }))
-  //       );
-  //       this.startNodes = new DataSet<any>(
-  //         this.concepts.map((concept: any) => ({
-  //           id: concept.id,
-  //           label: concept.concept,
-  //           color: concept.points > 0 ? '#97c2fc' : '#ed6b94',
-  //         }))
-  //       );
-  //       this.draw();
-  //     });
-  // }
-
   loadEdges() {
     this.edges = new DataSet<any>(
       this.relations.map((relation: any) => ({
@@ -250,7 +216,7 @@ export class StudentAnswerGraphComponent implements OnInit {
   changeModalState() {
     this.isModalOpen = !this.isModalOpen;
   }
-  generateQTI(question:any){
+  generateQTI(question: any) {
     this.questionService.qti(question.question.id).subscribe();
   }
 }

@@ -107,14 +107,12 @@ export class QueriesComponent implements OnInit {
   getAllProfessions() {
     this.conceptService.getProfessions().subscribe((data) => {
       this.allProfessions = data;
-      console.log(this.allProfessions);
     });
   }
 
   getAllConcepts() {
     this.conceptService.getConcepts().subscribe((data) => {
       this.allConcepts = data;
-      console.log(this.allProfessions);
     });
   }
 
@@ -123,14 +121,12 @@ export class QueriesComponent implements OnInit {
       .getConceptByProfession(professionId)
       .subscribe((data) => {
         this.allConceptsByProfession = data;
-        console.log(this.allConceptsByProfession);
       });
   }
 
   getAllTestsByTeacher() {
     this.testService.getTestsByTeacher(this.user.id).subscribe((data) => {
       this.allTestsByTeacher = data;
-      console.log(this.allTestsByTeacher);
     });
   }
 
@@ -147,7 +143,6 @@ export class QueriesComponent implements OnInit {
   runQ1() {
     this.sparqlService.getPreviousConcepts(this.selectedConcept).subscribe(
       (data) => {
-        console.log(data);
         this.results = data;
         this.showResult = true;
       },
@@ -160,7 +155,6 @@ export class QueriesComponent implements OnInit {
   runQ2() {
     this.sparqlService.getDirectNextConcepts(this.selectedConcept).subscribe(
       (data) => {
-        console.log(data);
         this.results = data;
         this.showResult = true;
       },
@@ -173,7 +167,6 @@ export class QueriesComponent implements OnInit {
   runQ3() {
     this.sparqlService.getSolvableTests(this.selectedConcept).subscribe(
       (data) => {
-        console.log(data);
         this.results = data;
         this.showResult = true;
       },
@@ -190,7 +183,6 @@ export class QueriesComponent implements OnInit {
           concept: row.split(':')[0],
           students: row.split(':')[1],
         }));
-        console.log(this.results);
         this.showResult = true;
       },
       (error) => {
@@ -210,7 +202,6 @@ export class QueriesComponent implements OnInit {
           .subscribe(
             (data) => {
               this.results = data;
-              console.log(this.results);
               this.showResult = true;
             },
             (error) => {
@@ -218,7 +209,6 @@ export class QueriesComponent implements OnInit {
             }
           );
       });
-    console.log(this.professionCriteria);
   }
 
   runQ6() {
@@ -226,7 +216,6 @@ export class QueriesComponent implements OnInit {
     this.sparqlService.getUnfinishedStudentTests(student).subscribe(
       (data) => {
         this.results = data;
-        console.log(this.results);
         this.showResult = true;
       },
       (error) => {
@@ -240,7 +229,6 @@ export class QueriesComponent implements OnInit {
     this.sparqlService.getUnusedConceptsByTeacher(teacher).subscribe(
       (data) => {
         this.results = data;
-        console.log(this.results);
         this.showResult = true;
       },
       (error) => {
@@ -253,7 +241,6 @@ export class QueriesComponent implements OnInit {
     this.sparqlService.getStudentsByTeacherTest(this.selectedTest).subscribe(
       (data) => {
         this.results = data;
-        console.log(this.results);
         this.showResult = true;
       },
       (error) => {

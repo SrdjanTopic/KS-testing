@@ -22,8 +22,6 @@ import java.util.List;
 @Service
 public class RelationService {
     private RelationRepository relationRepository;
-    private OntologyService ontologyService;
-    private ConceptRepository conceptRepository;
 
     public List<Relation> getRelations() {
         return relationRepository.findAll();
@@ -31,41 +29,10 @@ public class RelationService {
 
     public List<Relation> updateRelations(List<Relation> relations) {
         List<Relation> relationList = new ArrayList<>();
-        //ontologyService.deleteRelations();
         relationRepository.deleteAll();
         relations.forEach(relation -> {
             relationList.add(relationRepository.save(relation));
         });
-
-        //ontologyService.addRelations(relations);
-
-//        try {
-//            String stuTestPath = "C:\\Users\\Srdjan Topic\\Desktop\\SOTIS\\SOTIS-project\\tests-backend\\sotis-project\\src\\main\\java\\com\\example\\sotisproject\\jena\\stuTest.owl";
-//
-//            OntModel stuTestModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF);
-//            stuTestModel.read(stuTestPath);
-//            OutputStream stuTestOut = new FileOutputStream(stuTestPath);
-//            SotisOntologyModel sotisOntologyModel = new SotisOntologyModel(stuTestModel);
-//            String queryString = "" +
-//                    "PREFIX ns: <http://www.example.org/ontology/sotis#> \n" +
-//                    "SELECT ?conceptName\n" +
-//                    "WHERE {ns:CSS ns:isDestinationFor ?conceptName}";
-//            Query query = QueryFactory.create(queryString);
-//            try (QueryExecution qexec = QueryExecutionFactory.create(query, stuTestModel)) {
-//                ResultSet results = qexec.execSelect();
-//                ResultSetFormatter.out(System.out, results, query);
-////                for (; results.hasNext(); ) {
-////                    QuerySolution soln = results.nextSolution();
-////                    //System.out.println(soln.toString());
-////                    Literal s = soln.getLiteral("questionQuestion");
-////                    System.out.println(s);
-////                }
-//            }
-//            stuTestModel.write(stuTestOut, "RDF/XML");
-//            stuTestOut.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         return relationList;
     }
 

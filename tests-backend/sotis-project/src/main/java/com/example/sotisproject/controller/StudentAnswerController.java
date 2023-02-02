@@ -31,7 +31,7 @@ public class StudentAnswerController {
     }
 
     @GetMapping("/allResults/{testId}")
-    public Map<Long, List<Long>> getAllResults(@PathVariable("testId")Long testId){
+    public Map<Long, List<Long>> getAllResultsForTest(@PathVariable("testId")Long testId){
         return studentAnswerService.getAllTestResultsForIITA(testId);
     }
     

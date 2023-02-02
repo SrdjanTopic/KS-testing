@@ -74,7 +74,6 @@ export class UserService {
 
   changePassword(password: string): Observable<any> {
     let user: IUser = this.currentUserSubject.value;
-    console.log(user.id);
     return this.http.put<any>(`${environment.apiUrl}/admin/changePassword`, {
       id: user.id,
       password: password,

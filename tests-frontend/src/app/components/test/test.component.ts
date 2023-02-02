@@ -40,8 +40,4 @@ export class TestComponent implements OnInit {
   generateQTI(question: any) {
     this.questionService.qti(question.question.id).subscribe();
   }
-
-  testt() {
-    console.log(this.test);
-  }
 }

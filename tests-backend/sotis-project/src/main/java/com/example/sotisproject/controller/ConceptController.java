@@ -21,7 +21,7 @@ public class ConceptController {
     }
 
     @GetMapping("/{testId}")
-    public List<Concept> getConceptsForTest(@PathVariable("testId") Long testId){
+    public Set<Concept> getConceptsForTest(@PathVariable("testId") Long testId){
         return conceptService.getConceptsForTest(testId);
     }
     

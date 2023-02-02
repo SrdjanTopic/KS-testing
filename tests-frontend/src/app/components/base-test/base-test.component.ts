@@ -74,7 +74,6 @@ export class BaseTestComponent implements OnInit {
     });
     this.questionNumber--;
     this.changeNumber();
-    console.log(this.questionNumber);
   }
 
   removeAnswer(answer: IAnswer, question: IQuestion) {
@@ -109,7 +108,7 @@ export class BaseTestComponent implements OnInit {
         this.submitTestAnswers.studentId = user.id;
         this.testService
           .submitTest(this.submitTestAnswers)
-          .subscribe((student) => console.log(student));
+          .subscribe((student) => {});
       },
       error: (error) => {
         console.error('There was an error!', error);
@@ -119,9 +118,7 @@ export class BaseTestComponent implements OnInit {
 
   check() {
     this.userService.getCurrentUser().subscribe({
-      next: (user) => {
-        console.log(user);
-      },
+      next: (user) => {},
       error: (error) => {
         console.error('There was an error!', error);
       },

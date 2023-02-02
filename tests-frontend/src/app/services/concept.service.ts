@@ -3,15 +3,13 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
-
-
 @Injectable({
   providedIn: 'root',
 })
 export class ConceptService {
   constructor(private http: HttpClient) {}
-  
-  getProfessions(){
+
+  getProfessions() {
     return this.http.get(`${environment.apiUrl}/professions/`, {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
@@ -29,10 +27,13 @@ export class ConceptService {
     });
   }
 
-  getConceptByProfession(professionId:Number){
-    return this.http.get(`${environment.apiUrl}/concepts/profession/${professionId}`, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-    });
+  getConceptByProfession(professionId: Number) {
+    return this.http.get(
+      `${environment.apiUrl}/concepts/profession/${professionId}`,
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      }
+    );
   }
 
   addConcepts(concepts: { concept: string }[]) {

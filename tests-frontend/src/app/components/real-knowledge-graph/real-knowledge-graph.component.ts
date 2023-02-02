@@ -24,8 +24,6 @@ export class RealKnowledgeGraphComponent implements OnInit {
   relations: any = [];
   nodes!: DataSet<any>;
   edges!: DataSet<any>;
-  startNodes!: DataSet<any>;
-  startEdges!: DataSet<any>;
 
   @ViewChild('visNetwork', { static: false }) visNetwork!: ElementRef;
   private networkInstance: Network | null = null;
@@ -91,22 +89,10 @@ export class RealKnowledgeGraphComponent implements OnInit {
         label: concept.concept,
       }))
     );
-    this.startNodes = new DataSet<any>(
-      this.concepts.map((concept: any) => ({
-        id: concept.id,
-        label: concept.concept,
-      }))
-    );
   }
 
   loadEdges() {
     this.edges = new DataSet<any>(
-      this.relations.map((relation: any) => ({
-        from: relation.realSource.id,
-        to: relation.realDestination.id,
-      }))
-    );
-    this.startEdges = new DataSet<any>(
       this.relations.map((relation: any) => ({
         from: relation.realSource.id,
         to: relation.realDestination.id,
